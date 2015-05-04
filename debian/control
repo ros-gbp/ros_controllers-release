@@ -1,0 +1,12 @@
+Source: ros-indigo-joint-state-controller
+Section: misc
+Priority: extra
+Maintainer: Adolfo Rodriguez Tsouroukdissian <adolfo.rodriguez@pal-robotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-catkin, ros-indigo-controller-interface, ros-indigo-hardware-interface, ros-indigo-pluginlib, ros-indigo-realtime-tools, ros-indigo-roscpp, ros-indigo-sensor-msgs
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-indigo-joint-state-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-controller-interface, ros-indigo-hardware-interface, ros-indigo-pluginlib, ros-indigo-realtime-tools, ros-indigo-roscpp, ros-indigo-sensor-msgs
+Description: Controller to publish joint state
