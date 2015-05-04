@@ -1,3 +1,36 @@
+## ros_controllers (indigo) - 0.9.2-0
+
+The packages in the `ros_controllers` repository were released into the `indigo` distro by running `/usr/bin/bloom-release ros_controllers --track indigo --rosdistro indigo` on `Mon, 04 May 2015 16:28:16 -0000`
+
+These packages were released:
+- `diff_drive_controller`
+- `effort_controllers`
+- `force_torque_sensor_controller`
+- `forward_command_controller`
+- `gripper_action_controller`
+- `imu_sensor_controller`
+- `joint_state_controller`
+- `joint_trajectory_controller`
+- `position_controllers`
+- `ros_controllers`
+- `rqt_joint_trajectory_controller`
+- `velocity_controllers`
+
+Version of package(s) in repository `ros_controllers`:
+- upstream repository: https://github.com/ros-controls/ros_controllers.git
+- release repository: https://github.com/ros-gbp/ros_controllers-release.git
+- rosdistro version: `0.9.1-0`
+- old version: `0.9.1-0`
+- new version: `0.9.2-0`
+
+Versions of tools used:
+- bloom version: `0.5.19`
+- catkin_pkg version: `0.2.8`
+- rosdep version: `0.11.0`
+- rosdistro version: `0.4.0`
+- vcstools version: `0.1.33`
+
+
 ## ros_controllers (indigo) - 0.9.1-0
 
 The packages in the `ros_controllers` repository were released into the `indigo` distro by running `/usr/bin/bloom-release --rosdistro indigo --track indigo ros_controllers` on `Mon, 03 Nov 2014 17:22:42 -0000`
