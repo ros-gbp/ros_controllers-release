@@ -2,6 +2,13 @@
 Changelog for package joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.10.0 (2015-11-20)
+-------------------
+* Add joint limits spec to rrbot test robot
+* Address -Wunused-parameter warnings
+* Reset to semantic zero in HardwareInterfaceAdapter for PositionJointInterface
+* Contributors: Adolfo Rodriguez Tsouroukdissian, ipa-fxm
+
 0.9.2 (2015-05-04)
 ------------------
 

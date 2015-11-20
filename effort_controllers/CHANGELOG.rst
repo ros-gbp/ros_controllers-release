@@ -2,6 +2,9 @@
 Changelog for package effort_controllers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.10.0 (2015-11-20)
+-------------------
+
 0.9.2 (2015-05-04)
 ------------------
 * Thread-safe and realtime-safe forward controllers.

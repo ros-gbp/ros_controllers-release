@@ -2,6 +2,12 @@
 Changelog for package imu_sensor_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.10.0 (2015-11-20)
+-------------------
+* Fixed covariances in ImuSensorController::update
+* Address -Wunused-parameter warnings
+* Contributors: Adolfo Rodriguez Tsouroukdissian, tappan-at-git
+
 0.9.2 (2015-05-04)
 ------------------
 

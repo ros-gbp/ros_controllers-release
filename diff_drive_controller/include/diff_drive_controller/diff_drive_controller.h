@@ -93,7 +93,7 @@ namespace diff_drive_controller{
      * \brief Stops controller
      * \param time Current time
      */
-    void stopping(const ros::Time& time);
+    void stopping(const ros::Time& /*time*/);
 
   private:
     std::string name_;
@@ -124,7 +124,6 @@ namespace diff_drive_controller{
     boost::shared_ptr<realtime_tools::RealtimePublisher<nav_msgs::Odometry> > odom_pub_;
     boost::shared_ptr<realtime_tools::RealtimePublisher<tf::tfMessage> > tf_odom_pub_;
     Odometry odometry_;
-    geometry_msgs::TransformStamped odom_frame_;
 
     /// Wheel separation, wrt the midpoint of the wheel width:
     double wheel_separation_;
@@ -148,8 +147,9 @@ namespace diff_drive_controller{
     /// Number of wheel joints:
     size_t wheel_joints_size_;
 
-    // Speed limiters:
-    Commands last_cmd_;
+    /// Speed limiters:
+    Commands last1_cmd_;
+    Commands last0_cmd_;
     SpeedLimiter limiter_lin_;
     SpeedLimiter limiter_ang_;
 

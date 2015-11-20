@@ -44,7 +44,7 @@ from joint_limits_urdf import get_joint_limits
 from update_combo import update_combo
 
 # TODO:
-# - Test continuous joints. Better UI suppor for them (see DoubleEditor TODO)
+# - Better UI suppor for continuous joints (see DoubleEditor TODO)
 # - Can we load controller joints faster?, it's currently pretty slow
 # - If URDF is reloaded, allow to reset the whole plugin?
 # - Allow to configure:
@@ -148,7 +148,7 @@ class JointTrajectoryController(Plugin):
         self._cm_ns = []  # Namespace of the selected controller manager
         self._joint_pos = {}  # name->pos map for joints of selected controller
         self._joint_names = []  # Ordered list of selected controller joints
-        self._robot_joint_limits = get_joint_limits()  # For all robot joints
+        self._robot_joint_limits = {} # Lazily evaluated on first use
 
         # Timer for sending commands to active controller
         self._update_cmd_timer = QTimer(self)
@@ -196,14 +196,30 @@ class JointTrajectoryController(Plugin):
         self._unregister_cmd_pub()
 
     def save_settings(self, plugin_settings, instance_settings):
-        # TODO save intrinsic configuration, usually using:
-        # instance_settings.set_value(k, v)
-        pass
+        instance_settings.set_value('cm_ns', self._cm_ns)
+        instance_settings.set_value('jtc_name', self._jtc_name)
 
     def restore_settings(self, plugin_settings, instance_settings):
-        # TODO restore intrinsic configuration, usually using:
-        # v = instance_settings.value(k)
-        pass
+        # Restore last session's controller_manager, if present
+        self._update_cm_list()
+        cm_ns = instance_settings.value('cm_ns')
+        cm_combo = self._widget.cm_combo
+        cm_list = [cm_combo.itemText(i) for i in range(cm_combo.count())]
+        try:
+            idx = cm_list.index(cm_ns)
+            cm_combo.setCurrentIndex(idx)
+            # Resore last session's controller, if running
+            self._update_jtc_list()
+            jtc_name = instance_settings.value('jtc_name')
+            jtc_combo = self._widget.jtc_combo
+            jtc_list = [jtc_combo.itemText(i) for i in range(jtc_combo.count())]
+            try:
+                idx = jtc_list.index(jtc_name)
+                jtc_combo.setCurrentIndex(idx)
+            except (ValueError):
+                pass
+        except (ValueError):
+            pass
 
     # def trigger_configuration(self):
         # Comment in to signal that the plugin has a way to configure
@@ -220,10 +236,21 @@ class JointTrajectoryController(Plugin):
             self._widget.jtc_combo.clear()
             return
 
-        # Update widget
+        # List of running controllers with a valid joint limits specification
+        # for _all_ their joints
         running_jtc = self._running_jtc_info()
-        running_jtc_names = [data.name for data in running_jtc]
-        update_combo(self._widget.jtc_combo, sorted(running_jtc_names))
+        if running_jtc and not self._robot_joint_limits:
+            self._robot_joint_limits = get_joint_limits()  # Lazy evaluation
+        valid_jtc = []
+        for jtc_info in running_jtc:
+            has_limits = all(name in self._robot_joint_limits
+                             for name in _jtc_joint_names(jtc_info))
+            if has_limits:
+                valid_jtc.append(jtc_info);
+        valid_jtc_names = [data.name for data in valid_jtc]
+
+        # Update widget
+        update_combo(self._widget.jtc_combo, sorted(valid_jtc_names))
 
     def _on_speed_scaling_change(self, val):
         self._speed_scale = val / self._speed_scaling_widget.slider.maximum()
@@ -237,6 +264,10 @@ class JointTrajectoryController(Plugin):
         self._cm_ns = cm_ns
         if cm_ns:
             self._list_controllers = ControllerLister(cm_ns)
+            # NOTE: Clear below is important, as different controller managers
+            # might have controllers with the same name but different
+            # configurations. Clearing forces controller re-discovery
+            self._widget.jtc_combo.clear()
             self._update_jtc_list()
         else:
             self._list_controllers = None
@@ -272,7 +303,7 @@ class JointTrajectoryController(Plugin):
     def _load_jtc(self):
         # Initialize joint data corresponding to selected controller
         running_jtc = self._running_jtc_info()
-        self._joint_names = next(x.resources for x in running_jtc
+        self._joint_names = next(_jtc_joint_names(x) for x in running_jtc
                                  if x.name == self._jtc_name)
         for name in self._joint_names:
             self._joint_pos[name] = {}
@@ -414,6 +445,11 @@ class JointTrajectoryController(Plugin):
                                          QFormLayout.FieldRole).widget())
         return widgets
 
+def _jtc_joint_names(jtc_info):
+    # NOTE: We assume that there is at least one hardware interface that
+    # claims resources (there should be), and the resource list is fetched
+    # from the first available interface
+    return jtc_info.claimed_resources[0].resources
 
 def _resolve_controller_ns(cm_ns, controller_name):
     """
