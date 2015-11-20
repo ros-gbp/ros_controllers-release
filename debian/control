@@ -1,0 +1,12 @@
+Source: ros-jade-diff-drive-controller
+Section: misc
+Priority: extra
+Maintainer: Bence Magyar <bence.magyar@pal-robotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-jade-catkin, ros-jade-controller-interface, ros-jade-controller-manager, ros-jade-nav-msgs, ros-jade-realtime-tools, ros-jade-rostest, ros-jade-std-srvs, ros-jade-tf, ros-jade-urdf, ros-jade-xacro
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-jade-diff-drive-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-jade-controller-interface, ros-jade-nav-msgs, ros-jade-realtime-tools, ros-jade-tf, ros-jade-urdf
+Description: Controller for a differential drive mobile base.
