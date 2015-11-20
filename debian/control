@@ -1,0 +1,12 @@
+Source: ros-jade-gripper-action-controller
+Section: misc
+Priority: extra
+Maintainer: Sachin Chitta <robot.moveit@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-jade-actionlib, ros-jade-angles, ros-jade-catkin, ros-jade-cmake-modules, ros-jade-control-msgs, ros-jade-control-toolbox, ros-jade-controller-interface, ros-jade-controller-manager, ros-jade-hardware-interface, ros-jade-realtime-tools, ros-jade-roscpp, ros-jade-trajectory-msgs, ros-jade-urdf, ros-jade-xacro
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-jade-gripper-action-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-jade-actionlib, ros-jade-angles, ros-jade-cmake-modules, ros-jade-control-msgs, ros-jade-control-toolbox, ros-jade-controller-interface, ros-jade-controller-manager, ros-jade-hardware-interface, ros-jade-realtime-tools, ros-jade-roscpp, ros-jade-trajectory-msgs, ros-jade-urdf, ros-jade-xacro
+Description: The gripper_action_controller package
