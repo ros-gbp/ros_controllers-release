@@ -115,7 +115,9 @@ namespace diff_drive_controller{
     , wheel_separation_multiplier_(1.0)
     , wheel_radius_multiplier_(1.0)
     , cmd_vel_timeout_(0.5)
+    , allow_multiple_cmd_vel_publishers_(true)
     , base_frame_id_("base_link")
+    , odom_frame_id_("odom")
     , enable_odom_tf_(true)
     , wheel_joints_size_(0)
   {
@@ -181,8 +183,15 @@ namespace diff_drive_controller{
     ROS_INFO_STREAM_NAMED(name_, "Velocity commands will be considered old if they are older than "
                           << cmd_vel_timeout_ << "s.");
 
+    controller_nh.param("allow_multiple_cmd_vel_publishers", allow_multiple_cmd_vel_publishers_, allow_multiple_cmd_vel_publishers_);
+    ROS_INFO_STREAM_NAMED(name_, "Allow mutiple cmd_vel publishers is "
+                          << (allow_multiple_cmd_vel_publishers_?"enabled":"disabled"));
+
     controller_nh.param("base_frame_id", base_frame_id_, base_frame_id_);
     ROS_INFO_STREAM_NAMED(name_, "Base frame_id set to " << base_frame_id_);
+
+    controller_nh.param("odom_frame_id", odom_frame_id_, odom_frame_id_);
+    ROS_INFO_STREAM_NAMED(name_, "Odometry frame_id set to " << odom_frame_id_);
 
     controller_nh.param("enable_odom_tf", enable_odom_tf_, enable_odom_tf_);
     ROS_INFO_STREAM_NAMED(name_, "Publishing to tf is " << (enable_odom_tf_?"enabled":"disabled"));
@@ -373,6 +382,15 @@ namespace diff_drive_controller{
   {
     if (isRunning())
     {
+      // check that we don't have multiple publishers on the command topic
+      if (!allow_multiple_cmd_vel_publishers_ && sub_command_.getNumPublishers() > 1)
+      {
+        ROS_ERROR_STREAM_THROTTLE_NAMED(1.0, name_, "Detected " << sub_command_.getNumPublishers()
+            << " publishers. Only 1 publisher is allowed. Going to brake.");
+        brake();
+        return;
+      }
+
       command_struct_.ang   = command.angular.z;
       command_struct_.lin   = command.linear.x;
       command_struct_.stamp = ros::Time::now();
@@ -530,7 +548,7 @@ namespace diff_drive_controller{
 
     // Setup odometry realtime publisher + odom message constant fields
     odom_pub_.reset(new realtime_tools::RealtimePublisher<nav_msgs::Odometry>(controller_nh, "odom", 100));
-    odom_pub_->msg_.header.frame_id = "odom";
+    odom_pub_->msg_.header.frame_id = odom_frame_id_;
     odom_pub_->msg_.child_frame_id = base_frame_id_;
     odom_pub_->msg_.pose.pose.position.z = 0;
     odom_pub_->msg_.pose.covariance = boost::assign::list_of
@@ -555,7 +573,7 @@ namespace diff_drive_controller{
     tf_odom_pub_->msg_.transforms.resize(1);
     tf_odom_pub_->msg_.transforms[0].transform.translation.z = 0.0;
     tf_odom_pub_->msg_.transforms[0].child_frame_id = base_frame_id_;
-    tf_odom_pub_->msg_.transforms[0].header.frame_id = "odom";
+    tf_odom_pub_->msg_.transforms[0].header.frame_id = odom_frame_id_;
   }
 
 } // namespace diff_drive_controller

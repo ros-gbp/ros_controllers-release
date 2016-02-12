@@ -2,29 +2,18 @@
 Changelog for package rqt_joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.10.0 (2015-11-20)
--------------------
-* Adapt to new controller_manager_msgs/ControllerState message definition
+0.9.3 (2016-02-12)
+------------------
 * Add vertical scrollbar to joints list
-  - Add vertical scrollbar to joints list that appears only when required,
-  i.e., when the plugin size cannot accommodate all controller joints.
-  - Remove vertical spacer at the bottom of the plugin.
 * Clear controllers combo on cm change
   Clear the list of running joint trajectory controllers when the
   controller manager selection changes. This prevents potential conflicts when
   multiple controller managers have controllers with the same names.
 * Fail gracefully if URDF is not loaded
-  Implement lazy loading of joint limits from URDF.
-  This allows to start rqt_joint_trajectory_controller on an otherwise empty ROS
-  node graph without crashing.
 * Save and restore plugin settings
-  - Save current controller_manager and controller selection on plugin close
-  - Restore last selection if controller manager and controller are running
 * Stricter controller validation
-  Only display in the controller combo box those controllers that are running
-  _and\_ have position and velocity limits specified in the URDF. In the absence
-  of limits information, it's not posible to properly initialize the GUI sliders.
 * Fix broken URDF joint limits parsing
+* Add controller resources query
 * Don't choke on missing URDF vel limits
 * Contributors: Adolfo Rodriguez Tsouroukdissian
 

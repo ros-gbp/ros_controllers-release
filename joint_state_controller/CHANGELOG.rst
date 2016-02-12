@@ -2,8 +2,8 @@
 Changelog for package joint_state_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.10.0 (2015-11-20)
--------------------
+0.9.3 (2016-02-12)
+------------------
 * Address -Wunused-parameter warnings
 * Add extra joints support
   Allow to optionally specify a set of extra joints for state publishing that
