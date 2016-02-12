@@ -36,6 +36,8 @@
  * Author: Bence Magyar
  */
 
+#include <cmath>
+
 #include <tf/transform_datatypes.h>
 
 #include <urdf_parser/urdf_parser.h>
@@ -58,25 +60,25 @@ static double euclideanOfVectors(const urdf::Vector3& vec1, const urdf::Vector3&
  */
 static bool isCylinder(const boost::shared_ptr<const urdf::Link>& link)
 {
-  if(!link)
+  if (!link)
   {
     ROS_ERROR("Link == NULL.");
     return false;
   }
 
-  if(!link->collision)
+  if (!link->collision)
   {
     ROS_ERROR_STREAM("Link " << link->name << " does not have collision description. Add collision description for link to urdf.");
     return false;
   }
 
-  if(!link->collision->geometry)
+  if (!link->collision->geometry)
   {
     ROS_ERROR_STREAM("Link " << link->name << " does not have collision geometry description. Add collision geometry description for link to urdf.");
     return false;
   }
 
-  if(link->collision->geometry->type != urdf::Geometry::CYLINDER)
+  if (link->collision->geometry->type != urdf::Geometry::CYLINDER)
   {
     ROS_ERROR_STREAM("Link " << link->name << " does not have cylinder geometry");
     return false;
@@ -93,7 +95,7 @@ static bool isCylinder(const boost::shared_ptr<const urdf::Link>& link)
  */
 static bool getWheelRadius(const boost::shared_ptr<const urdf::Link>& wheel_link, double& wheel_radius)
 {
-  if(!isCylinder(wheel_link))
+  if (!isCylinder(wheel_link))
   {
     ROS_ERROR_STREAM("Wheel link " << wheel_link->name << " is NOT modeled as a cylinder!");
     return false;
@@ -113,7 +115,9 @@ namespace diff_drive_controller{
     , wheel_separation_multiplier_(1.0)
     , wheel_radius_multiplier_(1.0)
     , cmd_vel_timeout_(0.5)
+    , allow_multiple_cmd_vel_publishers_(true)
     , base_frame_id_("base_link")
+    , odom_frame_id_("odom")
     , enable_odom_tf_(true)
     , wheel_joints_size_(0)
   {
@@ -167,13 +171,27 @@ namespace diff_drive_controller{
     ROS_INFO_STREAM_NAMED(name_, "Wheel radius will be multiplied by "
                           << wheel_radius_multiplier_ << ".");
 
+    int velocity_rolling_window_size = 10;
+    controller_nh.param("velocity_rolling_window_size", velocity_rolling_window_size, velocity_rolling_window_size);
+    ROS_INFO_STREAM_NAMED(name_, "Velocity rolling window size of "
+                          << velocity_rolling_window_size << ".");
+
+    odometry_.setVelocityRollingWindowSize(velocity_rolling_window_size);
+
     // Twist command related:
     controller_nh.param("cmd_vel_timeout", cmd_vel_timeout_, cmd_vel_timeout_);
     ROS_INFO_STREAM_NAMED(name_, "Velocity commands will be considered old if they are older than "
                           << cmd_vel_timeout_ << "s.");
 
+    controller_nh.param("allow_multiple_cmd_vel_publishers", allow_multiple_cmd_vel_publishers_, allow_multiple_cmd_vel_publishers_);
+    ROS_INFO_STREAM_NAMED(name_, "Allow mutiple cmd_vel publishers is "
+                          << (allow_multiple_cmd_vel_publishers_?"enabled":"disabled"));
+
     controller_nh.param("base_frame_id", base_frame_id_, base_frame_id_);
     ROS_INFO_STREAM_NAMED(name_, "Base frame_id set to " << base_frame_id_);
+
+    controller_nh.param("odom_frame_id", odom_frame_id_, odom_frame_id_);
+    ROS_INFO_STREAM_NAMED(name_, "Odometry frame_id set to " << odom_frame_id_);
 
     controller_nh.param("enable_odom_tf", enable_odom_tf_, enable_odom_tf_);
     ROS_INFO_STREAM_NAMED(name_, "Publishing to tf is " << (enable_odom_tf_?"enabled":"disabled"));
@@ -181,23 +199,29 @@ namespace diff_drive_controller{
     // Velocity and acceleration limits:
     controller_nh.param("linear/x/has_velocity_limits"    , limiter_lin_.has_velocity_limits    , limiter_lin_.has_velocity_limits    );
     controller_nh.param("linear/x/has_acceleration_limits", limiter_lin_.has_acceleration_limits, limiter_lin_.has_acceleration_limits);
+    controller_nh.param("linear/x/has_jerk_limits"        , limiter_lin_.has_jerk_limits        , limiter_lin_.has_jerk_limits        );
     controller_nh.param("linear/x/max_velocity"           , limiter_lin_.max_velocity           ,  limiter_lin_.max_velocity          );
     controller_nh.param("linear/x/min_velocity"           , limiter_lin_.min_velocity           , -limiter_lin_.max_velocity          );
     controller_nh.param("linear/x/max_acceleration"       , limiter_lin_.max_acceleration       ,  limiter_lin_.max_acceleration      );
     controller_nh.param("linear/x/min_acceleration"       , limiter_lin_.min_acceleration       , -limiter_lin_.max_acceleration      );
+    controller_nh.param("linear/x/max_jerk"               , limiter_lin_.max_jerk               ,  limiter_lin_.max_jerk              );
+    controller_nh.param("linear/x/min_jerk"               , limiter_lin_.min_jerk               , -limiter_lin_.max_jerk              );
 
     controller_nh.param("angular/z/has_velocity_limits"    , limiter_ang_.has_velocity_limits    , limiter_ang_.has_velocity_limits    );
     controller_nh.param("angular/z/has_acceleration_limits", limiter_ang_.has_acceleration_limits, limiter_ang_.has_acceleration_limits);
+    controller_nh.param("angular/z/has_jerk_limits"        , limiter_ang_.has_jerk_limits        , limiter_ang_.has_jerk_limits        );
     controller_nh.param("angular/z/max_velocity"           , limiter_ang_.max_velocity           ,  limiter_ang_.max_velocity          );
     controller_nh.param("angular/z/min_velocity"           , limiter_ang_.min_velocity           , -limiter_ang_.max_velocity          );
     controller_nh.param("angular/z/max_acceleration"       , limiter_ang_.max_acceleration       ,  limiter_ang_.max_acceleration      );
     controller_nh.param("angular/z/min_acceleration"       , limiter_ang_.min_acceleration       , -limiter_ang_.max_acceleration      );
+    controller_nh.param("angular/z/max_jerk"               , limiter_ang_.max_jerk               ,  limiter_ang_.max_jerk              );
+    controller_nh.param("angular/z/min_jerk"               , limiter_ang_.min_jerk               , -limiter_ang_.max_jerk              );
 
     // If either parameter is not available, we need to look up the value in the URDF
     bool lookup_wheel_separation = !controller_nh.getParam("wheel_separation", wheel_separation_);
     bool lookup_wheel_radius = !controller_nh.getParam("wheel_radius", wheel_radius_);
 
-    if(!setOdomParamsFromUrdf(root_nh,
+    if (!setOdomParamsFromUrdf(root_nh,
                               left_wheel_names[0],
                               right_wheel_names[0],
                               lookup_wheel_separation,
@@ -237,7 +261,7 @@ namespace diff_drive_controller{
     // COMPUTE AND PUBLISH ODOMETRY
     if (open_loop_)
     {
-      odometry_.updateOpenLoop(last_cmd_.lin, last_cmd_.ang, time);
+      odometry_.updateOpenLoop(last0_cmd_.lin, last0_cmd_.ang, time);
     }
     else
     {
@@ -261,7 +285,7 @@ namespace diff_drive_controller{
     }
 
     // Publish odometry message
-    if(last_state_publish_time_ + publish_period_ < time)
+    if (last_state_publish_time_ + publish_period_ < time)
     {
       last_state_publish_time_ += publish_period_;
       // Compute and store orientation info
@@ -269,7 +293,7 @@ namespace diff_drive_controller{
             tf::createQuaternionMsgFromYaw(odometry_.getHeading()));
 
       // Populate odom message and publish
-      if(odom_pub_->trylock())
+      if (odom_pub_->trylock())
       {
         odom_pub_->msg_.header.stamp = time;
         odom_pub_->msg_.pose.pose.position.x = odometry_.getX();
@@ -306,9 +330,12 @@ namespace diff_drive_controller{
 
     // Limit velocities and accelerations:
     const double cmd_dt(period.toSec());
-    limiter_lin_.limit(curr_cmd.lin, last_cmd_.lin, cmd_dt);
-    limiter_ang_.limit(curr_cmd.ang, last_cmd_.ang, cmd_dt);
-    last_cmd_ = curr_cmd;
+
+    limiter_lin_.limit(curr_cmd.lin, last0_cmd_.lin, last1_cmd_.lin, cmd_dt);
+    limiter_ang_.limit(curr_cmd.ang, last0_cmd_.ang, last1_cmd_.ang, cmd_dt);
+
+    last1_cmd_ = last0_cmd_;
+    last0_cmd_ = curr_cmd;
 
     // Apply multipliers:
     const double ws = wheel_separation_multiplier_ * wheel_separation_;
@@ -336,7 +363,7 @@ namespace diff_drive_controller{
     odometry_.init(time);
   }
 
-  void DiffDriveController::stopping(const ros::Time& time)
+  void DiffDriveController::stopping(const ros::Time& /*time*/)
   {
     brake();
   }
@@ -353,8 +380,17 @@ namespace diff_drive_controller{
 
   void DiffDriveController::cmdVelCallback(const geometry_msgs::Twist& command)
   {
-    if(isRunning())
+    if (isRunning())
     {
+      // check that we don't have multiple publishers on the command topic
+      if (!allow_multiple_cmd_vel_publishers_ && sub_command_.getNumPublishers() > 1)
+      {
+        ROS_ERROR_STREAM_THROTTLE_NAMED(1.0, name_, "Detected " << sub_command_.getNumPublishers()
+            << " publishers. Only 1 publisher is allowed. Going to brake.");
+        brake();
+        return;
+      }
+
       command_struct_.ang   = command.angular.z;
       command_struct_.lin   = command.linear.x;
       command_struct_.stamp = ros::Time::now();
@@ -430,7 +466,7 @@ namespace diff_drive_controller{
                              bool lookup_wheel_separation,
                              bool lookup_wheel_radius)
   {
-    if(!(lookup_wheel_separation || lookup_wheel_radius))
+    if (!(lookup_wheel_separation || lookup_wheel_radius))
     {
       // Short-circuit in case we don't need to look up anything, so we don't have to parse the URDF
       return true;
@@ -440,7 +476,7 @@ namespace diff_drive_controller{
     const std::string model_param_name = "robot_description";
     bool res = root_nh.hasParam(model_param_name);
     std::string robot_model_str="";
-    if(!res || !root_nh.getParam(model_param_name,robot_model_str))
+    if (!res || !root_nh.getParam(model_param_name,robot_model_str))
     {
       ROS_ERROR_NAMED(name_, "Robot descripion couldn't be retrieved from param server.");
       return false;
@@ -451,17 +487,17 @@ namespace diff_drive_controller{
     boost::shared_ptr<const urdf::Joint> left_wheel_joint(model->getJoint(left_wheel_name));
     boost::shared_ptr<const urdf::Joint> right_wheel_joint(model->getJoint(right_wheel_name));
 
-    if(lookup_wheel_separation)
+    if (lookup_wheel_separation)
     {
       // Get wheel separation
-      if(!left_wheel_joint)
+      if (!left_wheel_joint)
       {
-	ROS_ERROR_STREAM_NAMED(name_, left_wheel_name
-			       << " couldn't be retrieved from model description");
-	return false;
+        ROS_ERROR_STREAM_NAMED(name_, left_wheel_name
+                               << " couldn't be retrieved from model description");
+        return false;
       }
 
-      if(!right_wheel_joint)
+      if (!right_wheel_joint)
       {
         ROS_ERROR_STREAM_NAMED(name_, right_wheel_name
                                << " couldn't be retrieved from model description");
@@ -480,10 +516,10 @@ namespace diff_drive_controller{
 
     }
 
-    if(lookup_wheel_radius)
+    if (lookup_wheel_radius)
     {
       // Get wheel radius
-      if(!getWheelRadius(model->getLink(left_wheel_joint->child_link_name), wheel_radius_))
+      if (!getWheelRadius(model->getLink(left_wheel_joint->child_link_name), wheel_radius_))
       {
         ROS_ERROR_STREAM_NAMED(name_, "Couldn't retrieve " << left_wheel_name << " wheel radius");
         return false;
@@ -512,7 +548,7 @@ namespace diff_drive_controller{
 
     // Setup odometry realtime publisher + odom message constant fields
     odom_pub_.reset(new realtime_tools::RealtimePublisher<nav_msgs::Odometry>(controller_nh, "odom", 100));
-    odom_pub_->msg_.header.frame_id = "odom";
+    odom_pub_->msg_.header.frame_id = odom_frame_id_;
     odom_pub_->msg_.child_frame_id = base_frame_id_;
     odom_pub_->msg_.pose.pose.position.z = 0;
     odom_pub_->msg_.pose.covariance = boost::assign::list_of
@@ -537,7 +573,7 @@ namespace diff_drive_controller{
     tf_odom_pub_->msg_.transforms.resize(1);
     tf_odom_pub_->msg_.transforms[0].transform.translation.z = 0.0;
     tf_odom_pub_->msg_.transforms[0].child_frame_id = base_frame_id_;
-    tf_odom_pub_->msg_.transforms[0].header.frame_id = "odom";
+    tf_odom_pub_->msg_.transforms[0].header.frame_id = odom_frame_id_;
   }
 
 } // namespace diff_drive_controller
