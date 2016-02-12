@@ -2,6 +2,9 @@
 Changelog for package position_controllers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.9.3 (2016-02-12)
+------------------
+
 0.9.2 (2015-05-04)
 ------------------
 * Thread-safe and realtime-safe forward controllers.
