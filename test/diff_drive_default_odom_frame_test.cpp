@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (C) 2013, PAL Robotics S.L.
+// Copyright (C) 2015, Locus Robotics Corp.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -25,28 +25,44 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////////////
 
-/// \author Paul Mathieu
+/// \author Eric Tappan
 
 #include "test_common.h"
+#include <tf/transform_listener.h>
 
 // TEST CASES
-TEST_F(DiffDriveControllerTest, testWrongJointName)
+TEST_F(DiffDriveControllerTest, testOdomFrame)
 {
-  // the controller should never be alive
-  int secs = 0;
-  while(!isControllerAlive() && secs < 5)
+  // wait for ROS
+  while(!isControllerAlive())
   {
-    ros::Duration(1.0).sleep();
-    secs++;
+    ros::Duration(0.1).sleep();
   }
-  // give up and assume controller load failure after 5 seconds
-  EXPECT_GE(secs, 5);
+  // set up tf listener
+  tf::TransformListener listener;
+  ros::Duration(2.0).sleep();
+  // check the original odom frame doesn't exist
+  EXPECT_TRUE(listener.frameExists("odom"));
+}
+
+TEST_F(DiffDriveControllerTest, testOdomTopic)
+{
+  // wait for ROS
+  while(!isControllerAlive())
+  {
+    ros::Duration(0.1).sleep();
+  }
+
+  // get an odom message
+  nav_msgs::Odometry odom_msg = getLastOdom();
+  // check its frame_id
+  ASSERT_STREQ(odom_msg.header.frame_id.c_str(), "odom");
 }
 
 int main(int argc, char** argv)
 {
   testing::InitGoogleTest(&argc, argv);
-  ros::init(argc, argv, "diff_drive_fail_test");
+  ros::init(argc, argv, "diff_drive_default_odom_frame_test");
 
   ros::AsyncSpinner spinner(1);
   spinner.start();
