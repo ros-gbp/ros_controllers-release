@@ -1,6 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (C) 2012, hiDOF INC.
-// Copyright (C) 2013, PAL Robotics S.L.
+// Copyright (C) 2015, Locus Robotics Corp.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -9,7 +8,7 @@
 //   * Redistributions in binary form must reproduce the above copyright
 //     notice, this list of conditions and the following disclaimer in the
 //     documentation and/or other materials provided with the distribution.
-//   * Neither the name of PAL Robotics S.L. nor the names of its
+//   * Neither the name of PAL Robotics, Inc. nor the names of its
 //     contributors may be used to endorse or promote products derived from
 //     this software without specific prior written permission.
 //
@@ -26,40 +25,63 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////////////
 
-/// \author: Adolfo Rodriguez Tsouroukdissian
+/// \author Eric Tappan
 
-#ifndef IMU_SENSOR_CONTROLLER_IMU_SENSOR_CONTROLLER_H
-#define IMU_SENSOR_CONTROLLER_IMU_SENSOR_CONTROLLER_H
+#include "test_common.h"
+#include <tf/transform_listener.h>
 
-#include <controller_interface/controller.h>
-#include <hardware_interface/imu_sensor_interface.h>
-#include <pluginlib/class_list_macros.h>
-#include <sensor_msgs/Imu.h>
-#include <realtime_tools/realtime_publisher.h>
-#include <boost/shared_ptr.hpp>
-
-namespace imu_sensor_controller
+// TEST CASES
+TEST_F(DiffDriveControllerTest, testNoOdomFrame)
 {
-
-// this controller gets access to the ImuSensorInterface
-class ImuSensorController: public controller_interface::Controller<hardware_interface::ImuSensorInterface>
-{
-public:
-  ImuSensorController(){}
-
-  virtual bool init(hardware_interface::ImuSensorInterface* hw, ros::NodeHandle &root_nh, ros::NodeHandle& controller_nh);
-  virtual void starting(const ros::Time& time);
-  virtual void update(const ros::Time& time, const ros::Duration& /*period*/);
-  virtual void stopping(const ros::Time& /*time*/);
-
-private:
-  std::vector<hardware_interface::ImuSensorHandle> sensors_;
-  typedef boost::shared_ptr<realtime_tools::RealtimePublisher<sensor_msgs::Imu> > RtPublisherPtr;
-  std::vector<RtPublisherPtr> realtime_pubs_;
-  std::vector<ros::Time> last_publish_times_;
-  double publish_rate_;
-};
-
+  // wait for ROS
+  while(!isControllerAlive())
+  {
+    ros::Duration(0.1).sleep();
+  }
+  // set up tf listener
+  tf::TransformListener listener;
+  ros::Duration(2.0).sleep();
+  // check the original odom frame doesn't exist
+  EXPECT_FALSE(listener.frameExists("odom"));
 }
 
-#endif
+TEST_F(DiffDriveControllerTest, testNewOdomFrame)
+{
+  // wait for ROS
+  while(!isControllerAlive())
+  {
+    ros::Duration(0.1).sleep();
+  }
+  // set up tf listener
+  tf::TransformListener listener;
+  ros::Duration(2.0).sleep();
+  // check the new_odom frame does exist
+  EXPECT_TRUE(listener.frameExists("new_odom"));
+}
+
+TEST_F(DiffDriveControllerTest, testOdomTopic)
+{
+  // wait for ROS
+  while(!isControllerAlive())
+  {
+    ros::Duration(0.1).sleep();
+  }
+
+  // get an odom message
+  nav_msgs::Odometry odom_msg = getLastOdom();
+  // check its frame_id
+  ASSERT_STREQ(odom_msg.header.frame_id.c_str(), "new_odom");
+}
+
+int main(int argc, char** argv)
+{
+  testing::InitGoogleTest(&argc, argv);
+  ros::init(argc, argv, "diff_drive_odom_frame_test");
+
+  ros::AsyncSpinner spinner(1);
+  spinner.start();
+  int ret = RUN_ALL_TESTS();
+  spinner.stop();
+  ros::shutdown();
+  return ret;
+}
