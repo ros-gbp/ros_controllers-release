@@ -1,0 +1,12 @@
+Source: ros-indigo-gripper-action-controller
+Section: misc
+Priority: extra
+Maintainer: Sachin Chitta <robot.moveit@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-actionlib, ros-indigo-angles, ros-indigo-catkin, ros-indigo-cmake-modules, ros-indigo-control-msgs, ros-indigo-control-toolbox, ros-indigo-controller-interface, ros-indigo-controller-manager, ros-indigo-hardware-interface, ros-indigo-realtime-tools, ros-indigo-roscpp, ros-indigo-trajectory-msgs, ros-indigo-urdf, ros-indigo-xacro
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-indigo-gripper-action-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-actionlib, ros-indigo-angles, ros-indigo-cmake-modules, ros-indigo-control-msgs, ros-indigo-control-toolbox, ros-indigo-controller-interface, ros-indigo-controller-manager, ros-indigo-hardware-interface, ros-indigo-realtime-tools, ros-indigo-roscpp, ros-indigo-trajectory-msgs, ros-indigo-urdf, ros-indigo-xacro
+Description: The gripper_action_controller package
