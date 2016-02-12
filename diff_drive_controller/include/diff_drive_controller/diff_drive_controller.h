@@ -93,7 +93,7 @@ namespace diff_drive_controller{
      * \brief Stops controller
      * \param time Current time
      */
-    void stopping(const ros::Time& time);
+    void stopping(const ros::Time& /*time*/);
 
   private:
     std::string name_;
@@ -124,7 +124,6 @@ namespace diff_drive_controller{
     boost::shared_ptr<realtime_tools::RealtimePublisher<nav_msgs::Odometry> > odom_pub_;
     boost::shared_ptr<realtime_tools::RealtimePublisher<tf::tfMessage> > tf_odom_pub_;
     Odometry odometry_;
-    geometry_msgs::TransformStamped odom_frame_;
 
     /// Wheel separation, wrt the midpoint of the wheel width:
     double wheel_separation_;
@@ -139,8 +138,14 @@ namespace diff_drive_controller{
     /// Timeout to consider cmd_vel commands old:
     double cmd_vel_timeout_;
 
+    /// Whether to allow multiple publishers on cmd_vel topic or not:
+    bool allow_multiple_cmd_vel_publishers_;
+
     /// Frame to use for the robot base:
     std::string base_frame_id_;
+
+    /// Frame to use for odometry and odom tf:
+    std::string odom_frame_id_;
 
     /// Whether to publish odometry to tf or not:
     bool enable_odom_tf_;
@@ -148,8 +153,9 @@ namespace diff_drive_controller{
     /// Number of wheel joints:
     size_t wheel_joints_size_;
 
-    // Speed limiters:
-    Commands last_cmd_;
+    /// Speed limiters:
+    Commands last1_cmd_;
+    Commands last0_cmd_;
     SpeedLimiter limiter_lin_;
     SpeedLimiter limiter_ang_;
 
