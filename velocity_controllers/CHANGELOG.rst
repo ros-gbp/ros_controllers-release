@@ -2,8 +2,13 @@
 Changelog for package velocity_controllers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.9.3 (2016-02-12)
-------------------
+0.11.0 (2016-05-03)
+-------------------
+* Add antinwindup to get and setGains logic for underlying PID controller
+* Contributors: Paul Bovbel
+
+0.10.0 (2015-11-20)
+-------------------
 
 0.9.2 (2015-05-04)
 ------------------

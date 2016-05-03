@@ -2,8 +2,11 @@
 Changelog for package forward_command_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.9.3 (2016-02-12)
-------------------
+0.11.0 (2016-05-03)
+-------------------
+
+0.10.0 (2015-11-20)
+-------------------
 * Address -Wunused-parameter warnings
 * Contributors: Adolfo Rodriguez Tsouroukdissian
 
