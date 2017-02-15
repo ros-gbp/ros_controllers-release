@@ -2,6 +2,13 @@
 Changelog for package ros_controllers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.12.0 (2017-02-15)
+-------------------
+* Ordered dependencies & cleanup
+* Change for format2
+* Add Enrique and Bence to maintainers
+* Contributors: Bence Magyar
+
 0.11.2 (2016-08-16)
 -------------------
 
