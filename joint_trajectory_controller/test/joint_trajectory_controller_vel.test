@@ -9,7 +9,7 @@
       type="rrbot"/>
 
   <!-- Load controller config -->
-  <rosparam command="load" file="$(find joint_trajectory_controller)/test/rrbot_controllers.yaml" />
+  <rosparam command="load" file="$(find joint_trajectory_controller)/test/rrbot_vel_controllers.yaml" />
 
   <!-- Spawn controller -->
   <node name="controller_spawner"
@@ -28,7 +28,7 @@
         args="/rrbot_controller/state/desired/velocities[0]:velocities[1],/rrbot_controller/state/actual/velocities[0]:velocities[1]" />
 
   <!-- Controller test -->
-  <test test-name="joint_trajectory_controller_test"
+  <test test-name="joint_trajectory_controller_vel_test"
         pkg="joint_trajectory_controller"
         type="joint_trajectory_controller_test"
         time-limit="80.0"/>
