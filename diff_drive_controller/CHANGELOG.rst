@@ -2,6 +2,11 @@
 Changelog for package diff_drive_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.12.1 (2017-03-08)
+-------------------
+* Add exporting include dirs
+* Contributors: Bence Magyar
+
 0.12.0 (2017-02-15)
 -------------------
 * Fix most catkin lint issues
