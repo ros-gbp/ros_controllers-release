@@ -2,6 +2,9 @@
 Changelog for package imu_sensor_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.12.1 (2017-03-08)
+-------------------
+
 0.12.0 (2017-02-15)
 -------------------
 * Fix most catkin lint issues
