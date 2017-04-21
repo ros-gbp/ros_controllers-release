@@ -2,6 +2,9 @@
 Changelog for package diff_drive_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.12.2 (2017-04-21)
+-------------------
+
 0.12.1 (2017-03-08)
 -------------------
 * Add exporting include dirs
