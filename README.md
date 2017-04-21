@@ -1,3 +1,38 @@
+## ros_controllers (lunar) - 0.12.2-0
+
+The packages in the `ros_controllers` repository were released into the `lunar` distro by running `/usr/bin/bloom-release --rosdistro lunar --track lunar ros_controllers` on `Fri, 21 Apr 2017 09:20:04 -0000`
+
+These packages were released:
+- `diff_drive_controller`
+- `effort_controllers`
+- `force_torque_sensor_controller`
+- `forward_command_controller`
+- `gripper_action_controller`
+- `imu_sensor_controller`
+- `joint_state_controller`
+- `joint_trajectory_controller`
+- `position_controllers`
+- `ros_controllers`
+- `rqt_joint_trajectory_controller`
+- `velocity_controllers`
+
+Version of package(s) in repository `ros_controllers`:
+
+- upstream repository: https://github.com/ros-controls/ros_controllers.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `0.12.2-0`
+
+Versions of tools used:
+
+- bloom version: `0.5.26`
+- catkin_pkg version: `0.3.1`
+- rosdep version: `0.11.5`
+- rosdistro version: `0.5.0`
+- vcstools version: `0.1.39`
+
+
 ## ros_controllers (kinetic) - 0.12.1-0
 
 The packages in the `ros_controllers` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release --track kinetic --rosdistro kinetic ros_controllers` on `Wed, 08 Mar 2017 16:55:20 -0000`
