@@ -1,0 +1,12 @@
+Source: ros-indigo-velocity-controllers
+Section: misc
+Priority: extra
+Maintainer: Adolfo Rodriguez Tsouroukdissian <adolfo.rodriguez@pal-robotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-angles, ros-indigo-catkin, ros-indigo-control-msgs, ros-indigo-control-toolbox, ros-indigo-controller-interface, ros-indigo-forward-command-controller, ros-indigo-realtime-tools, ros-indigo-urdf
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-indigo-velocity-controllers
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-angles, ros-indigo-control-msgs, ros-indigo-control-toolbox, ros-indigo-controller-interface, ros-indigo-forward-command-controller, ros-indigo-realtime-tools, ros-indigo-urdf
+Description: velocity_controllers
