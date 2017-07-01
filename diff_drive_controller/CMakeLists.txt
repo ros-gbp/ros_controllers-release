@@ -3,11 +3,10 @@ project(diff_drive_controller)
 
 find_package(catkin REQUIRED COMPONENTS
     controller_interface
-    nav_msgs
+    urdf
     realtime_tools
     tf
-    urdf
-)
+    nav_msgs)
 
 catkin_package(
   INCLUDE_DIRS include
@@ -21,9 +20,6 @@ include_directories(
 add_library(${PROJECT_NAME} src/diff_drive_controller.cpp src/odometry.cpp src/speed_limiter.cpp)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
-install(DIRECTORY include/${PROJECT_NAME}/
-        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
-
 install(TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
@@ -34,7 +30,7 @@ install(FILES diff_drive_controller_plugins.xml
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
 if (CATKIN_ENABLE_TESTING)
-  find_package(catkin REQUIRED COMPONENTS controller_manager rostest std_srvs tf)
+  find_package(catkin COMPONENTS rostest std_srvs controller_manager tf)
   include_directories(include ${catkin_INCLUDE_DIRS})
 
   add_executable(diffbot test/diffbot.cpp)
@@ -70,6 +66,22 @@ if (CATKIN_ENABLE_TESTING)
     test/diff_drive_odom_tf.test
     test/diff_drive_odom_tf_test.cpp)
   target_link_libraries(diff_drive_odom_tf_test ${catkin_LIBRARIES})
+  add_rostest_gtest(diff_drive_default_odom_frame_test
+    test/diff_drive_default_odom_frame.test
+    test/diff_drive_default_odom_frame_test.cpp)
+  target_link_libraries(diff_drive_default_odom_frame_test ${catkin_LIBRARIES})
+  add_rostest_gtest(diff_drive_odom_frame_test
+    test/diff_drive_odom_frame.test
+    test/diff_drive_odom_frame_test.cpp)
+  target_link_libraries(diff_drive_odom_frame_test ${catkin_LIBRARIES})
+  add_rostest_gtest(diff_drive_default_cmd_vel_out_test
+    test/diff_drive_default_cmd_vel_out.test
+    test/diff_drive_default_cmd_vel_out_test.cpp)
+  target_link_libraries(diff_drive_default_cmd_vel_out_test ${catkin_LIBRARIES})
+  add_rostest_gtest(diff_drive_pub_cmd_vel_out_test
+    test/diff_drive_pub_cmd_vel_out.test
+    test/diff_drive_pub_cmd_vel_out_test.cpp)
+  target_link_libraries(diff_drive_pub_cmd_vel_out_test ${catkin_LIBRARIES})
   add_rostest(test/diff_drive_open_loop.test)
   add_rostest(test/skid_steer_controller.test)
   add_rostest(test/skid_steer_no_wheels.test)

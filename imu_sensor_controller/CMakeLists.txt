@@ -1,23 +1,12 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(imu_sensor_controller)
 
-find_package(catkin REQUIRED COMPONENTS
-  controller_interface
-  hardware_interface
-  pluginlib
-  realtime_tools
-  roscpp
-  sensor_msgs
-)
+# Load catkin and all dependencies required for this package
+find_package(catkin REQUIRED COMPONENTS controller_interface hardware_interface sensor_msgs realtime_tools)
 
+# Declare catkin package
 catkin_package(
-  CATKIN_DEPENDS 
-    controller_interface
-    hardware_interface
-    pluginlib
-    realtime_tools
-    roscpp
-    sensor_msgs
+  CATKIN_DEPENDS controller_interface hardware_interface sensor_msgs realtime_tools
   INCLUDE_DIRS include
   LIBRARIES ${PROJECT_NAME}
   )
@@ -25,8 +14,7 @@ catkin_package(
 include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME}
-  src/imu_sensor_controller.cpp 
-  include/imu_sensor_controller/imu_sensor_controller.h)
+  src/imu_sensor_controller.cpp include/imu_sensor_controller/imu_sensor_controller.h)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
 # Install

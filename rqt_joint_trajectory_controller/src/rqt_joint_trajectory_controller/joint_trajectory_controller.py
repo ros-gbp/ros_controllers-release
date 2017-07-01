@@ -32,7 +32,7 @@ import rospkg
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtCore import QTimer, Signal
-from python_qt_binding.QtWidgets import QWidget, QFormLayout
+from python_qt_binding.QtGui import QWidget, QFormLayout
 
 from control_msgs.msg import JointTrajectoryControllerState
 from controller_manager_msgs.utils\
@@ -44,7 +44,7 @@ from joint_limits_urdf import get_joint_limits
 from update_combo import update_combo
 
 # TODO:
-# - Better UI suppor for continuous joints (see DoubleEditor TODO)
+# - Test continuous joints. Better UI suppor for them (see DoubleEditor TODO)
 # - Can we load controller joints faster?, it's currently pretty slow
 # - If URDF is reloaded, allow to reset the whole plugin?
 # - Allow to configure:
@@ -446,10 +446,7 @@ class JointTrajectoryController(Plugin):
         return widgets
 
 def _jtc_joint_names(jtc_info):
-    # NOTE: We assume that there is at least one hardware interface that
-    # claims resources (there should be), and the resource list is fetched
-    # from the first available interface
-    return jtc_info.claimed_resources[0].resources
+    return jtc_info.resources
 
 def _resolve_controller_ns(cm_ns, controller_name):
     """

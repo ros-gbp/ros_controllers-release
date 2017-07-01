@@ -15,6 +15,8 @@ find_package(catkin
     realtime_tools
     control_msgs
     trajectory_msgs
+    controller_manager
+    xacro
 )
 
 # Declare catkin package
@@ -30,6 +32,8 @@ catkin_package(
   realtime_tools
   control_msgs
   trajectory_msgs
+  controller_manager
+  xacro
   INCLUDE_DIRS include
   LIBRARIES ${PROJECT_NAME}
 )
@@ -50,16 +54,9 @@ add_library(${PROJECT_NAME} src/joint_trajectory_controller.cpp
 
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
-if(CATKIN_ENABLE_TESTING)
-  find_package(catkin 
-    REQUIRED COMPONENTS
-      actionlib
-      controller_manager
-      xacro
-  )
 
+if(CATKIN_ENABLE_TESTING)
   find_package(rostest REQUIRED)
-  include_directories(include ${catkin_INCLUDE_DIRS})
 
   catkin_add_gtest(quintic_spline_segment_test test/quintic_spline_segment_test.cpp)
   target_link_libraries(quintic_spline_segment_test ${catkin_LIBRARIES})
@@ -84,7 +81,11 @@ if(CATKIN_ENABLE_TESTING)
   add_executable(rrbot test/rrbot.cpp)
   target_link_libraries(rrbot ${catkin_LIBRARIES})
 
+  add_executable(rrbot_wrapping test/rrbot_wrapping.cpp)
+  target_link_libraries(rrbot_wrapping ${catkin_LIBRARIES})
+
   add_dependencies(tests rrbot)
+  add_dependencies(tests rrbot_wrapping)
   add_dependencies(tests ${PROJECT_NAME})
 
   add_rostest_gtest(joint_trajectory_controller_test
@@ -92,10 +93,10 @@ if(CATKIN_ENABLE_TESTING)
                     test/joint_trajectory_controller_test.cpp)
   target_link_libraries(joint_trajectory_controller_test ${catkin_LIBRARIES})
 
-  add_rostest_gtest(joint_trajectory_controller_vel_test
-                    test/joint_trajectory_controller_vel.test
-                    test/joint_trajectory_controller_test.cpp)
-  target_link_libraries(joint_trajectory_controller_vel_test ${catkin_LIBRARIES})
+  add_rostest_gtest(joint_trajectory_controller_wrapping_test
+                    test/joint_trajectory_controller_wrapping.test
+                    test/joint_trajectory_controller_wrapping_test.cpp)
+  target_link_libraries(joint_trajectory_controller_wrapping_test ${catkin_LIBRARIES})
 endif()
 
 # Install

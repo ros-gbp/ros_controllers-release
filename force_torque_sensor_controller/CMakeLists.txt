@@ -2,24 +2,11 @@ cmake_minimum_required(VERSION 2.8.3)
 project(force_torque_sensor_controller)
 
 # Load catkin and all dependencies required for this package
-find_package(catkin REQUIRED COMPONENTS
-  controller_interface
-  geometry_msgs
-  hardware_interface
-  pluginlib
-  realtime_tools
-  roscpp
-)
+find_package(catkin REQUIRED COMPONENTS controller_interface hardware_interface geometry_msgs realtime_tools)
 
 # Declare catkin package
 catkin_package(
-  CATKIN_DEPENDS
-    controller_interface
-    geometry_msgs
-    hardware_interface
-    pluginlib
-    realtime_tools
-    roscpp
+  CATKIN_DEPENDS controller_interface hardware_interface geometry_msgs realtime_tools
   INCLUDE_DIRS include
   LIBRARIES ${PROJECT_NAME}
   )
@@ -27,9 +14,7 @@ catkin_package(
 include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
 
 add_library(${PROJECT_NAME}
-  src/force_torque_sensor_controller.cpp 
-  include/force_torque_sensor_controller/force_torque_sensor_controller.h
-)
+  src/force_torque_sensor_controller.cpp include/force_torque_sensor_controller/force_torque_sensor_controller.h)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
 # Install

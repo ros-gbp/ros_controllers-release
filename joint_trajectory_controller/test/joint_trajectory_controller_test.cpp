@@ -248,7 +248,7 @@ TEST_F(JointTrajectoryControllerTest, invalidMessages)
   ASSERT_TRUE(initState());
   ASSERT_TRUE(action_client->waitForServer(long_timeout));
 
-  // Invalid size (No partial joints goals allowed)
+  // Invalid size
   {
     trajectory_msgs::JointTrajectoryPoint point;
     point.positions.resize(1, 0.0);
@@ -776,7 +776,7 @@ TEST_F(JointTrajectoryControllerTest, ignoreOldTopicTraj)
   }
 }
 
-TEST_F(JointTrajectoryControllerTest, ignorePreemptOfOldActionTraj)
+TEST_F(JointTrajectoryControllerTest, ignoreOldActionTraj)
 {
   ASSERT_TRUE(initState());
   ASSERT_TRUE(action_client->waitForServer(long_timeout));
@@ -806,17 +806,6 @@ TEST_F(JointTrajectoryControllerTest, ignorePreemptOfOldActionTraj)
     EXPECT_NEAR(traj.points.back().velocities[i],    state->desired.velocities[i],    EPS);
     EXPECT_NEAR(traj.points.back().accelerations[i], state->desired.accelerations[i], EPS);
   }
-}
-
-TEST_F(JointTrajectoryControllerTest, ignoreSingleOldActionTraj)
-{
-  ASSERT_TRUE(initState());
-  ASSERT_TRUE(action_client->waitForServer(long_timeout));
-
-  // Send trajectory
-  traj_home_goal.trajectory.header.stamp = ros::Time::now() - ros::Duration(10000);
-  action_client->sendGoal(traj_home_goal);
-  ASSERT_TRUE(waitForState(action_client, SimpleClientGoalState::REJECTED,  short_timeout));
 }
 
 TEST_F(JointTrajectoryControllerTest, ignorePartiallyOldActionTraj)

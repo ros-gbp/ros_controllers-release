@@ -58,7 +58,7 @@ bool JointPositionController::init(hardware_interface::EffortJointInterface *rob
 {
   // Get joint name from parameter server
   std::string joint_name;
-  if (!n.getParam("joint", joint_name))
+  if (!n.getParam("joint", joint_name)) 
   {
     ROS_ERROR("No joint given (namespace: %s)", n.getNamespace().c_str());
     return false;
@@ -80,7 +80,7 @@ bool JointPositionController::init(hardware_interface::EffortJointInterface *rob
 
   // Get URDF info about joint
   urdf::Model urdf;
-  if (!urdf.initParamWithNodeHandle("robot_description", n))
+  if (!urdf.initParam("robot_description"))
   {
     ROS_ERROR("Failed to parse urdf file");
     return false;
@@ -95,20 +95,14 @@ bool JointPositionController::init(hardware_interface::EffortJointInterface *rob
   return true;
 }
 
-void JointPositionController::setGains(const double &p, const double &i, const double &d, const double &i_max, const double &i_min, const bool &antiwindup)
+void JointPositionController::setGains(const double &p, const double &i, const double &d, const double &i_max, const double &i_min)
 {
-  pid_controller_.setGains(p,i,d,i_max,i_min,antiwindup);
-}
-
-void JointPositionController::getGains(double &p, double &i, double &d, double &i_max, double &i_min, bool &antiwindup)
-{
-  pid_controller_.getGains(p,i,d,i_max,i_min,antiwindup);
+  pid_controller_.setGains(p,i,d,i_max,i_min);
 }
 
 void JointPositionController::getGains(double &p, double &i, double &d, double &i_max, double &i_min)
 {
-  bool dummy;
-  pid_controller_.getGains(p,i,d,i_max,i_min,dummy);
+  pid_controller_.getGains(p,i,d,i_max,i_min);
 }
 
 void JointPositionController::printDebug()
@@ -230,14 +224,11 @@ void JointPositionController::update(const ros::Time& time, const ros::Duration&
       controller_state_publisher_->msg_.command = commanded_effort;
 
       double dummy;
-      bool antiwindup;
       getGains(controller_state_publisher_->msg_.p,
         controller_state_publisher_->msg_.i,
         controller_state_publisher_->msg_.d,
         controller_state_publisher_->msg_.i_clamp,
-        dummy,
-        antiwindup);
-      controller_state_publisher_->msg_.antiwindup = static_cast<char>(antiwindup);
+        dummy);
       controller_state_publisher_->unlockAndPublish();
     }
   }

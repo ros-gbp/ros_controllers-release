@@ -42,8 +42,6 @@
 
 #include <urdf_parser/urdf_parser.h>
 
-#include <urdf/urdfdom_compatibility.h>
-
 #include <boost/assign.hpp>
 
 #include <diff_drive_controller/diff_drive_controller.h>
@@ -60,7 +58,7 @@ static double euclideanOfVectors(const urdf::Vector3& vec1, const urdf::Vector3&
  * \param link Link
  * \return true if the link is modeled as a Cylinder; false otherwise
  */
-static bool isCylinder(const urdf::LinkConstSharedPtr& link)
+static bool isCylinder(const boost::shared_ptr<const urdf::Link>& link)
 {
   if (!link)
   {
@@ -95,7 +93,7 @@ static bool isCylinder(const urdf::LinkConstSharedPtr& link)
  * \param [out] wheel_radius Wheel radius [m]
  * \return true if the wheel radius was found; false otherwise
  */
-static bool getWheelRadius(const urdf::LinkConstSharedPtr& wheel_link, double& wheel_radius)
+static bool getWheelRadius(const boost::shared_ptr<const urdf::Link>& wheel_link, double& wheel_radius)
 {
   if (!isCylinder(wheel_link))
   {
@@ -117,9 +115,12 @@ namespace diff_drive_controller{
     , wheel_separation_multiplier_(1.0)
     , wheel_radius_multiplier_(1.0)
     , cmd_vel_timeout_(0.5)
+    , allow_multiple_cmd_vel_publishers_(true)
     , base_frame_id_("base_link")
+    , odom_frame_id_("odom")
     , enable_odom_tf_(true)
     , wheel_joints_size_(0)
+    , publish_cmd_(false)
   {
   }
 
@@ -183,8 +184,15 @@ namespace diff_drive_controller{
     ROS_INFO_STREAM_NAMED(name_, "Velocity commands will be considered old if they are older than "
                           << cmd_vel_timeout_ << "s.");
 
+    controller_nh.param("allow_multiple_cmd_vel_publishers", allow_multiple_cmd_vel_publishers_, allow_multiple_cmd_vel_publishers_);
+    ROS_INFO_STREAM_NAMED(name_, "Allow mutiple cmd_vel publishers is "
+                          << (allow_multiple_cmd_vel_publishers_?"enabled":"disabled"));
+
     controller_nh.param("base_frame_id", base_frame_id_, base_frame_id_);
     ROS_INFO_STREAM_NAMED(name_, "Base frame_id set to " << base_frame_id_);
+
+    controller_nh.param("odom_frame_id", odom_frame_id_, odom_frame_id_);
+    ROS_INFO_STREAM_NAMED(name_, "Odometry frame_id set to " << odom_frame_id_);
 
     controller_nh.param("enable_odom_tf", enable_odom_tf_, enable_odom_tf_);
     ROS_INFO_STREAM_NAMED(name_, "Publishing to tf is " << (enable_odom_tf_?"enabled":"disabled"));
@@ -210,6 +218,9 @@ namespace diff_drive_controller{
     controller_nh.param("angular/z/max_jerk"               , limiter_ang_.max_jerk               ,  limiter_ang_.max_jerk              );
     controller_nh.param("angular/z/min_jerk"               , limiter_ang_.min_jerk               , -limiter_ang_.max_jerk              );
 
+    // Publish limited velocity:
+    controller_nh.param("publish_cmd", publish_cmd_, publish_cmd_);
+
     // If either parameter is not available, we need to look up the value in the URDF
     bool lookup_wheel_separation = !controller_nh.getParam("wheel_separation", wheel_separation_);
     bool lookup_wheel_radius = !controller_nh.getParam("wheel_radius", wheel_radius_);
@@ -233,6 +244,11 @@ namespace diff_drive_controller{
                           << ", wheel radius " << wr);
 
     setOdomPubFields(root_nh, controller_nh);
+
+    if (publish_cmd_)
+    {
+      cmd_vel_pub_.reset(new realtime_tools::RealtimePublisher<geometry_msgs::TwistStamped>(controller_nh, "cmd_vel_out", 100));
+    }
 
     // Get the joint object to use in the realtime loop
     for (int i = 0; i < wheel_joints_size_; ++i)
@@ -330,6 +346,15 @@ namespace diff_drive_controller{
     last1_cmd_ = last0_cmd_;
     last0_cmd_ = curr_cmd;
 
+    // Publish limited velocity:
+    if (publish_cmd_ && cmd_vel_pub_ && cmd_vel_pub_->trylock())
+    {
+      cmd_vel_pub_->msg_.header.stamp = time;
+      cmd_vel_pub_->msg_.twist.linear.x = curr_cmd.lin;
+      cmd_vel_pub_->msg_.twist.angular.z = curr_cmd.ang;
+      cmd_vel_pub_->unlockAndPublish();
+    }
+
     // Apply multipliers:
     const double ws = wheel_separation_multiplier_ * wheel_separation_;
     const double wr = wheel_radius_multiplier_     * wheel_radius_;
@@ -375,6 +400,15 @@ namespace diff_drive_controller{
   {
     if (isRunning())
     {
+      // check that we don't have multiple publishers on the command topic
+      if (!allow_multiple_cmd_vel_publishers_ && sub_command_.getNumPublishers() > 1)
+      {
+        ROS_ERROR_STREAM_THROTTLE_NAMED(1.0, name_, "Detected " << sub_command_.getNumPublishers()
+            << " publishers. Only 1 publisher is allowed. Going to brake.");
+        brake();
+        return;
+      }
+
       command_struct_.ang   = command.angular.z;
       command_struct_.lin   = command.linear.x;
       command_struct_.stamp = ros::Time::now();
@@ -466,10 +500,10 @@ namespace diff_drive_controller{
       return false;
     }
 
-    urdf::ModelInterfaceSharedPtr model(urdf::parseURDF(robot_model_str));
+    boost::shared_ptr<urdf::ModelInterface> model(urdf::parseURDF(robot_model_str));
 
-    urdf::JointConstSharedPtr left_wheel_joint(model->getJoint(left_wheel_name));
-    urdf::JointConstSharedPtr right_wheel_joint(model->getJoint(right_wheel_name));
+    boost::shared_ptr<const urdf::Joint> left_wheel_joint(model->getJoint(left_wheel_name));
+    boost::shared_ptr<const urdf::Joint> right_wheel_joint(model->getJoint(right_wheel_name));
 
     if (lookup_wheel_separation)
     {
@@ -532,7 +566,7 @@ namespace diff_drive_controller{
 
     // Setup odometry realtime publisher + odom message constant fields
     odom_pub_.reset(new realtime_tools::RealtimePublisher<nav_msgs::Odometry>(controller_nh, "odom", 100));
-    odom_pub_->msg_.header.frame_id = "odom";
+    odom_pub_->msg_.header.frame_id = odom_frame_id_;
     odom_pub_->msg_.child_frame_id = base_frame_id_;
     odom_pub_->msg_.pose.pose.position.z = 0;
     odom_pub_->msg_.pose.covariance = boost::assign::list_of
@@ -557,7 +591,7 @@ namespace diff_drive_controller{
     tf_odom_pub_->msg_.transforms.resize(1);
     tf_odom_pub_->msg_.transforms[0].transform.translation.z = 0.0;
     tf_odom_pub_->msg_.transforms[0].child_frame_id = base_frame_id_;
-    tf_odom_pub_->msg_.transforms[0].header.frame_id = "odom";
+    tf_odom_pub_->msg_.transforms[0].header.frame_id = odom_frame_id_;
   }
 
 } // namespace diff_drive_controller

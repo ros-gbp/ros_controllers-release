@@ -41,9 +41,9 @@ std::string getLeafNamespace(const ros::NodeHandle& nh)
   return complete_ns.substr(id + 1);
 }  
 
-urdf::ModelSharedPtr getUrdf(const ros::NodeHandle& nh, const std::string& param_name)
+boost::shared_ptr<urdf::Model> getUrdf(const ros::NodeHandle& nh, const std::string& param_name)
 {
-  urdf::ModelSharedPtr urdf(new urdf::Model);
+  boost::shared_ptr<urdf::Model> urdf(new urdf::Model);
 
   std::string urdf_str;
   // Check for robot_description in proper namespace
@@ -53,24 +53,25 @@ urdf::ModelSharedPtr getUrdf(const ros::NodeHandle& nh, const std::string& param
     {
       ROS_ERROR_STREAM("Failed to parse URDF contained in '" << param_name << "' parameter (namespace: " <<
         nh.getNamespace() << ").");
-      return urdf::ModelSharedPtr();
+      return boost::shared_ptr<urdf::Model>();
     }
   }
   // Check for robot_description in root
   else if (!urdf->initParam("robot_description"))
   {
     ROS_ERROR_STREAM("Failed to parse URDF contained in '" << param_name << "' parameter");
-    return urdf::ModelSharedPtr();
+    return boost::shared_ptr<urdf::Model>();
   }
   return urdf;
 }
 
-std::vector<urdf::JointConstSharedPtr> getUrdfJoints(const urdf::Model& urdf, const std::vector<std::string>& joint_names)
+typedef boost::shared_ptr<const urdf::Joint> UrdfJointConstPtr;
+std::vector<UrdfJointConstPtr> getUrdfJoints(const urdf::Model& urdf, const std::vector<std::string>& joint_names)
 {
-  std::vector<urdf::JointConstSharedPtr> out;
+  std::vector<UrdfJointConstPtr> out;
   for (unsigned int i = 0; i < joint_names.size(); ++i)
   {
-    urdf::JointConstSharedPtr urdf_joint = urdf.getJoint(joint_names[i]);
+    UrdfJointConstPtr urdf_joint = urdf.getJoint(joint_names[i]);
     if (urdf_joint)
     {
       out.push_back(urdf_joint);
@@ -78,7 +79,7 @@ std::vector<urdf::JointConstSharedPtr> getUrdfJoints(const urdf::Model& urdf, co
     else
     {
       ROS_ERROR_STREAM("Could not find joint '" << joint_names[i] << "' in URDF model.");
-      return std::vector<urdf::JointConstSharedPtr>();
+      return std::vector<UrdfJointConstPtr>();
     }
   }
   return out;
@@ -156,7 +157,7 @@ bool GripperActionController<HardwareInterface>::init(HardwareInterface* hw,
   }
   
   // URDF joints
-  urdf::ModelSharedPtr urdf = getUrdf(root_nh, "robot_description");
+  boost::shared_ptr<urdf::Model> urdf = getUrdf(root_nh, "robot_description");
   if (!urdf) 
   {
     return false;
@@ -164,7 +165,7 @@ bool GripperActionController<HardwareInterface>::init(HardwareInterface* hw,
   
   std::vector<std::string> joint_names;
   joint_names.push_back(joint_name_);
-  std::vector<urdf::JointConstSharedPtr> urdf_joints = getUrdfJoints(*urdf, joint_names);
+  std::vector<UrdfJointConstPtr> urdf_joints = getUrdfJoints(*urdf, joint_names);
   if (urdf_joints.empty()) 
   {
     return false;

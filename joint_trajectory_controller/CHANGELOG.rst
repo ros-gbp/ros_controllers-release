@@ -2,49 +2,16 @@
 Changelog for package joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.12.3 (2017-04-23)
--------------------
+0.9.4 (2017-07-01)
+------------------
+*  Fix for issue `#275 <https://github.com/ros-controls/roscontrollers/issues/275>`_ (State error calculation not accounting for wrapping joint positions)
+* Contributors: bponsler
 
-0.12.2 (2017-04-21)
--------------------
-* Remove rqt_plot test_depend & make plots optional
-* Contributors: Bence Magyar
-
-0.12.1 (2017-03-08)
--------------------
-
-0.12.0 (2017-02-15)
--------------------
-* Fix missing controller_manager include
-* Ordered dependencies & cleanup
-* Change for format2
-* Add Enrique and Bence to maintainers
-* Add test that sends trajectory entirely in past
-* Use xacro instead of xacro.py
-* urdf::Model typedefs had to be added to a different repo first
-* Updated copyright info
-* jtc: Enable sending trajectories with a partial set of joints
-* Replace boost::shared_ptr<urdf::XY> with urdf::XYConstSharedPtr when exists
-* Infrastructure for testing the velocity_controllers::JointTrajectoryController.
-* jtc: Enable sending trajectories with a partial set of joints
-* Contributors: Beatriz Leon, Bence Magyar, Miguel Prada
-
-0.11.2 (2016-08-16)
--------------------
-
-0.11.1 (2016-05-23)
--------------------
-* Write feedback for the RealtimeServerGoalHandle to publish on the non-realtime thread.
-* Contributors: Miguel Prada
-
-0.11.0 (2016-05-03)
--------------------
-
-0.10.0 (2015-11-20)
--------------------
+0.9.3 (2016-02-12)
+------------------
 * Add joint limits spec to rrbot test robot
 * Address -Wunused-parameter warnings
-* Reset to semantic zero in HardwareInterfaceAdapter for PositionJointInterface
+* reset to semantic zero in HardwareInterfaceAdapter for PositionJointInterface
 * Contributors: Adolfo Rodriguez Tsouroukdissian, ipa-fxm
 
 0.9.2 (2015-05-04)

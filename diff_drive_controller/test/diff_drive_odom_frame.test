@@ -2,15 +2,17 @@
   <!-- Load common test stuff -->
   <include file="$(find diff_drive_controller)/test/diff_drive_common.launch" />
 
-  <!-- Override robot_description with bad urdf -->
-  <param name="robot_description"
-         command="$(find xacro)/xacro.py '$(find diff_drive_controller)/test/diffbot_bad.xacro'" />
+  <!-- Set odom_frame_id to something new -->
+  <rosparam>
+    diffbot_controller:
+      odom_frame_id: new_odom
+  </rosparam>
 
   <!-- Controller test -->
-  <test test-name="diff_drive_fail_test"
+  <test test-name="diff_drive_odom_frame_test"
         pkg="diff_drive_controller"
-        type="diff_drive_fail_test"
-        time-limit="10.0">
+        type="diff_drive_odom_frame_test"
+        time-limit="80.0">
     <remap from="cmd_vel" to="diffbot_controller/cmd_vel" />
     <remap from="odom" to="diffbot_controller/odom" />
   </test>

@@ -2,35 +2,11 @@
 Changelog for package gripper_action_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.12.3 (2017-04-23)
--------------------
+0.9.4 (2017-07-01)
+------------------
 
-0.12.2 (2017-04-21)
--------------------
-
-0.12.1 (2017-03-08)
--------------------
-
-0.12.0 (2017-02-15)
--------------------
-* Fix most catkin lint issues
-* Change for format2
-* Add Enrique and Bence to maintainers
-* urdf::Model typedefs had to be added to a different repo first
-* Replace boost::shared_ptr<urdf::XY> with urdf::XYConstSharedPtr when exists
-* Contributors: Bence Magyar
-
-0.11.2 (2016-08-16)
--------------------
-
-0.11.1 (2016-05-23)
--------------------
-
-0.11.0 (2016-05-03)
--------------------
-
-0.10.0 (2015-11-20)
--------------------
+0.9.3 (2016-02-12)
+------------------
 
 0.9.2 (2015-05-04)
 ------------------
