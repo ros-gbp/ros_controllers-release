@@ -2,6 +2,9 @@
 Changelog for package rqt_joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.9.4 (2017-07-01)
+------------------
+
 0.9.3 (2016-02-12)
 ------------------
 * Add vertical scrollbar to joints list
