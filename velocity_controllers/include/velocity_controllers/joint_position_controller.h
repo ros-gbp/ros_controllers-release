@@ -148,6 +148,11 @@ public:
   void getGains(double &p, double &i, double &d, double &i_max, double &i_min);
 
   /**
+   * \brief Get the PID parameters
+   */
+  void getGains(double &p, double &i, double &d, double &i_max, double &i_min, bool &antiwindup);
+
+  /**
    * \brief Print debug info to console
    */
   void printDebug();
@@ -155,7 +160,7 @@ public:
   /**
    * \brief Get the PID parameters
    */
-  void setGains(const double &p, const double &i, const double &d, const double &i_max, const double &i_min);
+  void setGains(const double &p, const double &i, const double &d, const double &i_max, const double &i_min, const bool &antiwindup = false);
 
   /**
    * \brief Get the name of the joint this controller uses
@@ -169,7 +174,7 @@ public:
   double getPosition();
 
   hardware_interface::JointHandle joint_;
-  boost::shared_ptr<const urdf::Joint> joint_urdf_;
+  urdf::JointConstSharedPtr joint_urdf_;
   realtime_tools::RealtimeBuffer<Commands> command_;
   Commands command_struct_; // pre-allocated memory that is re-used to set the realtime buffer
 

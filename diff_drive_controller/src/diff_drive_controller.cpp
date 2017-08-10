@@ -42,6 +42,8 @@
 
 #include <urdf_parser/urdf_parser.h>
 
+#include <urdf/urdfdom_compatibility.h>
+
 #include <boost/assign.hpp>
 
 #include <diff_drive_controller/diff_drive_controller.h>
@@ -54,11 +56,11 @@ static double euclideanOfVectors(const urdf::Vector3& vec1, const urdf::Vector3&
 }
 
 /*
- * \brief Check if the link is modeled as a cylinder
- * \param link Link
- * \return true if the link is modeled as a Cylinder; false otherwise
- */
-static bool isCylinder(const boost::shared_ptr<const urdf::Link>& link)
+* \brief Check that a link exists and has a geometry collision.
+* \param link The link
+* \return true if the link has a collision element with geometry 
+*/
+static bool hasCollisionGeometry(const urdf::LinkConstSharedPtr& link)
 {
   if (!link)
   {
@@ -77,10 +79,45 @@ static bool isCylinder(const boost::shared_ptr<const urdf::Link>& link)
     ROS_ERROR_STREAM("Link " << link->name << " does not have collision geometry description. Add collision geometry description for link to urdf.");
     return false;
   }
+  return true;
+}
+
+/*
+ * \brief Check if the link is modeled as a cylinder
+ * \param link Link
+ * \return true if the link is modeled as a Cylinder; false otherwise
+ */
+static bool isCylinder(const urdf::LinkConstSharedPtr& link)
+{
+  if (!hasCollisionGeometry(link))
+  {
+    return false;
+  }
 
   if (link->collision->geometry->type != urdf::Geometry::CYLINDER)
   {
-    ROS_ERROR_STREAM("Link " << link->name << " does not have cylinder geometry");
+    ROS_DEBUG_STREAM("Link " << link->name << " does not have cylinder geometry");
+    return false;
+  }
+
+  return true;
+}
+
+/*
+ * \brief Check if the link is modeled as a sphere
+ * \param link Link
+ * \return true if the link is modeled as a Sphere; false otherwise
+ */
+static bool isSphere(const urdf::LinkConstSharedPtr& link)
+{
+  if (!hasCollisionGeometry(link))
+  {
+    return false;
+  }
+
+  if (link->collision->geometry->type != urdf::Geometry::SPHERE)
+  {
+    ROS_DEBUG_STREAM("Link " << link->name << " does not have sphere geometry");
     return false;
   }
 
@@ -93,16 +130,21 @@ static bool isCylinder(const boost::shared_ptr<const urdf::Link>& link)
  * \param [out] wheel_radius Wheel radius [m]
  * \return true if the wheel radius was found; false otherwise
  */
-static bool getWheelRadius(const boost::shared_ptr<const urdf::Link>& wheel_link, double& wheel_radius)
+static bool getWheelRadius(const urdf::LinkConstSharedPtr& wheel_link, double& wheel_radius)
 {
-  if (!isCylinder(wheel_link))
+  if (isCylinder(wheel_link))
   {
-    ROS_ERROR_STREAM("Wheel link " << wheel_link->name << " is NOT modeled as a cylinder!");
-    return false;
+    wheel_radius = (static_cast<urdf::Cylinder*>(wheel_link->collision->geometry.get()))->radius;
+    return true;
   }
-
-  wheel_radius = (static_cast<urdf::Cylinder*>(wheel_link->collision->geometry.get()))->radius;
-  return true;
+  else if (isSphere(wheel_link))
+  {
+    wheel_radius = (static_cast<urdf::Sphere*>(wheel_link->collision->geometry.get()))->radius;
+    return true;
+  }
+  
+  ROS_ERROR_STREAM("Wheel link " << wheel_link->name << " is NOT modeled as a cylinder or sphere!");
+  return false;
 }
 
 namespace diff_drive_controller{
@@ -500,10 +542,10 @@ namespace diff_drive_controller{
       return false;
     }
 
-    boost::shared_ptr<urdf::ModelInterface> model(urdf::parseURDF(robot_model_str));
+    urdf::ModelInterfaceSharedPtr model(urdf::parseURDF(robot_model_str));
 
-    boost::shared_ptr<const urdf::Joint> left_wheel_joint(model->getJoint(left_wheel_name));
-    boost::shared_ptr<const urdf::Joint> right_wheel_joint(model->getJoint(right_wheel_name));
+    urdf::JointConstSharedPtr left_wheel_joint(model->getJoint(left_wheel_name));
+    urdf::JointConstSharedPtr right_wheel_joint(model->getJoint(right_wheel_name));
 
     if (lookup_wheel_separation)
     {
