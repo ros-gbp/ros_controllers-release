@@ -183,7 +183,17 @@ JointTrajectoryController<SegmentImpl, HardwareInterface>::
 JointTrajectoryController()
   : verbose_(false), // Set to true during debugging
     hold_trajectory_ptr_(new Trajectory)
-{}
+{
+  // The verbose parameter is for advanced use as it breaks real-time safety
+  // by enabling ROS logging services
+  if (verbose_)
+  {
+    ROS_WARN_STREAM(
+        "The joint_trajectory_controller verbose flag is enabled. "
+        << "This flag breaks real-time safety and should only be "
+        << "used for debugging");
+  }
+}
 
 template <class SegmentImpl, class HardwareInterface>
 bool JointTrajectoryController<SegmentImpl, HardwareInterface>::init(HardwareInterface* hw,
@@ -376,11 +386,11 @@ update(const ros::Time& time, const ros::Duration& period)
     desired_state_.velocity[i] = desired_joint_state_.velocity[0];
     desired_state_.acceleration[i] = 0.0;
 
-    state_joint_error_.position[0] = desired_joint_state_.position[0] - current_state_.position[i];
+    state_joint_error_.position[0] = angles::shortest_angular_distance(current_state_.position[i],desired_joint_state_.position[0]);
     state_joint_error_.velocity[0] = desired_joint_state_.velocity[0] - current_state_.velocity[i];
     state_joint_error_.acceleration[0] = 0.0;
 
-    state_error_.position[i] = desired_joint_state_.position[0] - current_state_.position[i];
+    state_error_.position[i] = angles::shortest_angular_distance(current_state_.position[i],desired_joint_state_.position[0]);
     state_error_.velocity[i] = desired_joint_state_.velocity[0] - current_state_.velocity[i];
     state_error_.acceleration[i] = 0.0;
 
@@ -508,7 +518,7 @@ updateTrajectoryCommand(const JointTrajectoryConstPtr& msg, RealtimeGoalHandlePt
   // Hold current position if trajectory is empty
   if (msg->points.empty())
   {
-    setHoldPosition(time_data->uptime);
+    setHoldPosition(time_data->uptime, gh);
     ROS_DEBUG_NAMED(name_, "Empty trajectory command, stopping.");
     return true;
   }
@@ -724,7 +734,7 @@ publishState(const ros::Time& time)
 
 template <class SegmentImpl, class HardwareInterface>
 void JointTrajectoryController<SegmentImpl, HardwareInterface>::
-setHoldPosition(const ros::Time& time)
+setHoldPosition(const ros::Time& time, RealtimeGoalHandlePtr gh)
 {
   // Settle position in a fixed time. We do the following:
   // - Create segment that goes from current (pos,vel) to (pos,-vel) in 2x the desired stop time
@@ -762,6 +772,9 @@ setHoldPosition(const ros::Time& time)
     // Now create segment that goes from current state to one with zero end velocity
     (*hold_trajectory_ptr_)[i].front().init(start_time, hold_start_state_,
                                                              end_time,   hold_end_state_);
+
+    // Set goal handle for the segment
+    (*hold_trajectory_ptr_)[i].front().setGoalHandle(gh);
   }
   curr_trajectory_box_.set(hold_trajectory_ptr_);
 }
