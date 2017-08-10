@@ -1,7 +1,8 @@
-## Joint Trajectory Controller ##
+ros_controllers
+===============
 
-Controller for executing joint-space trajectories on a group of joints.
+See [ros_control documentation](http://ros.org/wiki/ros_control) on ros.org
 
-Detailed user documentation can be found in the controller's [ROS wiki page](http://wiki.ros.org/joint_trajectory_controller).
+### Build Status
 
-
+[![Build Status](https://travis-ci.org/ros-controls/ros_controllers.png?branch=hydro-devel)](https://travis-ci.org/ros-controls/ros_controllers)
