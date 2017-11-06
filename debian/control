@@ -1,0 +1,12 @@
+Source: ros-lunar-ros-controllers
+Section: misc
+Priority: extra
+Maintainer: Adolfo Rodriguez Tsouroukdissian <adolfo.rodriguez@pal-robotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-lunar-catkin
+Homepage: http://ros.org/wiki/ros_controllers
+Standards-Version: 3.9.2
+
+Package: ros-lunar-ros-controllers
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lunar-diff-drive-controller, ros-lunar-effort-controllers, ros-lunar-force-torque-sensor-controller, ros-lunar-forward-command-controller, ros-lunar-gripper-action-controller, ros-lunar-imu-sensor-controller, ros-lunar-joint-state-controller, ros-lunar-joint-trajectory-controller, ros-lunar-position-controllers, ros-lunar-rqt-joint-trajectory-controller, ros-lunar-velocity-controllers
+Description: Library of ros controllers
