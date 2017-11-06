@@ -1,11 +1,5 @@
-ros_controllers
-===============
+## Diff Drive Controller ##
 
-See [ros_control documentation](http://ros.org/wiki/ros_control) on ros.org
+Controller for a differential drive mobile base.
 
-### Build Status
-
-Indigo | Kinetic | Lunar
---- | --- | ---
-[![Build Status](https://travis-ci.org/ros-controls/ros_controllers.png?branch=indigo-devel)](https://travis-ci.org/ros-controls/ros_controllers) | [![Build Status](https://travis-ci.org/ros-controls/ros_controllers.png?branch=kinetic-devel)](https://travis-ci.org/ros-controls/ros_controllers) | [![Build Status](https://travis-ci.org/ros-controls/ros_controllers.png?branch=kinetic-devel)](https://travis-ci.org/ros-controls/ros_controllers)
-
+Detailed user documentation can be found in the controller's [ROS wiki page](http://wiki.ros.org/diff_drive_controller).
