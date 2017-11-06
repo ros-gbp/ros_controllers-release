@@ -2,6 +2,9 @@
 Changelog for package diff_drive_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.13.1 (2017-11-06)
+-------------------
+
 0.13.0 (2017-08-10)
 -------------------
 * Add test for allow_multiple_cmd_vel_publishers param
