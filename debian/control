@@ -1,0 +1,12 @@
+Source: ros-kinetic-gripper-action-controller
+Section: misc
+Priority: extra
+Maintainer: Sachin Chitta <robot.moveit@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-actionlib, ros-kinetic-angles, ros-kinetic-catkin, ros-kinetic-cmake-modules, ros-kinetic-control-msgs, ros-kinetic-control-toolbox, ros-kinetic-controller-interface, ros-kinetic-controller-manager, ros-kinetic-hardware-interface, ros-kinetic-realtime-tools, ros-kinetic-roscpp, ros-kinetic-trajectory-msgs, ros-kinetic-urdf, ros-kinetic-xacro
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-gripper-action-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-actionlib, ros-kinetic-angles, ros-kinetic-cmake-modules, ros-kinetic-control-msgs, ros-kinetic-control-toolbox, ros-kinetic-controller-interface, ros-kinetic-controller-manager, ros-kinetic-hardware-interface, ros-kinetic-realtime-tools, ros-kinetic-roscpp, ros-kinetic-trajectory-msgs, ros-kinetic-urdf, ros-kinetic-xacro
+Description: The gripper_action_controller package
