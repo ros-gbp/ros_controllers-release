@@ -2,6 +2,12 @@
 Changelog for package effort_controllers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.13.1 (2017-11-06)
+-------------------
+* Code cleanup
+* Add JointGroupPositionController
+* Contributors: Bence Magyar, Maik Mugnai
+
 0.13.0 (2017-08-10)
 -------------------
 
