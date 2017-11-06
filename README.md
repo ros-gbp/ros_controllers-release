@@ -1,11 +1,7 @@
-ros_controllers
-===============
+## Joint Trajectory Controller ##
 
-See [ros_control documentation](http://ros.org/wiki/ros_control) on ros.org
+Controller for executing joint-space trajectories on a group of joints.
 
-### Build Status
+Detailed user documentation can be found in the controller's [ROS wiki page](http://wiki.ros.org/joint_trajectory_controller).
 
-Indigo | Kinetic | Lunar
---- | --- | ---
-[![Build Status](https://travis-ci.org/ros-controls/ros_controllers.png?branch=indigo-devel)](https://travis-ci.org/ros-controls/ros_controllers) | [![Build Status](https://travis-ci.org/ros-controls/ros_controllers.png?branch=kinetic-devel)](https://travis-ci.org/ros-controls/ros_controllers) | [![Build Status](https://travis-ci.org/ros-controls/ros_controllers.png?branch=kinetic-devel)](https://travis-ci.org/ros-controls/ros_controllers)
 
