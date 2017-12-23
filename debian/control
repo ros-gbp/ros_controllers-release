@@ -1,0 +1,12 @@
+Source: ros-kinetic-rqt-joint-trajectory-controller
+Section: misc
+Priority: extra
+Maintainer: Adolfo Rodriguez Tsouroukdissian <adolfo.rodriguez@pal-robotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin
+Homepage: http://wiki.ros.org/rqt_joint_trajectory_controller
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-rqt-joint-trajectory-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-control-msgs, ros-kinetic-controller-manager-msgs, ros-kinetic-rospy, ros-kinetic-rqt-gui, ros-kinetic-rqt-gui-py, ros-kinetic-trajectory-msgs
+Description: Graphical frontend for interacting with joint_trajectory_controller instances.
