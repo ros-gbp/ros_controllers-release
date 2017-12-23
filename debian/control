@@ -1,0 +1,12 @@
+Source: ros-lunar-diff-drive-controller
+Section: misc
+Priority: extra
+Maintainer: Bence Magyar <bence.magyar.robotics@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-lunar-catkin, ros-lunar-controller-interface, ros-lunar-controller-manager, ros-lunar-nav-msgs, ros-lunar-realtime-tools, ros-lunar-rostest, ros-lunar-std-srvs, ros-lunar-tf, ros-lunar-urdf, ros-lunar-xacro
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-lunar-diff-drive-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lunar-controller-interface, ros-lunar-nav-msgs, ros-lunar-realtime-tools, ros-lunar-tf, ros-lunar-urdf
+Description: Controller for a differential drive mobile base.
