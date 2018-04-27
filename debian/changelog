@@ -1,0 +1,162 @@
+ros-melodic-four-wheel-steering-controller (0.14.0-0artful) artful; urgency=high
+
+  * migrate to new pluginlib headers
+  * fix warning un/signed comparison
+  * [4ws tests] simulation clock
+  * [4ws tests] Increase position tolerance
+  * Contributors: Bence Magyar, Jeremie Deray, Mathias Lüdtke, Vincent Rousseau
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Thu, 26 Apr 2018 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.13.2-0artful) artful; urgency=high
+
+  * Add four_wheel_steering_controller
+  * Contributors: Vincent Rousseau
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sat, 23 Dec 2017 00:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.13.1-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 06 Nov 2017 00:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.13.0-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Wed, 09 Aug 2017 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.12.3-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sat, 22 Apr 2017 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.12.2-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Thu, 20 Apr 2017 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.12.1-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Wed, 08 Mar 2017 00:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.12.0-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Wed, 15 Feb 2017 00:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.11.2-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 15 Aug 2016 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.11.1-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sun, 22 May 2016 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.11.0-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 02 May 2016 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.10.0-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Fri, 20 Nov 2015 00:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.9.2-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sun, 03 May 2015 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.9.1-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 03 Nov 2014 00:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.9.0-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Fri, 31 Oct 2014 00:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.8.1-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Thu, 10 Jul 2014 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.8.0-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sun, 11 May 2014 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.7.2-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 31 Mar 2014 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.7.1-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sun, 30 Mar 2014 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.6.0-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Wed, 05 Feb 2014 00:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.5.4-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sun, 29 Sep 2013 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.5.3-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Tue, 03 Sep 2013 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.5.2-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 05 Aug 2013 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.5.1-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Thu, 18 Jul 2013 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.5.0-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 15 Jul 2013 23:00:00 -0000
+
+ros-melodic-four-wheel-steering-controller (0.4.0-0artful) artful; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Tue, 25 Jun 2013 23:00:00 -0000
+
+
