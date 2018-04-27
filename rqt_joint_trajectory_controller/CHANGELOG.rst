@@ -2,7 +2,7 @@
 Changelog for package rqt_joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.14.0 (2018-04-27)
+0.13.3 (2018-04-27)
 -------------------
 * fix license string
 * Contributors: Patrick Holthaus
