@@ -2,6 +2,11 @@
 Changelog for package effort_controllers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.14.0 (2018-04-27)
+-------------------
+* migrate to new pluginlib headers
+* Contributors: Mathias Lüdtke
+
 0.13.2 (2017-12-23)
 -------------------
 

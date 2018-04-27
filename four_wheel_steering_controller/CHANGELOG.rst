@@ -2,6 +2,14 @@
 Changelog for package four_wheel_steering_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.14.0 (2018-04-27)
+-------------------
+* migrate to new pluginlib headers
+* fix warning un/signed comparison
+* [4ws tests] simulation clock
+* [4ws tests] Increase position tolerance
+* Contributors: Bence Magyar, Jeremie Deray, Mathias Lüdtke, Vincent Rousseau
+
 0.13.2 (2017-12-23)
 -------------------
 * Add four_wheel_steering_controller
