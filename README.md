@@ -1,3 +1,39 @@
+## ros_controllers (melodic) - 0.14.0-0
+
+The packages in the `ros_controllers` repository were released into the `melodic` distro by running `/usr/local/bin/bloom-release --track melodic --ros-distro melodic ros_controllers --edit` on `Fri, 27 Apr 2018 08:43:50 -0000`
+
+These packages were released:
+- `diff_drive_controller`
+- `effort_controllers`
+- `force_torque_sensor_controller`
+- `forward_command_controller`
+- `four_wheel_steering_controller`
+- `gripper_action_controller`
+- `imu_sensor_controller`
+- `joint_state_controller`
+- `joint_trajectory_controller`
+- `position_controllers`
+- `ros_controllers`
+- `rqt_joint_trajectory_controller`
+- `velocity_controllers`
+
+Version of package(s) in repository `ros_controllers`:
+
+- upstream repository: https://github.com/ros-controls/ros_controllers.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `0.14.0-0`
+
+Versions of tools used:
+
+- bloom version: `0.6.4`
+- catkin_pkg version: `0.4.1`
+- rosdep version: `0.12.2`
+- rosdistro version: `0.6.8`
+- vcstools version: `0.1.40`
+
+
 ## ros_controllers (lunar) - 0.13.2-0
 
 The packages in the `ros_controllers` repository were released into the `lunar` distro by running `/usr/bin/bloom-release ros_controllers --track lunar --rosdistro lunar --edit` on `Sat, 23 Dec 2017 14:40:27 -0000`
