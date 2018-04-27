@@ -2,6 +2,18 @@
 Changelog for package diff_drive_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.13.3 (2018-04-27)
+-------------------
+* add dynamic_reconf to diff_drive_controller
+* migrate to new pluginlib headers
+* typo in odometry.h
+* fix doc
+* per wheel radius multiplier
+* fix xacro macro warning
+* [DiffDrive] Test fixing (`#318 <https://github.com/ros-controls/ros_controllers/issues/318>`_)
+* separate include_directories as SYSTEM to avoid unrelated compilation warnings
+* Contributors: Jeremie Deray, Mathias Lüdtke
+
 0.13.2 (2017-12-23)
 -------------------
 
