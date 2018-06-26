@@ -1,0 +1,12 @@
+Source: ros-lunar-joint-trajectory-controller
+Section: misc
+Priority: extra
+Maintainer: Adolfo Rodriguez Tsouroukdissian <adolfo.rodriguez@pal-robotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-lunar-actionlib, ros-lunar-angles, ros-lunar-catkin, ros-lunar-cmake-modules, ros-lunar-control-msgs, ros-lunar-control-toolbox, ros-lunar-controller-interface, ros-lunar-controller-manager, ros-lunar-hardware-interface, ros-lunar-realtime-tools, ros-lunar-roscpp, ros-lunar-rostest, ros-lunar-trajectory-msgs, ros-lunar-urdf, ros-lunar-xacro
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-lunar-joint-trajectory-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lunar-actionlib, ros-lunar-angles, ros-lunar-control-msgs, ros-lunar-control-toolbox, ros-lunar-controller-interface, ros-lunar-hardware-interface, ros-lunar-realtime-tools, ros-lunar-roscpp, ros-lunar-trajectory-msgs, ros-lunar-urdf
+Description: Controller for executing joint-space trajectories on a group of joints.
