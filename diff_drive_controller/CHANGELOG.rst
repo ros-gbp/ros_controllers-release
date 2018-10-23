@@ -2,6 +2,9 @@
 Changelog for package diff_drive_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.14.2 (2018-10-23)
+-------------------
+
 0.14.1 (2018-06-26)
 -------------------
 * Added 'multiplier' in DynamicParams ostream and changed boolean printing to 'enabled/disabled'
