@@ -1,0 +1,12 @@
+Source: ros-kinetic-ros-controllers
+Section: misc
+Priority: extra
+Maintainer: Adolfo Rodriguez Tsouroukdissian <adolfo.rodriguez@pal-robotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin
+Homepage: http://ros.org/wiki/ros_controllers
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-ros-controllers
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-ackermann-steering-controller, ros-kinetic-diff-drive-controller, ros-kinetic-effort-controllers, ros-kinetic-force-torque-sensor-controller, ros-kinetic-forward-command-controller, ros-kinetic-gripper-action-controller, ros-kinetic-imu-sensor-controller, ros-kinetic-joint-state-controller, ros-kinetic-joint-trajectory-controller, ros-kinetic-position-controllers, ros-kinetic-rqt-joint-trajectory-controller, ros-kinetic-velocity-controllers
+Description: Library of ros controllers
