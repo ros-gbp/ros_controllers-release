@@ -2,6 +2,12 @@
 Changelog for package diff_drive_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.14.3 (2019-02-09)
+-------------------
+* use operators instead of aliases
+* Fix typo descripion -> description
+* Contributors: Daniel Ingram, James Xu
+
 0.14.2 (2018-10-23)
 -------------------
 
