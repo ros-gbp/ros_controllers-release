@@ -2,13 +2,18 @@
 Changelog for package rqt_joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.13.5 (2019-02-09)
+0.14.3 (2019-02-09)
 -------------------
 
-0.13.4 (2018-06-26)
+0.14.2 (2018-10-23)
+-------------------
+* Update maintainers
+* Contributors: Bence Magyar
+
+0.14.1 (2018-06-26)
 -------------------
 
-0.13.3 (2018-04-27)
+0.14.0 (2018-04-27)
 -------------------
 * fix license string
 * Contributors: Patrick Holthaus

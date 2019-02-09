@@ -242,9 +242,9 @@ Trajectory initJointTrajectory(const trajectory_msgs::JointTrajectory&       msg
   const bool has_current_trajectory = options.current_trajectory && !options.current_trajectory->empty();
   const bool has_joint_names        = options.joint_names        && !options.joint_names->empty();
   const bool has_angle_wraparound   = options.angle_wraparound   && !options.angle_wraparound->empty();
-  const bool has_rt_goal_handle     = options.rt_goal_handle;
-  const bool has_other_time_base    = options.other_time_base;
-  const bool has_default_tolerances = options.default_tolerances;
+  const bool has_rt_goal_handle     = options.rt_goal_handle != nullptr;
+  const bool has_other_time_base    = options.other_time_base != nullptr;
+  const bool has_default_tolerances = options.default_tolerances != nullptr;
 
   if (!has_current_trajectory && has_angle_wraparound)
   {
@@ -333,13 +333,10 @@ Trajectory initJointTrajectory(const trajectory_msgs::JointTrajectory&       msg
     if (msg_it == msg.points.end())
     {
       ros::Duration last_point_dur = time - (msg_start_time + (--msg_it)->time_from_start);
-      std::stringstream error_stringstream;
-      error_stringstream << "Dropping all " << msg.points.size();
-      error_stringstream << " trajectory point(s), as they occur before the current time.\n";
-      error_stringstream << "Last point is " << last_point_dur.toSec();
-      error_stringstream << "s in the past.";
-
-      error_string = error_stringstream.str();
+      error_string = "Dropping all " + std::to_string(msg.points.size());
+      error_string += " trajectory point(s), as they occur before the current time.\n";
+      error_string += "Last point is " + std::to_string(last_point_dur.toSec());
+      error_string += "s in the past.";
       ROS_WARN_STREAM(error_string);
       options.setErrorString(error_string);
       return Trajectory();

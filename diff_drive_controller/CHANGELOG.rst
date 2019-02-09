@@ -2,23 +2,28 @@
 Changelog for package diff_drive_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.13.5 (2019-02-09)
+0.14.3 (2019-02-09)
+-------------------
+* use operators instead of aliases
+* Fix typo descripion -> description
+* Contributors: Daniel Ingram, James Xu
+
+0.14.2 (2018-10-23)
 -------------------
 
-0.13.4 (2018-06-26)
+0.14.1 (2018-06-26)
 -------------------
+* Added 'multiplier' in DynamicParams ostream and changed boolean printing to 'enabled/disabled'
 * isPublishngCmdVelOut to check getNumPublisheres until timeout
-* Contributors: Kei Okada
+* Contributors: Kei Okada, Martin Ganeff
 
-0.13.3 (2018-04-27)
+0.14.0 (2018-04-27)
 -------------------
 * add dynamic_reconf to diff_drive_controller
 * migrate to new pluginlib headers
-* typo in odometry.h
-* fix doc
 * per wheel radius multiplier
 * fix xacro macro warning
-* [DiffDrive] Test fixing (`#318 <https://github.com/ros-controls/ros_controllers/issues/318>`_)
+* [DiffDrive] Fix time-sensitive tests of diff_drive_controller
 * separate include_directories as SYSTEM to avoid unrelated compilation warnings
 * Contributors: Jeremie Deray, Mathias Lüdtke
 
