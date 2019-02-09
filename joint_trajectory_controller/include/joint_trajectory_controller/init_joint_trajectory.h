@@ -242,9 +242,9 @@ Trajectory initJointTrajectory(const trajectory_msgs::JointTrajectory&       msg
   const bool has_current_trajectory = options.current_trajectory && !options.current_trajectory->empty();
   const bool has_joint_names        = options.joint_names        && !options.joint_names->empty();
   const bool has_angle_wraparound   = options.angle_wraparound   && !options.angle_wraparound->empty();
-  const bool has_rt_goal_handle     = options.rt_goal_handle;
-  const bool has_other_time_base    = options.other_time_base;
-  const bool has_default_tolerances = options.default_tolerances;
+  const bool has_rt_goal_handle     = options.rt_goal_handle != nullptr;
+  const bool has_other_time_base    = options.other_time_base != nullptr;
+  const bool has_default_tolerances = options.default_tolerances != nullptr;
 
   if (!has_current_trajectory && has_angle_wraparound)
   {
@@ -340,6 +340,16 @@ Trajectory initJointTrajectory(const trajectory_msgs::JointTrajectory&       msg
       ROS_WARN_STREAM(error_string);
       options.setErrorString(error_string);
       return Trajectory();
+    }
+    else if ( // If the first point is at time zero and no start time is set in the header, skip it silently
+              msg.points.begin()->time_from_start.isZero() &&
+              msg.header.stamp.isZero() &&
+              std::distance(msg.points.begin(), msg_it) == 1
+              )
+    {
+      ROS_DEBUG_STREAM("Dropping first trajectory point at time=0. " <<
+                       "First valid point will be reached at time_from_start " <<
+                       std::fixed << std::setprecision(3) << msg_it->time_from_start.toSec() << "s.");
     }
     else
     {
