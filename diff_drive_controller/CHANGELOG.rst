@@ -2,6 +2,9 @@
 Changelog for package diff_drive_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.13.5 (2019-02-09)
+-------------------
+
 0.13.4 (2018-06-26)
 -------------------
 * isPublishngCmdVelOut to check getNumPublisheres until timeout
