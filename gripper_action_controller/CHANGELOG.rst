@@ -2,6 +2,11 @@
 Changelog for package gripper_action_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.13.5 (2019-02-09)
+-------------------
+* Use a copy of the pointer in update() to avoid crash by cancelCB()
+* Contributors: oka
+
 0.13.4 (2018-06-26)
 -------------------
 
