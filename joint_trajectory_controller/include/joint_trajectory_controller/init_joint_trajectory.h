@@ -333,13 +333,26 @@ Trajectory initJointTrajectory(const trajectory_msgs::JointTrajectory&       msg
     if (msg_it == msg.points.end())
     {
       ros::Duration last_point_dur = time - (msg_start_time + (--msg_it)->time_from_start);
-      error_string = "Dropping all " + std::to_string(msg.points.size());
-      error_string += " trajectory point(s), as they occur before the current time.\n";
-      error_string += "Last point is " + std::to_string(last_point_dur.toSec());
-      error_string += "s in the past.";
+      std::stringstream error_stringstream;
+      error_stringstream << "Dropping all " << msg.points.size();
+      error_stringstream << " trajectory point(s), as they occur before the current time.\n";
+      error_stringstream << "Last point is " << last_point_dur.toSec();
+      error_stringstream << "s in the past.";
+
+      error_string = error_stringstream.str();
       ROS_WARN_STREAM(error_string);
       options.setErrorString(error_string);
       return Trajectory();
+    }
+    else if ( // If the first point is at time zero and no start time is set in the header, skip it silently
+              msg.points.begin()->time_from_start.isZero() &&
+              msg.header.stamp.isZero() &&
+              std::distance(msg.points.begin(), msg_it) == 1
+              )
+    {
+      ROS_DEBUG_STREAM("Dropping first trajectory point at time=0. " <<
+                       "First valid point will be reached at time_from_start " <<
+                       std::fixed << std::setprecision(3) << msg_it->time_from_start.toSec() << "s.");
     }
     else
     {

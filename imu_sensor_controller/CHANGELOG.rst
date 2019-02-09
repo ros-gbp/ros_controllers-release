@@ -2,15 +2,13 @@
 Changelog for package imu_sensor_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.14.2 (2018-10-23)
--------------------
-* Update maintainers
-* Contributors: Bence Magyar
-
-0.14.1 (2018-06-26)
+0.13.5 (2019-02-09)
 -------------------
 
-0.14.0 (2018-04-27)
+0.13.4 (2018-06-26)
+-------------------
+
+0.13.3 (2018-04-27)
 -------------------
 * migrate to new pluginlib headers
 * Contributors: Mathias Lüdtke

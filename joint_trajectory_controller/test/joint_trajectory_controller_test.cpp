@@ -189,10 +189,10 @@ protected:
 
     std::transform(controller_min_actual_velocity.begin(), controller_min_actual_velocity.end(),
                    state->actual.velocities.begin(), controller_min_actual_velocity.begin(),
-                   [](double a, double b){return std::min(a, b);});
+                   std::min<double>);
     std::transform(controller_max_actual_velocity.begin(), controller_max_actual_velocity.end(),
                    state->actual.velocities.begin(), controller_max_actual_velocity.begin(),
-                   [](double a, double b){return std::max(a, b);});
+                   std::max<double>);
   }
 
   StateConstPtr getState()
