@@ -1,0 +1,195 @@
+ros-kinetic-diff-drive-controller (0.13.5-0xenial) xenial; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 09 Feb 2019 00:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.13.4-0xenial) xenial; urgency=high
+
+  * isPublishngCmdVelOut to check getNumPublisheres until timeout
+  * Contributors: Kei Okada
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 25 Jun 2018 23:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.13.3-0xenial) xenial; urgency=high
+
+  * add dynamic_reconf to diff_drive_controller
+  * migrate to new pluginlib headers
+  * typo in odometry.h
+  * fix doc
+  * per wheel radius multiplier
+  * fix xacro macro warning
+  * [DiffDrive] Test fixing (#318 <https://github.com/ros-controls/ros_controllers/issues/318>)
+  * separate include_directories as SYSTEM to avoid unrelated compilation warnings
+  * Contributors: Jeremie Deray, Mathias Lüdtke
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 26 Apr 2018 23:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.13.2-0xenial) xenial; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 23 Dec 2017 00:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.13.1-0xenial) xenial; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Mon, 06 Nov 2017 00:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.13.0-0xenial) xenial; urgency=high
+
+  * Add test for allow_multiple_cmd_vel_publishers param
+  * add check for multiple publishers on cmd_vel
+  * Added tests for the odom_frame_id parameter.
+  * Parameterized diff_drive_controller's odom_frame_id
+  * Publish executed velocity if publish_cmd
+  * refactor to remove code duplication
+  * fixup pointer type for new convention
+  * Allow diff_drive_controller to use spheres as well as cylinders for wheel collision geometry. Cylinders are not well behaved on Gazebo/ODE heightfields, using spheres works around the issue.
+  * Contributors: Bence Magyar, Eric Tappan, Jeremie Deray, Karsten Knese, Tully Foote, mallanmba, tappan-at-git
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 09 Aug 2017 23:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.12.3-0xenial) xenial; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Sat, 22 Apr 2017 23:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.12.2-0xenial) xenial; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Thu, 20 Apr 2017 23:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.12.1-0xenial) xenial; urgency=high
+
+  * Add exporting include dirs
+  * Contributors: Bence Magyar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 08 Mar 2017 00:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.12.0-0xenial) xenial; urgency=high
+
+  * Fix most catkin lint issues
+  * Change for format2
+  * Add Enrique and Bence to maintainers
+  * Add urdf compatibility header
+  * Add --inorder to xacro calls
+  * Add missing xacro tags
+  * Use xacro instead of xacro.py
+  * Disable angular jerk limit test
+  * Replace boost::shared_ptr<urdf::XY> with urdf::XYConstSharedPtr when exists
+  * Contributors: Bence Magyar
+
+ -- Bence Magyar <bence.magyar.robotics@gmail.com>  Wed, 15 Feb 2017 00:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.11.2-0xenial) xenial; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Mon, 15 Aug 2016 23:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.11.1-0xenial) xenial; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Sun, 22 May 2016 23:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.11.0-0xenial) xenial; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Mon, 02 May 2016 23:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.10.0-0xenial) xenial; urgency=high
+
+  * Address -Wunused-parameter warnings
+  * Limit jerk
+  * Add param velocity_rolling_window_size
+  * Minor fixes
+    1. Coding style
+    2. Tolerance to fall-back to Runge-Kutta 2 integration
+    3. Remove unused variables
+  * Fix the following bugs in the testForward test:
+    1. Check traveled distance in XY plane
+    2. Use expected speed variable on test check
+  * Add test for NaN
+  * Add test for bad URDF
+  * Contributors: Adolfo Rodriguez Tsouroukdissian, Enrique Fernandez, Paul Mathieu
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Fri, 20 Nov 2015 00:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.9.2-0xenial) xenial; urgency=high
+
+  * Allow the wheel separation and radius to be set from different sources
+    i.e. one can be set from the URDF, the other from the parameter server.
+    If wheel separation and wheel diameter is specified in the parameter server, don't look them up from urdf
+  * Contributors: Bence Magyar, Nils Berg
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Sun, 03 May 2015 23:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.9.1-0xenial) xenial; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Mon, 03 Nov 2014 00:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.9.0-0xenial) xenial; urgency=high
+
+  * Add support for multiple wheels per side
+  * Odometry computation:
+    - New option to compute in open loop fashion
+    - New option to skip publishing odom frame to tf
+  * Remove dependency on angles package
+  * Buildsystem fixes
+  * Contributors: Bence Magyar, Lukas Bulwahn, efernandez
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Fri, 31 Oct 2014 00:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.8.1-0xenial) xenial; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Thu, 10 Jul 2014 23:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.8.0-0xenial) xenial; urgency=high
+
+  * Add base_frame_id param (defaults to base_link)
+    The nav_msgs/Odometry message specifies the child_frame_id field,
+    which was previously not set.
+    This commit creates a parameter to replace the previously hard-coded
+    value of the child_frame_id of the published tf frame, and uses it
+    in the odom message as well.
+  * Contributors: enriquefernandez
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Sun, 11 May 2014 23:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.7.2-0xenial) xenial; urgency=high
+
+
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Mon, 31 Mar 2014 23:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.7.1-0xenial) xenial; urgency=high
+
+  * Changed test-depend to build-depend for release jobs.
+  * Contributors: Bence Magyar
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Sun, 30 Mar 2014 23:00:00 -0000
+
+ros-kinetic-diff-drive-controller (0.7.0-0xenial) xenial; urgency=high
+
+  * diff_drive_controller: New controller for differential drive wheel systems.
+  * Control is in the form of a velocity command, that is split then sent on the two wheels of a differential drive
+  wheel base.
+  * Odometry is published to tf and to a dedicated nav__msgs/Odometry topic.
+  * Realtime-safe implementation.
+  * Implements task-space velocity and acceleration limits.
+  * Automatic stop after command time-out.
+  * Contributors: Bence Magyar, Paul Mathieu, Enrique Fernandez.
+
+ -- Bence Magyar <bence.magyar@pal-robotics.com>  Fri, 28 Mar 2014 00:00:00 -0000
+
+
