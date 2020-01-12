@@ -2,6 +2,14 @@
 Changelog for package joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.13.6 (2020-01-12)
+-------------------
+* Cherry pick nullptr fix
+  * correctly parse joint trajectory options
+  * Backport nullptr check
+* Print error messages for all exceptions
+* Contributors: Bence Magyar, Karsten Knese, Ian Frosst
+
 0.13.5 (2019-02-09)
 -------------------
 * Report errors in updateTrajectoryCommand back though action result error_string
