@@ -2,39 +2,26 @@
 Changelog for package diff_drive_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.15.0 (2019-03-26)
--------------------
-* Default all controller builds to C++14
-* boost::chrono -> std::chrono
-* boost::assign -> C++ initializer list
-* boost::shared_ptr -> std::shared_ptr
-* Using left/right multiplies for desired vel
-* diff-drive publish joint trajectory controller state
-* fix install destination for libraries (`#403 <https://github.com/ros-controls/ros_controllers/issues/403>`_)
-* Contributors: Bence Magyar, Gennaro Raiola, James Xu, Jeremie Deray, Jordan Palacios
-
-0.14.3 (2019-02-09)
--------------------
-* use operators instead of aliases
-* Fix typo descripion -> description
-* Contributors: Daniel Ingram, James Xu
-
-0.14.2 (2018-10-23)
+0.13.6 (2020-01-12)
 -------------------
 
-0.14.1 (2018-06-26)
+0.13.5 (2019-02-09)
 -------------------
-* Added 'multiplier' in DynamicParams ostream and changed boolean printing to 'enabled/disabled'
+
+0.13.4 (2018-06-26)
+-------------------
 * isPublishngCmdVelOut to check getNumPublisheres until timeout
-* Contributors: Kei Okada, Martin Ganeff
+* Contributors: Kei Okada
 
-0.14.0 (2018-04-27)
+0.13.3 (2018-04-27)
 -------------------
 * add dynamic_reconf to diff_drive_controller
 * migrate to new pluginlib headers
+* typo in odometry.h
+* fix doc
 * per wheel radius multiplier
 * fix xacro macro warning
-* [DiffDrive] Fix time-sensitive tests of diff_drive_controller
+* [DiffDrive] Test fixing (`#318 <https://github.com/ros-controls/ros_controllers/issues/318>`_)
 * separate include_directories as SYSTEM to avoid unrelated compilation warnings
 * Contributors: Jeremie Deray, Mathias Lüdtke
 

@@ -33,12 +33,13 @@
 
 // C++ standard
 #include <cassert>
+#include <iterator>
 #include <stdexcept>
 #include <string>
-#include <memory>
 
 // Boost
 #include <boost/shared_ptr.hpp>
+#include <boost/scoped_ptr.hpp>
 #include <boost/dynamic_bitset.hpp>
 
 // ROS
@@ -157,19 +158,19 @@ protected:
   };
 
   typedef actionlib::ActionServer<control_msgs::FollowJointTrajectoryAction>                  ActionServer;
-  typedef std::shared_ptr<ActionServer>                                                       ActionServerPtr;
+  typedef boost::shared_ptr<ActionServer>                                                     ActionServerPtr;
   typedef ActionServer::GoalHandle                                                            GoalHandle;
   typedef realtime_tools::RealtimeServerGoalHandle<control_msgs::FollowJointTrajectoryAction> RealtimeGoalHandle;
   typedef boost::shared_ptr<RealtimeGoalHandle>                                               RealtimeGoalHandlePtr;
   typedef trajectory_msgs::JointTrajectory::ConstPtr                                          JointTrajectoryConstPtr;
   typedef realtime_tools::RealtimePublisher<control_msgs::JointTrajectoryControllerState>     StatePublisher;
-  typedef std::unique_ptr<StatePublisher>                                                     StatePublisherPtr;
+  typedef boost::scoped_ptr<StatePublisher>                                                   StatePublisherPtr;
 
   typedef JointTrajectorySegment<SegmentImpl> Segment;
   typedef std::vector<Segment> TrajectoryPerJoint;
   typedef std::vector<TrajectoryPerJoint> Trajectory;
-  typedef std::shared_ptr<Trajectory> TrajectoryPtr;
-  typedef std::shared_ptr<TrajectoryPerJoint> TrajectoryPerJointPtr;
+  typedef boost::shared_ptr<Trajectory> TrajectoryPtr;
+  typedef boost::shared_ptr<TrajectoryPerJoint> TrajectoryPerJointPtr;
   typedef realtime_tools::RealtimeBox<TrajectoryPtr> TrajectoryBox;
   typedef typename Segment::Scalar Scalar;
 

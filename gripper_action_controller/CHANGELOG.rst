@@ -2,26 +2,18 @@
 Changelog for package gripper_action_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.15.0 (2019-03-26)
+0.13.6 (2020-01-12)
 -------------------
-* Default all controller builds to C++14
-* Use range-based for loops wherever possible
-* boost::shared_ptr -> std::shared_ptr
-* fix install destination for libraries (`#403 <https://github.com/ros-controls/ros_controllers/issues/403>`_)
-* Contributors: Bence Magyar, Gennaro Raiola, James Xu
 
-0.14.3 (2019-02-09)
+0.13.5 (2019-02-09)
 -------------------
 * Use a copy of the pointer in update() to avoid crash by cancelCB()
 * Contributors: oka
 
-0.14.2 (2018-10-23)
+0.13.4 (2018-06-26)
 -------------------
 
-0.14.1 (2018-06-26)
--------------------
-
-0.14.0 (2018-04-27)
+0.13.3 (2018-04-27)
 -------------------
 * migrate to new pluginlib headers
 * Contributors: Mathias Lüdtke

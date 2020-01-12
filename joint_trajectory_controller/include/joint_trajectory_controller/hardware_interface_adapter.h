@@ -33,7 +33,8 @@
 #include <cassert>
 #include <string>
 #include <vector>
-#include <memory>
+
+#include <boost/shared_ptr.hpp>
 
 #include <ros/node_handle.h>
 #include <ros/time.h>
@@ -50,7 +51,7 @@
  * interfaces accept position, velocity or effort commands.
  *
  * Use one of the available template specializations of this class (or create your own) to adapt the
- * JointTrajectoryController to a specific hardware interface.
+ * JointTrajectoryController to a specidfic hardware interface.
  */
 template <class HardwareInterface, class State>
 class HardwareInterfaceAdapter
@@ -109,9 +110,9 @@ public:
     if (!joint_handles_ptr_) {return;}
 
     // Semantic zero for commands
-    for (auto& jh : *joint_handles_ptr_)
+    for (unsigned int i = 0; i < joint_handles_ptr_->size(); ++i)
     {
-      jh.setCommand(jh.getPosition());
+      (*joint_handles_ptr_)[i].setCommand((*joint_handles_ptr_)[i].getPosition());
     }
   }
 
@@ -138,7 +139,7 @@ private:
  * velocity feedforward term plus a corrective PID term.
  *
  * Use one of the available template specializations of this class (or create your own) to adapt the
- * JointTrajectoryController to a specific hardware interface.
+ * JointTrajectoryController to a specidfic hardware interface.
  */
 template <class State>
 class ClosedLoopHardwareInterfaceAdapter
@@ -213,7 +214,7 @@ public:
   }
 
 private:
-  typedef std::shared_ptr<control_toolbox::Pid> PidPtr;
+  typedef boost::shared_ptr<control_toolbox::Pid> PidPtr;
   std::vector<PidPtr> pids_;
 
   std::vector<double> velocity_ff_;

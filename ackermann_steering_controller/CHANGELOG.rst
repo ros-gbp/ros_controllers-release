@@ -2,32 +2,21 @@
 Changelog for package ackermann_steering_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.15.0 (2019-03-26)
+0.13.6 (2020-01-12)
 -------------------
-* Default all controller builds to C++14
-* boost::assign -> C++ initializer list
-* boost::shared_ptr -> std::shared_ptr
-* Contributors: Bence Magyar, Gennaro Raiola
 
-0.14.3 (2019-02-09)
+0.13.5 (2019-02-09)
 -------------------
-* Sync version number with rest of repo
-* migrate to new URDF shared pointer types
 * Add ackermann_steering_controller (`#356 <https://github.com/ros-controls/ros_controllers/issues/356>`_)
-* Contributors: Bence Magyar, Mathias Lüdtke, Mori
+* Contributors: Mori
 
-* Sync version number with rest of repo
-* migrate to new URDF shared pointer types
 * Add ackermann_steering_controller (`#356 <https://github.com/ros-controls/ros_controllers/issues/356>`_)
-* Contributors: Bence Magyar, Mathias Lüdtke, Mori
+* Contributors: Mori
 
-0.14.2 (2018-10-23)
+0.13.4 (2018-06-26)
 -------------------
 
-0.14.1 (2018-06-26)
--------------------
-
-0.14.0 (2018-04-27)
+0.13.3 (2018-04-27)
 -------------------
 
 0.13.2 (2017-12-23)

@@ -59,14 +59,15 @@
 
 */
 
-#include <control_msgs/JointControllerState.h>
-#include <control_toolbox/pid.h>
-#include <controller_interface/controller.h>
-#include <hardware_interface/joint_command_interface.h>
-#include <memory>
-#include <realtime_tools/realtime_publisher.h>
 #include <ros/node_handle.h>
+#include <boost/thread/condition.hpp>
+#include <boost/scoped_ptr.hpp>
+#include <hardware_interface/joint_command_interface.h>
+#include <controller_interface/controller.h>
+#include <control_msgs/JointControllerState.h>
 #include <std_msgs/Float64.h>
+#include <control_toolbox/pid.h>
+#include <realtime_tools/realtime_publisher.h>
 
 namespace effort_controllers
 {
@@ -151,7 +152,9 @@ private:
   int loop_count_;
   control_toolbox::Pid pid_controller_;           /**< Internal PID controller. */
 
-  std::unique_ptr<
+  //friend class JointVelocityControllerNode; // what is this for??
+
+  boost::scoped_ptr<
     realtime_tools::RealtimePublisher<
       control_msgs::JointControllerState> > controller_state_publisher_ ;
 

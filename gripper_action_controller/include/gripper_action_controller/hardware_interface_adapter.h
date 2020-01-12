@@ -34,7 +34,8 @@
 #include <cassert>
 #include <string>
 #include <vector>
-#include <memory>
+
+#include <boost/shared_ptr.hpp>
 
 #include <ros/node_handle.h>
 #include <ros/time.h>
@@ -181,7 +182,7 @@ public:
   }
 
 private:
-  typedef std::shared_ptr<control_toolbox::Pid> PidPtr;
+  typedef boost::shared_ptr<control_toolbox::Pid> PidPtr;
   PidPtr pid_;
   hardware_interface::JointHandle* joint_handle_ptr_;
 };

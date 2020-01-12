@@ -33,23 +33,24 @@
  *********************************************************************/
 
 /*
- * Author: Bence Magyar, Enrique Fernández
+ * Author: Enrique Fernández
  */
 
-#include <control_msgs/JointTrajectoryControllerState.h>
 #include <controller_interface/controller.h>
-#include <diff_drive_controller/DiffDriveControllerConfig.h>
-#include <diff_drive_controller/odometry.h>
-#include <diff_drive_controller/speed_limiter.h>
-#include <dynamic_reconfigure/server.h>
-#include <geometry_msgs/TwistStamped.h>
 #include <hardware_interface/joint_command_interface.h>
-#include <memory>
-#include <nav_msgs/Odometry.h>
 #include <pluginlib/class_list_macros.hpp>
+#include <dynamic_reconfigure/server.h>
+
+#include <geometry_msgs/TwistStamped.h>
+#include <nav_msgs/Odometry.h>
+#include <tf/tfMessage.h>
+
 #include <realtime_tools/realtime_buffer.h>
 #include <realtime_tools/realtime_publisher.h>
-#include <tf/tfMessage.h>
+
+#include <diff_drive_controller/odometry.h>
+#include <diff_drive_controller/speed_limiter.h>
+#include <diff_drive_controller/DiffDriveControllerConfig.h>
 
 namespace diff_drive_controller{
 
@@ -109,17 +110,6 @@ namespace diff_drive_controller{
     std::vector<hardware_interface::JointHandle> left_wheel_joints_;
     std::vector<hardware_interface::JointHandle> right_wheel_joints_;
 
-    // Previous time
-    ros::Time time_previous_;
-
-    /// Previous velocities from the encoders:
-    std::vector<double> vel_left_previous_;
-    std::vector<double> vel_right_previous_;
-
-    /// Previous velocities from the encoders:
-    double vel_left_desired_previous_;
-    double vel_right_desired_previous_;
-
     /// Velocity command related:
     struct Commands
     {
@@ -134,15 +124,12 @@ namespace diff_drive_controller{
     ros::Subscriber sub_command_;
 
     /// Publish executed commands
-    std::shared_ptr<realtime_tools::RealtimePublisher<geometry_msgs::TwistStamped> > cmd_vel_pub_;
+    boost::shared_ptr<realtime_tools::RealtimePublisher<geometry_msgs::TwistStamped> > cmd_vel_pub_;
 
     /// Odometry related:
-    std::shared_ptr<realtime_tools::RealtimePublisher<nav_msgs::Odometry> > odom_pub_;
-    std::shared_ptr<realtime_tools::RealtimePublisher<tf::tfMessage> > tf_odom_pub_;
+    boost::shared_ptr<realtime_tools::RealtimePublisher<nav_msgs::Odometry> > odom_pub_;
+    boost::shared_ptr<realtime_tools::RealtimePublisher<tf::tfMessage> > tf_odom_pub_;
     Odometry odometry_;
-
-    /// Controller state publisher
-    std::shared_ptr<realtime_tools::RealtimePublisher<control_msgs::JointTrajectoryControllerState> > controller_state_pub_;
 
     /// Wheel separation, wrt the midpoint of the wheel width:
     double wheel_separation_;
@@ -182,9 +169,6 @@ namespace diff_drive_controller{
     /// Publish limited velocity:
     bool publish_cmd_;
 
-    /// Publish wheel data:
-    bool publish_wheel_joint_controller_state_;
-
     // A struct to hold dynamic parameters
     // set from dynamic_reconfigure server
     struct DynamicParams
@@ -214,14 +198,14 @@ namespace diff_drive_controller{
         os << "DynamicParams:\n"
            //
            << "\tOdometry parameters:\n"
-           << "\t\tleft wheel radius multiplier: "   << params.left_wheel_radius_multiplier  << "\n"
-           << "\t\tright wheel radius multiplier: "  << params.right_wheel_radius_multiplier << "\n"
-           << "\t\twheel separation multiplier: "    << params.wheel_separation_multiplier   << "\n"
+           << "\t\tleft wheel radius: "   << params.left_wheel_radius_multiplier  << "\n"
+           << "\t\tright wheel radius: "  << params.right_wheel_radius_multiplier << "\n"
+           << "\t\twheel separation: "    << params.wheel_separation_multiplier   << "\n"
            //
            << "\tPublication parameters:\n"
-           << "\t\tPublish executed velocity command: " << (params.publish_cmd?"enabled":"disabled") << "\n"
+           << "\t\tPublish executed velocity command: " << params.publish_cmd << "\n"
            << "\t\tPublication rate: " << params.publish_rate                 << "\n"
-           << "\t\tPublish frame odom on tf: " << (params.enable_odom_tf?"enabled":"disabled");
+           << "\t\tPublish frame odom on tf: " << params.enable_odom_tf;
 
         return os;
       }
@@ -231,8 +215,7 @@ namespace diff_drive_controller{
 
     /// Dynamic Reconfigure server
     typedef dynamic_reconfigure::Server<DiffDriveControllerConfig> ReconfigureServer;
-    
-    std::shared_ptr<ReconfigureServer> dyn_reconf_server_;
+        boost::shared_ptr<ReconfigureServer> dyn_reconf_server_;
 
   private:
     /**
@@ -289,22 +272,6 @@ namespace diff_drive_controller{
      * \brief Update the dynamic parameters in the RT loop
      */
     void updateDynamicParams();
-
-    /**
-     * \brief
-     * \param time Current time
-     * \param period Time since the last called to update
-     * \param curr_cmd Current velocity command
-     * \param wheel_separation wheel separation with multiplier
-     * \param left_wheel_radius left wheel radius with multiplier
-     * \param right_wheel_radius right wheel radius with multiplier
-     */
-    void publishWheelData(const ros::Time& time,
-                          const ros::Duration& period,
-                          Commands& curr_cmd,
-                          double wheel_separation,
-                          double left_wheel_radius,
-                          double right_wheel_radius);
   };
 
   PLUGINLIB_EXPORT_CLASS(diff_drive_controller::DiffDriveController, controller_interface::ControllerBase);

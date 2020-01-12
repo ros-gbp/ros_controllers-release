@@ -29,8 +29,9 @@
 
 #include <algorithm>
 #include <cmath>
-#include <memory>
-#include <mutex>
+
+#include <boost/shared_ptr.hpp>
+#include <boost/thread/mutex.hpp>
 
 #include <gtest/gtest.h>
 
@@ -135,11 +136,11 @@ public:
 
 protected:
   typedef actionlib::SimpleActionClient<control_msgs::FollowJointTrajectoryAction> ActionClient;
-  typedef std::shared_ptr<ActionClient> ActionClientPtr;
+  typedef boost::shared_ptr<ActionClient> ActionClientPtr;
   typedef control_msgs::FollowJointTrajectoryGoal ActionGoal;
   typedef control_msgs::JointTrajectoryControllerStateConstPtr StateConstPtr;
 
-  std::mutex mutex;
+  boost::mutex mutex;
   ros::NodeHandle nh;
 
   unsigned int n_joints;
@@ -169,13 +170,13 @@ protected:
 
   void stateCB(const StateConstPtr& state)
   {
-    std::lock_guard<std::mutex> lock(mutex);
+    boost::mutex::scoped_lock lock(mutex);
     controller_state = state;
   }
 
   StateConstPtr getState()
   {
-    std::lock_guard<std::mutex> lock(mutex);
+    boost::mutex::scoped_lock lock(mutex);
     return controller_state;
   }
 
@@ -186,7 +187,7 @@ protected:
     while (!init_ok && (ros::Time::now() - start_time) < timeout)
     {
       {
-        std::lock_guard<std::mutex> lock(mutex);
+        boost::mutex::scoped_lock lock(mutex);
         init_ok = controller_state && !controller_state->joint_names.empty();
       }
       ros::Duration(0.1).sleep();

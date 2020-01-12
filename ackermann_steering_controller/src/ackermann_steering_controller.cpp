@@ -33,10 +33,13 @@
  *********************************************************************/
 
 /*
- * Author: Masaru Morita, Bence Magyar, Enrique Fernández
+ * Author: Bence Magyar
+ * Author: Masaru Morita
  */
 
 #include <cmath>
+
+#include <boost/assign.hpp>
 #include <pluginlib/class_list_macros.h>
 #include <tf/transform_datatypes.h>
 #include <urdf_parser/urdf_parser.h>
@@ -55,7 +58,7 @@ static double euclideanOfVectors(const urdf::Vector3& vec1, const urdf::Vector3&
  * \param link Link
  * \return true if the link is modeled as a Cylinder; false otherwise
  */
-static bool isCylinder(const urdf::LinkConstSharedPtr& link)
+static bool isCylinder(const boost::shared_ptr<const urdf::Link>& link)
 {
   if (!link)
   {
@@ -91,7 +94,7 @@ static bool isCylinder(const urdf::LinkConstSharedPtr& link)
  * \return true if the wheel radius was found; false other
 wise
  */
-static bool getWheelRadius(const urdf::LinkConstSharedPtr& wheel_link, double& wheel_radius)
+static bool getWheelRadius(const boost::shared_ptr<const urdf::Link>& wheel_link, double& wheel_radius)
 {
   if (!isCylinder(wheel_link))
   {
@@ -412,10 +415,10 @@ namespace ackermann_steering_controller{
       return false;
     }
 
-    urdf::ModelInterfaceSharedPtr model(urdf::parseURDF(robot_model_str));
+    boost::shared_ptr<urdf::ModelInterface> model(urdf::parseURDF(robot_model_str));
 
-    urdf::JointConstSharedPtr rear_wheel_joint(model->getJoint(rear_wheel_name));
-    urdf::JointConstSharedPtr front_steer_joint(model->getJoint(front_steer_name));
+    boost::shared_ptr<const urdf::Joint> rear_wheel_joint(model->getJoint(rear_wheel_name));
+    boost::shared_ptr<const urdf::Joint> front_steer_joint(model->getJoint(front_steer_name));
 
     if (lookup_wheel_separation_h)
     {
@@ -487,24 +490,24 @@ namespace ackermann_steering_controller{
     odom_pub_->msg_.header.frame_id = odom_frame_id_;
     odom_pub_->msg_.child_frame_id = base_frame_id_;
     odom_pub_->msg_.pose.pose.position.z = 0;
-    odom_pub_->msg_.pose.covariance = {
-        static_cast<double>(pose_cov_list[0]), 0., 0., 0., 0., 0.,
-        0., static_cast<double>(pose_cov_list[1]), 0., 0., 0., 0.,
-        0., 0., static_cast<double>(pose_cov_list[2]), 0., 0., 0.,
-        0., 0., 0., static_cast<double>(pose_cov_list[3]), 0., 0.,
-        0., 0., 0., 0., static_cast<double>(pose_cov_list[4]), 0.,
-        0., 0., 0., 0., 0., static_cast<double>(pose_cov_list[5]) };
+    odom_pub_->msg_.pose.covariance = boost::assign::list_of
+        (static_cast<double>(pose_cov_list[0])) (0)  (0)  (0)  (0)  (0)
+        (0)  (static_cast<double>(pose_cov_list[1])) (0)  (0)  (0)  (0)
+        (0)  (0)  (static_cast<double>(pose_cov_list[2])) (0)  (0)  (0)
+        (0)  (0)  (0)  (static_cast<double>(pose_cov_list[3])) (0)  (0)
+        (0)  (0)  (0)  (0)  (static_cast<double>(pose_cov_list[4])) (0)
+        (0)  (0)  (0)  (0)  (0)  (static_cast<double>(pose_cov_list[5]));
     odom_pub_->msg_.twist.twist.linear.y  = 0;
     odom_pub_->msg_.twist.twist.linear.z  = 0;
     odom_pub_->msg_.twist.twist.angular.x = 0;
     odom_pub_->msg_.twist.twist.angular.y = 0;
-    odom_pub_->msg_.twist.covariance = {
-        static_cast<double>(twist_cov_list[0]), 0., 0., 0., 0., 0.,
-        0., static_cast<double>(twist_cov_list[1]), 0., 0., 0., 0.,
-        0., 0., static_cast<double>(twist_cov_list[2]), 0., 0., 0.,
-        0., 0., 0., static_cast<double>(twist_cov_list[3]), 0., 0.,
-        0., 0., 0., 0., static_cast<double>(twist_cov_list[4]), 0.,
-        0., 0., 0., 0., 0., static_cast<double>(twist_cov_list[5]) };
+    odom_pub_->msg_.twist.covariance = boost::assign::list_of
+        (static_cast<double>(twist_cov_list[0])) (0)  (0)  (0)  (0)  (0)
+        (0)  (static_cast<double>(twist_cov_list[1])) (0)  (0)  (0)  (0)
+        (0)  (0)  (static_cast<double>(twist_cov_list[2])) (0)  (0)  (0)
+        (0)  (0)  (0)  (static_cast<double>(twist_cov_list[3])) (0)  (0)
+        (0)  (0)  (0)  (0)  (static_cast<double>(twist_cov_list[4])) (0)
+        (0)  (0)  (0)  (0)  (0)  (static_cast<double>(twist_cov_list[5]));
     tf_odom_pub_.reset(new realtime_tools::RealtimePublisher<tf::tfMessage>(root_nh, "/tf", 100));
     tf_odom_pub_->msg_.transforms.resize(1);
     tf_odom_pub_->msg_.transforms[0].transform.translation.z = 0.0;
