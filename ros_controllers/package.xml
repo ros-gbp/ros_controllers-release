@@ -1,6 +1,6 @@
 <package format="2">
   <name>ros_controllers</name>
-  <version>0.15.0</version>
+  <version>0.15.1</version>
   <description>Library of ros controllers</description>
 
   <maintainer email="bence.magyar.robotics@gmail.com">Bence Magyar</maintainer>
@@ -27,7 +27,6 @@
   <exec_depend>joint_state_controller</exec_depend>
   <exec_depend>joint_trajectory_controller</exec_depend>
   <exec_depend>position_controllers</exec_depend>
-  <exec_depend>rqt_joint_trajectory_controller</exec_depend>
   <exec_depend>velocity_controllers</exec_depend>
 
   <export>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>gripper_action_controller</name>
-  <version>0.15.0</version>
+  <version>0.15.1</version>
   <description>The gripper_action_controller package</description>
   <maintainer email="robot.moveit@gmail.com">Sachin Chitta</maintainer>
   <maintainer email="bence.magyar.robotics@gmail.com">Bence Magyar</maintainer>
@@ -26,6 +26,7 @@
   <depend>trajectory_msgs</depend>
   <depend>urdf</depend>
   <depend>xacro</depend>
+  <depend>pluginlib</depend>
 
   <export>
     <controller_interface plugin="${prefix}/ros_control_plugins.xml"/>
