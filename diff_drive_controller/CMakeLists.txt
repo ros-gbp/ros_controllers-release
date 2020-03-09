@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
     realtime_tools
     tf
     urdf
+    pluginlib
 )
 
 generate_dynamic_reconfigure_options(cfg/DiffDriveController.cfg)
@@ -24,11 +25,7 @@ catkin_package(
 )
 
 include_directories(
-  include
-)
-
-include_directories(SYSTEM
-  ${catkin_INCLUDE_DIRS}
+  include ${catkin_INCLUDE_DIRS}
 )
 
 add_library(${PROJECT_NAME} src/diff_drive_controller.cpp src/odometry.cpp src/speed_limiter.cpp)
