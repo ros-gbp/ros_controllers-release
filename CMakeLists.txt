@@ -12,7 +12,8 @@ set(${PROJECT_NAME}_CATKIN_DEPS
     four_wheel_steering_msgs
     realtime_tools
     tf
-    urdf_geometry_parser)
+    urdf_geometry_parser
+    pluginlib)
 
 find_package(catkin REQUIRED COMPONENTS ${${PROJECT_NAME}_CATKIN_DEPS})
 
@@ -41,6 +42,7 @@ install(FILES four_wheel_steering_controller_plugins.xml
 
 if(CATKIN_ENABLE_TESTING)
   find_package(catkin REQUIRED COMPONENTS rosgraph_msgs rostest std_srvs controller_manager tf)
+  include_directories(${catkin_INCLUDE_DIRS})
 
   add_executable(four_wheel_steering test/src/four_wheel_steering.cpp)
   target_link_libraries(four_wheel_steering ${catkin_LIBRARIES})
