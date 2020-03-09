@@ -1,6 +1,6 @@
 <package format="2">
   <name>velocity_controllers</name>
-  <version>0.15.0</version>
+  <version>0.15.1</version>
   <description>velocity_controllers</description>
 
   <maintainer email="bence.magyar.robotics@gmail.com">Bence Magyar</maintainer>
@@ -24,6 +24,7 @@
   <depend>forward_command_controller</depend>
   <depend>realtime_tools</depend>
   <depend>urdf</depend>
+  <depend>pluginlib</depend>
 
   <export>
     <controller_interface plugin="${prefix}/velocity_controllers_plugins.xml"/>
