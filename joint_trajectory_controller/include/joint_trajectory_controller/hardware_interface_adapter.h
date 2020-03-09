@@ -33,8 +33,7 @@
 #include <cassert>
 #include <string>
 #include <vector>
-
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 #include <ros/node_handle.h>
 #include <ros/time.h>
@@ -51,7 +50,7 @@
  * interfaces accept position, velocity or effort commands.
  *
  * Use one of the available template specializations of this class (or create your own) to adapt the
- * JointTrajectoryController to a specidfic hardware interface.
+ * JointTrajectoryController to a specific hardware interface.
  */
 template <class HardwareInterface, class State>
 class HardwareInterfaceAdapter
@@ -95,7 +94,7 @@ template <class State>
 class HardwareInterfaceAdapter<hardware_interface::PositionJointInterface, State>
 {
 public:
-  HardwareInterfaceAdapter() : joint_handles_ptr_(0) {}
+  HardwareInterfaceAdapter() : joint_handles_ptr_(nullptr) {}
 
   bool init(std::vector<hardware_interface::JointHandle>& joint_handles, ros::NodeHandle& /*controller_nh*/)
   {
@@ -110,9 +109,9 @@ public:
     if (!joint_handles_ptr_) {return;}
 
     // Semantic zero for commands
-    for (unsigned int i = 0; i < joint_handles_ptr_->size(); ++i)
+    for (auto& jh : *joint_handles_ptr_)
     {
-      (*joint_handles_ptr_)[i].setCommand((*joint_handles_ptr_)[i].getPosition());
+      jh.setCommand(jh.getPosition());
     }
   }
 
@@ -139,13 +138,13 @@ private:
  * velocity feedforward term plus a corrective PID term.
  *
  * Use one of the available template specializations of this class (or create your own) to adapt the
- * JointTrajectoryController to a specidfic hardware interface.
+ * JointTrajectoryController to a specific hardware interface.
  */
 template <class State>
 class ClosedLoopHardwareInterfaceAdapter
 {
 public:
-  ClosedLoopHardwareInterfaceAdapter() : joint_handles_ptr_(0) {}
+  ClosedLoopHardwareInterfaceAdapter() : joint_handles_ptr_(nullptr) {}
 
   bool init(std::vector<hardware_interface::JointHandle>& joint_handles, ros::NodeHandle& controller_nh)
   {
@@ -214,7 +213,7 @@ public:
   }
 
 private:
-  typedef boost::shared_ptr<control_toolbox::Pid> PidPtr;
+  typedef std::shared_ptr<control_toolbox::Pid> PidPtr;
   std::vector<PidPtr> pids_;
 
   std::vector<double> velocity_ff_;
@@ -291,7 +290,7 @@ template <class State>
 class HardwareInterfaceAdapter<hardware_interface::PosVelJointInterface, State>
 {
 public:
-  HardwareInterfaceAdapter() : joint_handles_ptr_(0) {}
+  HardwareInterfaceAdapter() : joint_handles_ptr_(nullptr) {}
 
   bool init(std::vector<hardware_interface::PosVelJointHandle>& joint_handles, ros::NodeHandle& /*controller_nh*/)
   {
@@ -328,7 +327,7 @@ template <class State>
 class HardwareInterfaceAdapter<hardware_interface::PosVelAccJointInterface, State>
 {
 public:
-  HardwareInterfaceAdapter() : joint_handles_ptr_(0) {}
+  HardwareInterfaceAdapter() : joint_handles_ptr_(nullptr) {}
 
   bool init(std::vector<hardware_interface::PosVelAccJointHandle>& joint_handles, ros::NodeHandle& /*controller_nh*/)
   {

@@ -2,16 +2,30 @@
 Changelog for package rqt_joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.13.6 (2020-01-12)
+0.15.1 (2020-03-09)
+-------------------
+* Merge pull request `#452 <https://github.com/ros-controls/ros_controllers/issues/452>`_ from etsiogas/add-robot-ns-to-gui
+  Added robot namespace to gui of rqt_joint_trajectory_controller
+* [rqt joint trajectory controller] Python3 fixes (`#458 <https://github.com/ros-controls/ros_controllers/issues/458>`_)
+  - Use explicit relative import (with leading dot)
+  - print function with parentheses
+* Contributors: Bence Magyar, Bjar Ne, etsiogas
+
+0.15.0 (2019-03-26)
 -------------------
 
-0.13.5 (2019-02-09)
+0.14.3 (2019-02-09)
 -------------------
 
-0.13.4 (2018-06-26)
+0.14.2 (2018-10-23)
+-------------------
+* Update maintainers
+* Contributors: Bence Magyar
+
+0.14.1 (2018-06-26)
 -------------------
 
-0.13.3 (2018-04-27)
+0.14.0 (2018-04-27)
 -------------------
 * fix license string
 * Contributors: Patrick Holthaus

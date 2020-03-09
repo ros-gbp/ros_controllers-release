@@ -34,8 +34,7 @@
 #include <cassert>
 #include <string>
 #include <vector>
-
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 #include <ros/node_handle.h>
 #include <ros/time.h>
@@ -79,7 +78,7 @@ template<>
 class HardwareInterfaceAdapter<hardware_interface::PositionJointInterface>
 {
 public:
-  HardwareInterfaceAdapter() : joint_handle_ptr_(0) {}
+  HardwareInterfaceAdapter() : joint_handle_ptr_(nullptr) {}
 
   bool init(hardware_interface::JointHandle& joint_handle, ros::NodeHandle& controller_nh)
   {
@@ -129,7 +128,7 @@ template<>
 class HardwareInterfaceAdapter<hardware_interface::EffortJointInterface>
 {
 public:
-  HardwareInterfaceAdapter() : joint_handle_ptr_(0) {}
+  HardwareInterfaceAdapter() : joint_handle_ptr_(nullptr) {}
 
   bool init(hardware_interface::JointHandle& joint_handle, ros::NodeHandle& controller_nh)
   {
@@ -182,7 +181,7 @@ public:
   }
 
 private:
-  typedef boost::shared_ptr<control_toolbox::Pid> PidPtr;
+  typedef std::shared_ptr<control_toolbox::Pid> PidPtr;
   PidPtr pid_;
   hardware_interface::JointHandle* joint_handle_ptr_;
 };

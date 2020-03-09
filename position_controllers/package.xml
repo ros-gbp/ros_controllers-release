@@ -1,11 +1,10 @@
 <package format="2">
   <name>position_controllers</name>
-  <version>0.13.6</version>
+  <version>0.15.1</version>
   <description>position_controllers</description>
 
-  <maintainer email="adolfo.rodriguez@pal-robotics.com">Adolfo Rodriguez Tsouroukdissian</maintainer>
   <maintainer email="bence.magyar.robotics@gmail.com">Bence Magyar</maintainer>
-  <maintainer email="davetcoleman@gmail.com">Dave Coleman</maintainer>
+  <maintainer email="mathias.luedtke@ipa.fraunhofer.de">Mathias Lüdtke</maintainer>
   <maintainer email="enrique.fernandez.perdomo@gmail.com">Enrique Fernandez</maintainer>
 
   <license>BSD</license>
@@ -19,6 +18,7 @@
   <buildtool_depend>catkin</buildtool_depend>
   <depend>controller_interface</depend> 
   <depend>forward_command_controller</depend> 
+  <depend>pluginlib</depend>
 
   <export>
     <controller_interface plugin="${prefix}/position_controllers_plugins.xml"/>

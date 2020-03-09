@@ -1,11 +1,10 @@
 <package format="2">
   <name>ros_controllers</name>
-  <version>0.13.6</version>
+  <version>0.15.1</version>
   <description>Library of ros controllers</description>
 
-  <maintainer email="adolfo.rodriguez@pal-robotics.com">Adolfo Rodriguez Tsouroukdissian</maintainer>
   <maintainer email="bence.magyar.robotics@gmail.com">Bence Magyar</maintainer>
-  <maintainer email="davetcoleman@gmail.com">Dave Coleman</maintainer>
+  <maintainer email="mathias.luedtke@ipa.fraunhofer.de">Mathias Lüdtke</maintainer>
   <maintainer email="enrique.fernandez.perdomo@gmail.com">Enrique Fernandez</maintainer>
 
   <license>BSD</license>
@@ -28,7 +27,6 @@
   <exec_depend>joint_state_controller</exec_depend>
   <exec_depend>joint_trajectory_controller</exec_depend>
   <exec_depend>position_controllers</exec_depend>
-  <exec_depend>rqt_joint_trajectory_controller</exec_depend>
   <exec_depend>velocity_controllers</exec_depend>
 
   <export>

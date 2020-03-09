@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(gripper_action_controller)
 
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+
 find_package(catkin 
   REQUIRED COMPONENTS
       actionlib
@@ -16,6 +21,7 @@ find_package(catkin
       trajectory_msgs
       urdf
       xacro
+      pluginlib
 )
 
 catkin_package(
@@ -44,10 +50,11 @@ target_link_libraries(gripper_action_controller
  ${catkin_LIBRARIES}
 )
 
+# Install library
 install(TARGETS gripper_action_controller
    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
 )
 
 install(DIRECTORY include/${PROJECT_NAME}/

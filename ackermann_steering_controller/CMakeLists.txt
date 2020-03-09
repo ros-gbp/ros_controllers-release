@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ackermann_steering_controller)
 
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
+
 find_package(catkin REQUIRED COMPONENTS
   controller_interface
   diff_drive_controller
@@ -14,7 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(Boost REQUIRED COMPONENTS system thread)
- 
+
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ${PROJECT_NAME}
@@ -31,7 +36,7 @@ catkin_package(
 
 include_directories(
   include
-  ${Boost_INCLUDE_DIRS} 
+  ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -58,6 +63,7 @@ if (CATKIN_ENABLE_TESTING)
     gazebo_ros
     xacro
   )
+  include_directories(${catkin_INCLUDE_DIRS})
 
   add_executable(${PROJECT_NAME}_ackermann_steering_bot test/common/src/ackermann_steering_bot.cpp)
   add_dependencies(tests ${PROJECT_NAME}_ackermann_steering_bot)

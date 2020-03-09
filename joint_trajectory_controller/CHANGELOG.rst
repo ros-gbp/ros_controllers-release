@@ -2,35 +2,65 @@
 Changelog for package joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.13.6 (2020-01-12)
+0.15.1 (2020-03-09)
 -------------------
-* Cherry pick nullptr fix
-  * correctly parse joint trajectory options
-  * Backport nullptr check
+* Fix instabilities in JTC unittests
+* Add test_common.h
+* Re-enable tolerance tests
+* Make initialization of variables consistent
+* Let getState() return by value
+* Use nullptr (`#447 <https://github.com/ros-controls/ros_controllers/issues/447>`_)
+* Comment out tolerance check tests until `#48 <https://github.com/ros-controls/ros_controllers/issues/48>`_ is solved.
+* Execution does not stop when goal gets aborted
+* Fix how we assert that controller is running
+* Introduce EPS for general double comparison
+* Make stopramp tests more stable
+* add missing pluginlib deps. (`#451 <https://github.com/ros-controls/ros_controllers/issues/451>`_)
 * Print error messages for all exceptions
-* Contributors: Bence Magyar, Karsten Knese, Ian Frosst
+* Contributors: Bence Magyar, Ian Frosst, Immanuel Martini, Matt Reynolds, Sean Yen
 
-0.13.5 (2019-02-09)
+0.15.0 (2019-03-26)
+-------------------
+* Default all controller builds to C++14
+* Use range-based for loops wherever possible
+* boost::array -> std::array
+* mutex to C++11, boost::scoped_lock -> std::lock_guard
+* boost::scoped_ptr -> std::unique_ptr
+* boost::shared_ptr -> std::shared_ptr
+* fix install destination for libraries (`#403 <https://github.com/ros-controls/ros_controllers/issues/403>`_)
+* Contributors: Bence Magyar, Gennaro Raiola, James Xu
+
+0.14.3 (2019-02-09)
+-------------------
+* use operators instead of aliases
+* joint_trajectory_controller: fix minor typo in class doc.
+* correctly parse joint trajectory options
+* Remove deprecated parameter hold_trajectory_duration (`#386 <https://github.com/ros-controls/ros_controllers/issues/386>`_)
+* dont print warning about dropped first point, if it is expected behaviour
+* Contributors: AndyZe, G.A. vd. Hoorn, Gennaro Raiola, James Xu, Joachim Schleicher, Karsten Knese
+
+0.14.2 (2018-10-23)
 -------------------
 * Report errors in updateTrajectoryCommand back though action result error_string
 * Remove redundant warning messages
 * Return error string when failing to initialize trajectory from message
-* don't print warning about dropped first point (`#366 <https://github.com/ros-controls/ros_controllers/issues/366>`_)
-* Contributors: Mathias Lüdtke, Miguel Prada, hsl, jschleicher
-
-0.13.4 (2018-06-26)
--------------------
-* joint_trajectory_controller improve test stability
-* Use a copy of rt_active_goal in update()
 * Changes to allow inheritance from JointTrajectoryController.
-* Contributors: Alexander Gutenkunst, Gennaro Raiola, Kei Okada, Ryosuke Tajima
+* Update maintainers
+* Contributors: Alexander Gutenkunst, Miguel Prada, Mathias Lüdtke, Bence Magyar
 
-0.13.3 (2018-04-27)
+0.14.1 (2018-06-26)
 -------------------
+* joint_trajectory_controller tests stability improved
+* Use a copy of rt_active_goal in update()
+* Contributors: Kei Okada, Ryosuke Tajima
+
+0.14.0 (2018-04-27)
+-------------------
+* Make the compiler happy in the test.
 * migrate to new pluginlib headers
 * TrajectoryController: Use desired state to calculate hold trajectory (`#297 <https://github.com/ros-controls/ros_controllers/issues/297>`_)
 * Add velocity feedforward term to velocity HardwareInterfaceAdapter (`#227 <https://github.com/ros-controls/ros_controllers/issues/227>`_)
-* Contributors: Mathias Lüdtke, Miguel Prada, agutenkunst
+* Contributors: Chris Lalancette, Mathias Lüdtke, Miguel Prada, agutenkunst
 
 0.13.2 (2017-12-23)
 -------------------

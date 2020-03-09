@@ -65,13 +65,14 @@ std::vector<std::string> getStrings(const ros::NodeHandle& nh, const std::string
   std::vector<std::string> out;
   for (int i = 0; i < xml_array.size(); ++i)
   {
-    if (xml_array[i].getType() != XmlRpcValue::TypeString)
+    XmlRpc::XmlRpcValue& elem = xml_array[i];
+    if (elem.getType() != XmlRpcValue::TypeString)
     {
       ROS_ERROR_STREAM("The '" << param_name << "' parameter contains a non-string element (namespace: " <<
                        nh.getNamespace() << ").");
       return std::vector<std::string>();
     }
-    out.push_back(static_cast<std::string>(xml_array[i]));
+    out.push_back(static_cast<std::string>(elem));
   }
   return out;
 }
@@ -103,16 +104,16 @@ urdf::ModelSharedPtr getUrdf(const ros::NodeHandle& nh, const std::string& param
 std::vector<urdf::JointConstSharedPtr> getUrdfJoints(const urdf::Model& urdf, const std::vector<std::string>& joint_names)
 {
   std::vector<urdf::JointConstSharedPtr> out;
-  for (unsigned int i = 0; i < joint_names.size(); ++i)
+  for (const auto& joint_name : joint_names)
   {
-    urdf::JointConstSharedPtr urdf_joint = urdf.getJoint(joint_names[i]);
+    urdf::JointConstSharedPtr urdf_joint = urdf.getJoint(joint_name);
     if (urdf_joint)
     {
       out.push_back(urdf_joint);
     }
     else
     {
-      ROS_ERROR_STREAM("Could not find joint '" << joint_names[i] << "' in URDF model.");
+      ROS_ERROR_STREAM("Could not find joint '" << joint_name << "' in URDF model.");
       return std::vector<urdf::JointConstSharedPtr>();
     }
   }
@@ -229,14 +230,7 @@ bool JointTrajectoryController<SegmentImpl, HardwareInterface>::init(HardwareInt
 
   // Stop trajectory duration
   stop_trajectory_duration_ = 0.0;
-  if (!controller_nh_.getParam("stop_trajectory_duration", stop_trajectory_duration_))
-  {
-    // TODO: Remove this check/warning in Indigo
-    if (controller_nh_.getParam("hold_trajectory_duration", stop_trajectory_duration_))
-    {
-      ROS_WARN("The 'hold_trajectory_duration' has been deprecated in favor of the 'stop_trajectory_duration' parameter. Please update your controller configuration.");
-    }
-  }
+  controller_nh_.getParam("stop_trajectory_duration", stop_trajectory_duration_);
   ROS_DEBUG_STREAM_NAMED(name_, "Stop trajectory has a duration of " << stop_trajectory_duration_ << "s.");
 
   // Checking if partial trajectories are allowed
@@ -464,7 +458,7 @@ update(const ros::Time& time, const ros::Duration& period)
 
   //If there is an active goal and all segments finished successfully then set goal as succeeded
   RealtimeGoalHandlePtr current_active_goal(rt_active_goal_);
-  if (current_active_goal and successful_joint_traj_.count() == joints_.size())
+  if (current_active_goal && successful_joint_traj_.count() == joints_.size())
   {
     current_active_goal->preallocated_result_->error_code = control_msgs::FollowJointTrajectoryResult::SUCCESSFUL;
     current_active_goal->setSucceeded(current_active_goal->preallocated_result_);

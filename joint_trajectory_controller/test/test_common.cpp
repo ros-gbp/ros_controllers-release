@@ -1,5 +1,4 @@
 ///////////////////////////////////////////////////////////////////////////////
-// Copyright (C) 2012, hiDOF INC.
 // Copyright (C) 2013, PAL Robotics S.L.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -26,39 +25,41 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //////////////////////////////////////////////////////////////////////////////
 
-/// \author: Adolfo Rodriguez Tsouroukdissian
+/// \author Immanuel Martini
 
-#ifndef IMU_SENSOR_CONTROLLER_IMU_SENSOR_CONTROLLER_H
-#define IMU_SENSOR_CONTROLLER_IMU_SENSOR_CONTROLLER_H
+#include <functional>
+#include <string>
 
-#include <controller_interface/controller.h>
-#include <hardware_interface/imu_sensor_interface.h>
-#include <pluginlib/class_list_macros.hpp>
-#include <sensor_msgs/Imu.h>
-#include <realtime_tools/realtime_publisher.h>
+#include <ros/ros.h>
 
-namespace imu_sensor_controller
+#include <gtest/gtest.h>
+
+#include "test_common.h"
+
+namespace joint_trajectory_controller_tests
 {
-
-// this controller gets access to the ImuSensorInterface
-class ImuSensorController: public controller_interface::Controller<hardware_interface::ImuSensorInterface>
+AssertionResult waitForEvent(const std::function<bool()>& check_event,
+                             const std::string& event_description,
+                             const ros::Duration& timeout,
+                             unsigned int repeat)
 {
-public:
-  ImuSensorController(){}
-
-  virtual bool init(hardware_interface::ImuSensorInterface* hw, ros::NodeHandle &root_nh, ros::NodeHandle& controller_nh);
-  virtual void starting(const ros::Time& time);
-  virtual void update(const ros::Time& time, const ros::Duration& /*period*/);
-  virtual void stopping(const ros::Time& /*time*/);
-
-private:
-  std::vector<hardware_interface::ImuSensorHandle> sensors_;
-  typedef std::shared_ptr<realtime_tools::RealtimePublisher<sensor_msgs::Imu> > RtPublisherPtr;
-  std::vector<RtPublisherPtr> realtime_pubs_;
-  std::vector<ros::Time> last_publish_times_;
-  double publish_rate_;
-};
-
+  unsigned int count = 0;
+  ros::Time start_time = ros::Time::now();
+  while (ros::ok())
+  {
+    count = check_event() ? (count+1) : 0;
+    if ((ros::Time::now() - start_time) > timeout)
+    {
+      return AssertionFailure() << "Timed out after " << timeout.toSec() << "s waiting for "
+                                << event_description << ".";
+    }
+    ros::Duration(0.1).sleep();
+    if (count == repeat)
+    {
+      return AssertionSuccess();
+    }
+  }
+  return AssertionFailure() << "ROS shutdown.";
 }
 
-#endif
+}  // joint_trajectory_controller_tests
