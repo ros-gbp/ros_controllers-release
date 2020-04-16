@@ -2,6 +2,19 @@
 Changelog for package four_wheel_steering_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.16.0 (2020-04-16)
+-------------------
+* Bump CMake version to prevent CMP0048
+* Add missing header guards
+* Replace header guard with #pragma once
+* Modernize xacro
+  - Remove '--inorder'
+  - Use 'xacro' over 'xacro.py'
+* swap implementations of read and write methods
+  Follows the intended use of hardware_interface::RobotHW,
+  see its documentation for details
+* Contributors: Franz, Matt Reynolds
+
 0.15.1 (2020-03-09)
 -------------------
 * add missing pluginlib deps

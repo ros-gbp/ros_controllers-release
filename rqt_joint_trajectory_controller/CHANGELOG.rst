@@ -2,6 +2,11 @@
 Changelog for package rqt_joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.16.0 (2020-04-16)
+-------------------
+* Bump CMake version to prevent CMP0048
+* Contributors: Matt Reynolds
+
 0.15.1 (2020-03-09)
 -------------------
 * Merge pull request `#452 <https://github.com/ros-controls/ros_controllers/issues/452>`_ from etsiogas/add-robot-ns-to-gui

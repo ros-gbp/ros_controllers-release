@@ -2,6 +2,12 @@
 Changelog for package joint_state_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.16.0 (2020-04-16)
+-------------------
+* Bump CMake version to prevent CMP0048
+* Replace header guard with #pragma once
+* Contributors: Matt Reynolds
+
 0.15.1 (2020-03-09)
 -------------------
 * Fix tipo joint_state_plugin.xml (`#435 <https://github.com/ros-controls/ros_controllers/issues/435>`_)
