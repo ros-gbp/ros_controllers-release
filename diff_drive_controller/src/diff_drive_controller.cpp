@@ -374,8 +374,13 @@ namespace diff_drive_controller{
     config.publish_rate = publish_rate;
     config.enable_odom_tf = enable_odom_tf_;
 
-    dyn_reconf_server_ = std::make_shared<ReconfigureServer>(controller_nh);
+    dyn_reconf_server_ = std::make_shared<ReconfigureServer>(dyn_reconf_server_mutex_, controller_nh);
+
+    // Update parameters
+    dyn_reconf_server_mutex_.lock();
     dyn_reconf_server_->updateConfig(config);
+    dyn_reconf_server_mutex_.unlock();
+
     dyn_reconf_server_->setCallback(boost::bind(&DiffDriveController::reconfCallback, this, _1, _2));
 
     return true;
@@ -532,6 +537,12 @@ namespace diff_drive_controller{
         ROS_ERROR_STREAM_THROTTLE_NAMED(1.0, name_, "Detected " << sub_command_.getNumPublishers()
             << " publishers. Only 1 publisher is allowed. Going to brake.");
         brake();
+        return;
+      }
+
+      if(!std::isfinite(command.angular.z) || !std::isfinite(command.angular.x))
+      {
+        ROS_WARN_THROTTLE(1.0, "Received NaN in velocity command. Ignoring.");
         return;
       }
 
