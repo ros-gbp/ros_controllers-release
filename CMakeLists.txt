@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(joint_trajectory_controller)
 
 # Default to C++14
@@ -41,6 +41,11 @@ catkin_package(
 )
 
 include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS})
+
+if(CATKIN_ENABLE_TESTING AND ENABLE_COVERAGE_TESTING)
+  find_package(code_coverage REQUIRED)
+  APPEND_COVERAGE_COMPILER_FLAGS()
+endif()
 
 add_library(${PROJECT_NAME} src/joint_trajectory_controller.cpp
                             include/joint_trajectory_controller/hardware_interface_adapter.h
@@ -120,6 +125,11 @@ if(CATKIN_ENABLE_TESTING)
                     test/joint_trajectory_controller_wrapping.test
                     test/joint_trajectory_controller_wrapping_test.cpp)
   target_link_libraries(joint_trajectory_controller_wrapping_test ${catkin_LIBRARIES})
+
+  if(ENABLE_COVERAGE_TESTING)
+    set(COVERAGE_EXCLUDES "*/${PROJECT_NAME}/test*")
+    add_code_coverage(NAME ${PROJECT_NAME}_coverage)
+  endif()
 
 endif()
 
