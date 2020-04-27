@@ -2,6 +2,9 @@
 Changelog for package rqt_joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.16.1 (2020-04-27)
+-------------------
+
 0.16.0 (2020-04-16)
 -------------------
 * Bump CMake version to prevent CMP0048

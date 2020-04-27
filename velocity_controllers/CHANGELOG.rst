@@ -2,6 +2,9 @@
 Changelog for package velocity_controllers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.16.1 (2020-04-27)
+-------------------
+
 0.16.0 (2020-04-16)
 -------------------
 * Assuming lower limits are smaller than upper limits
