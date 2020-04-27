@@ -2,6 +2,9 @@
 Changelog for package diff_drive_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.16.1 (2020-04-27)
+-------------------
+
 0.16.0 (2020-04-16)
 -------------------
 * Fix warning dynamic_reconfigure
