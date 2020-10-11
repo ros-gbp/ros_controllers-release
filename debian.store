@@ -1,1 +1,1 @@
-{"trim": "", "base": "26d148e1b", "trimbase": "", "parent": "debian/noetic/force_torque_sensor_controller", "previous": "c433a1f74"}
+{"base": "16be20236", "parent": "debian/noetic/force_torque_sensor_controller", "previous": "feff9b80e", "trim": "", "trimbase": ""}
