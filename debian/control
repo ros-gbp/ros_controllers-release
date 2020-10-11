@@ -1,0 +1,12 @@
+Source: ros-noetic-forward-command-controller
+Section: misc
+Priority: optional
+Maintainer: Bence Magyar <bence.magyar.robotics@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-catkin, ros-noetic-controller-interface, ros-noetic-hardware-interface, ros-noetic-realtime-tools, ros-noetic-roscpp, ros-noetic-std-msgs
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-noetic-forward-command-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-controller-interface, ros-noetic-hardware-interface, ros-noetic-realtime-tools, ros-noetic-roscpp, ros-noetic-std-msgs
+Description: forward_command_controller
