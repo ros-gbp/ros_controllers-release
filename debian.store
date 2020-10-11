@@ -1,1 +1,1 @@
-{"trim": "", "base": "9b62027db", "trimbase": "", "parent": "debian/noetic/joint_trajectory_controller", "previous": "4955ca317"}
+{"base": "9617212a3", "parent": "debian/noetic/joint_trajectory_controller", "previous": "336ba82b8", "trim": "", "trimbase": ""}
