@@ -1,0 +1,245 @@
+ros-noetic-four-wheel-steering-controller (0.18.1-1buster) buster; urgency=high
+
+  * Remove explicit dependency on Boost::headers to avoid issue #537 <https://github.com/ros-controls/ros_controllers/issues/537>
+  * Add boost dependency
+  * Format CMakeLists.txt and package.xml files + clean deps of 4ws_controller pkg
+  * Contributors: Mateus Amarante, Mateus Amarante Araújo
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Thu, 03 Dec 2020 00:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.18.0-1buster) buster; urgency=high
+
+  * Add missing test dependency on xacro in four_wheel_steering_controller
+  * Contributors: Mateus Amarante
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sat, 10 Oct 2020 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.17.0-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 11 May 2020 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.16.1-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sun, 26 Apr 2020 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.16.0-1buster) buster; urgency=high
+
+  * Bump CMake version to prevent CMP0048
+  * Add missing header guards
+  * Replace header guard with #pragma once
+  * Modernize xacro
+    - Remove '--inorder'
+    - Use 'xacro' over 'xacro.py'
+  * swap implementations of read and write methods
+    Follows the intended use of hardware_interface::RobotHW,
+    see its documentation for details
+  * Contributors: Franz, Matt Reynolds
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Wed, 15 Apr 2020 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.15.1-1buster) buster; urgency=high
+
+  * add missing pluginlib deps
+  * Use C++11 std::this_thread::sleep_for.
+  * add include directories for tests in {ackermann/four_wheel}_steering_controller
+  * Contributors: Davide Faconti, Mathias Lüdtke, Sean Yen
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 09 Mar 2020 00:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.15.0-1buster) buster; urgency=high
+
+  * Default all controller builds to C++14
+  * boost::chrono -> std::chrono
+  * Adjust missing bsd note
+  * boost::assign -> C++ initializer list
+  * boost::shared_ptr -> std::shared_ptr
+  * fix install destination for libraries (#403 <https://github.com/ros-controls/ros_controllers/issues/403>)
+  * Contributors: Bence Magyar, Gennaro Raiola, James Xu
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Tue, 26 Mar 2019 00:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.14.3-1buster) buster; urgency=high
+
+  * Minor change in one of the ROS_INFO_STREAM
+  * Contributors: Jan-Felix Klein
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sat, 09 Feb 2019 00:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.14.2-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 22 Oct 2018 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.14.1-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 25 Jun 2018 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.14.0-1buster) buster; urgency=high
+
+  * migrate to new pluginlib headers
+  * fix warning un/signed comparison
+  * [4ws tests] simulation clock
+  * [4ws tests] Increase position tolerance
+  * Contributors: Bence Magyar, Jeremie Deray, Mathias Lüdtke, Vincent Rousseau
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Thu, 26 Apr 2018 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.13.2-1buster) buster; urgency=high
+
+  * Add four_wheel_steering_controller
+  * Contributors: Vincent Rousseau
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sat, 23 Dec 2017 00:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.13.1-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 06 Nov 2017 00:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.13.0-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Wed, 09 Aug 2017 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.12.3-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sat, 22 Apr 2017 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.12.2-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Thu, 20 Apr 2017 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.12.1-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Wed, 08 Mar 2017 00:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.12.0-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Wed, 15 Feb 2017 00:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.11.2-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 15 Aug 2016 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.11.1-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sun, 22 May 2016 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.11.0-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 02 May 2016 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.10.0-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Fri, 20 Nov 2015 00:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.9.2-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sun, 03 May 2015 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.9.1-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 03 Nov 2014 00:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.9.0-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Fri, 31 Oct 2014 00:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.8.1-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Thu, 10 Jul 2014 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.8.0-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sun, 11 May 2014 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.7.2-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 31 Mar 2014 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.7.1-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sun, 30 Mar 2014 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.6.0-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Wed, 05 Feb 2014 00:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.5.4-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Sun, 29 Sep 2013 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.5.3-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Tue, 03 Sep 2013 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.5.2-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 05 Aug 2013 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.5.1-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Thu, 18 Jul 2013 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.5.0-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Mon, 15 Jul 2013 23:00:00 -0000
+
+ros-noetic-four-wheel-steering-controller (0.4.0-1buster) buster; urgency=high
+
+
+
+ -- Vincent Rousseau <vincent.rousseau@irstea.fr>  Tue, 25 Jun 2013 23:00:00 -0000
+
+
