@@ -2,6 +2,11 @@
 Changelog for package joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.18.1 (2020-12-03)
+-------------------
+* Format CMakeLists.txt and package.xml files + clean deps of joint_trajectory_controller
+* Contributors: Mateus Amarante Araújo
+
 0.18.0 (2020-10-11)
 -------------------
 * Increase joint0 smoothing to force goal tolerance violation
