@@ -2,19 +2,8 @@
 Changelog for package ackermann_steering_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.18.1 (2020-12-03)
+0.17.1 (2020-12-05)
 -------------------
-* Use version-agnostic FindBoost for headers
-* Contributors: Matt Reynolds
-
-0.18.0 (2020-10-11)
--------------------
-* Fix dependency on Boost
-* Clean dependencies of diff_drive_controller package
-* Remove (unneeded?) dependencies on rosunit and gtest
-* Format package.xml and CMakeLists.txt according to ros_control pkgs
-* Clean dependencies of ackermann_steering_controller pkg
-* Contributors: Mateus Amarante
 
 0.17.0 (2020-05-12)
 -------------------

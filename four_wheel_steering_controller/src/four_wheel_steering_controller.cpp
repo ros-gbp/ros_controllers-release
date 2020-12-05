@@ -35,7 +35,6 @@
 
 #include <cmath>
 #include <four_wheel_steering_controller/four_wheel_steering_controller.h>
-#include <pluginlib/class_list_macros.hpp>
 #include <tf/transform_datatypes.h>
 #include <urdf_geometry_parser/urdf_geometry_parser.h>
 
@@ -672,5 +671,3 @@ namespace four_wheel_steering_controller{
   }
 
 } // namespace four_wheel_steering_controller
-
-PLUGINLIB_EXPORT_CLASS(four_wheel_steering_controller::FourWheelSteeringController, controller_interface::ControllerBase)

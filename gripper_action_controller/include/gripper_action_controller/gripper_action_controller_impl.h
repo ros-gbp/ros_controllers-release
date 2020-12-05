@@ -29,8 +29,6 @@
 
 #pragma once
 
-// URDF
-#include <urdf/model.h>
 
 namespace gripper_action_controller
 {

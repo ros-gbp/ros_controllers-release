@@ -36,7 +36,12 @@
 TEST_F(DiffDriveControllerTest, testDynReconfServerAlive)
 {
   // wait for ROS
-  waitForController();
+  while(!isControllerAlive() && ros::ok())
+  {
+    ros::Duration(0.1).sleep();
+  }
+  if (!ros::ok())
+    FAIL() << "Something went wrong while executing test";
 
   // Expect server is alive
   EXPECT_TRUE(ros::service::exists("diffbot_controller/set_parameters", true));

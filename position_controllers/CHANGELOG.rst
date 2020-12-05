@@ -2,13 +2,7 @@
 Changelog for package position_controllers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.18.1 (2020-12-03)
--------------------
-* Simplify roscpp dep + sort lib sources
-* Format package.xml and CMakeLists.txt + clean deps of position_controllers pkg
-* Contributors: Mateus Amarante Araújo
-
-0.18.0 (2020-10-11)
+0.17.1 (2020-12-05)
 -------------------
 
 0.17.0 (2020-05-12)

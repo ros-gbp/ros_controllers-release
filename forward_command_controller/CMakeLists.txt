@@ -7,32 +7,14 @@ if(NOT CMAKE_CXX_STANDARD)
 endif()
 
 # Load catkin and all dependencies required for this package
-find_package(catkin REQUIRED COMPONENTS
-  controller_interface
-  hardware_interface
-  realtime_tools
-  roscpp
-  std_msgs
-)
+find_package(catkin REQUIRED COMPONENTS controller_interface hardware_interface std_msgs realtime_tools)
 
 # Declare catkin package
 catkin_package(
-  INCLUDE_DIRS
-    include
-  CATKIN_DEPENDS
-    controller_interface
-    hardware_interface
-    realtime_tools
-    roscpp
-    std_msgs
-)
+  CATKIN_DEPENDS controller_interface hardware_interface std_msgs realtime_tools
+  INCLUDE_DIRS include
+  )
 
-
-#############
-## Install ##
-#############
-
-# Install headers
+# Install
 install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-)
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})

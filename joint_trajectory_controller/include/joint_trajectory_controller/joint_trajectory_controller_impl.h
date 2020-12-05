@@ -382,11 +382,6 @@ update(const ros::Time& time, const ros::Duration& period)
       return;
     }
 
-    // Get state error for current joint
-    state_joint_error_.position[0] = state_error_.position[i];
-    state_joint_error_.velocity[0] = state_error_.velocity[i];
-    state_joint_error_.acceleration[0] = state_error_.acceleration[i];
-
     //Check tolerances
     const RealtimeGoalHandlePtr rt_segment_goal = segment_it->getGoalHandle();
     if (rt_segment_goal && rt_segment_goal == rt_active_goal_)
@@ -768,10 +763,14 @@ updateStates(const ros::Time& sample_time, const Trajectory* const traj)
 
     desired_state_.position[joint_index] = desired_joint_state_.position[0];
     desired_state_.velocity[joint_index] = desired_joint_state_.velocity[0];
-    desired_state_.acceleration[joint_index] = desired_joint_state_.acceleration[0];
+    desired_state_.acceleration[joint_index] = desired_joint_state_.acceleration[0]; ;
 
-    state_error_.position[joint_index] = angles::shortest_angular_distance(current_state_.position[joint_index],desired_joint_state_.position[0]);
-    state_error_.velocity[joint_index] = desired_joint_state_.velocity[0] - current_state_.velocity[joint_index];
+    state_joint_error_.position[0] = angles::shortest_angular_distance(current_state_.position[joint_index],desired_joint_state_.position[0]);
+    state_joint_error_.velocity[0] = desired_joint_state_.velocity[0] - current_state_.velocity[joint_index];
+    state_joint_error_.acceleration[0] = 0.0;
+
+    state_error_.position[joint_index] = state_joint_error_.position[0];
+    state_error_.velocity[joint_index] = state_joint_error_.velocity[0];
     state_error_.acceleration[joint_index] = 0.0;
   }
 }

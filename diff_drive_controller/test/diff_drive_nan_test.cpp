@@ -35,8 +35,9 @@
 // TEST CASES
 TEST_F(DiffDriveControllerTest, testNaN) {
   // wait for ROS
-  waitForController();
-
+  while (!isControllerAlive()) {
+    ros::Duration(0.1).sleep();
+  }
   // zero everything before test
   geometry_msgs::Twist cmd_vel;
   cmd_vel.linear.x = 0.0;
