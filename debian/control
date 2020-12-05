@@ -1,0 +1,12 @@
+Source: ros-melodic-forward-command-controller
+Section: misc
+Priority: optional
+Maintainer: Bence Magyar <bence.magyar.robotics@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin, ros-melodic-controller-interface, ros-melodic-hardware-interface, ros-melodic-realtime-tools, ros-melodic-std-msgs
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-melodic-forward-command-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-controller-interface, ros-melodic-hardware-interface, ros-melodic-realtime-tools, ros-melodic-std-msgs
+Description: forward_command_controller
