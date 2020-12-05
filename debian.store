@@ -1,1 +1,1 @@
-{"trim": "", "base": "c39a3ad21", "trimbase": "", "parent": "debian/melodic/imu_sensor_controller", "previous": "7435b0025"}
+{"base": "27123cee0", "parent": "debian/melodic/imu_sensor_controller", "previous": "88075074e", "trim": "", "trimbase": ""}
