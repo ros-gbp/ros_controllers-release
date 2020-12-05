@@ -1,1 +1,1 @@
-{"trim": "", "base": "8d19affb1", "trimbase": "", "parent": "debian/melodic/joint_trajectory_controller", "previous": "fec5a76a9"}
+{"base": "3be05895c", "parent": "debian/melodic/joint_trajectory_controller", "previous": "6c37694de", "trim": "", "trimbase": ""}
