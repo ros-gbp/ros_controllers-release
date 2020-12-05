@@ -1,0 +1,12 @@
+Source: ros-melodic-joint-state-controller
+Section: misc
+Priority: optional
+Maintainer: Bence Magyar <bence.magyar.robotics@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin, ros-melodic-controller-interface, ros-melodic-hardware-interface, ros-melodic-pluginlib, ros-melodic-realtime-tools, ros-melodic-roscpp, ros-melodic-rostest, ros-melodic-sensor-msgs
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-melodic-joint-state-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-controller-interface, ros-melodic-hardware-interface, ros-melodic-pluginlib, ros-melodic-realtime-tools, ros-melodic-roscpp, ros-melodic-sensor-msgs
+Description: Controller to publish joint state
