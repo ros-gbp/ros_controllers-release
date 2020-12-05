@@ -1,1 +1,1 @@
-{"trim": "", "base": "b2514300f", "trimbase": "", "parent": "debian/melodic/force_torque_sensor_controller", "previous": "6bda505c9"}
+{"base": "50cfcdc06", "parent": "debian/melodic/force_torque_sensor_controller", "previous": "a32816e8b", "trim": "", "trimbase": ""}
