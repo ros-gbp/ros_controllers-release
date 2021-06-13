@@ -1,0 +1,12 @@
+Source: ros-noetic-velocity-controllers
+Section: misc
+Priority: optional
+Maintainer: Bence Magyar <bence.magyar.robotics@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-angles, ros-noetic-catkin, ros-noetic-control-msgs, ros-noetic-control-toolbox, ros-noetic-controller-interface, ros-noetic-forward-command-controller, ros-noetic-hardware-interface, ros-noetic-pluginlib, ros-noetic-realtime-tools, ros-noetic-roscpp, ros-noetic-std-msgs, ros-noetic-urdf
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-noetic-velocity-controllers
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-control-msgs, ros-noetic-control-toolbox, ros-noetic-controller-interface, ros-noetic-forward-command-controller, ros-noetic-hardware-interface, ros-noetic-realtime-tools, ros-noetic-roscpp, ros-noetic-std-msgs, ros-noetic-urdf
+Description: velocity_controllers
