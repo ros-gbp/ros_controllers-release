@@ -2,6 +2,9 @@
 Changelog for package position_controllers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.19.0 (2021-06-13)
+-------------------
+
 0.18.1 (2020-12-03)
 -------------------
 * Simplify roscpp dep + sort lib sources
