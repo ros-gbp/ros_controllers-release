@@ -2,6 +2,9 @@
 Changelog for package rqt_joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.19.0 (2021-06-13)
+-------------------
+
 0.18.1 (2020-12-03)
 -------------------
 * Fix dependency on rospkg
