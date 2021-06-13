@@ -2,17 +2,26 @@
 Changelog for package joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.17.2 (2021-01-20)
+0.19.0 (2021-06-13)
 -------------------
-* JointTrajectoryController: Fix tolerance checking to use state error…
-  …from the correct joints
-  This fix was already applied to noetic-devel branch. ef2272de81bffe4b1e4a7fc3dc59d4f4c3e6cdb8
-* Contributors: Dean Reading
+* Set time_from_start for state error too
+* joint_trajectory_controller: add time_from_start feedback
+* Contributors: Alexander Rössler, Bence Magyar, Matt Reynolds
 
-0.17.1 (2020-12-05)
+0.18.1 (2020-12-03)
 -------------------
+* Format CMakeLists.txt and package.xml files + clean deps of joint_trajectory_controller
+* Contributors: Mateus Amarante Araújo
+
+0.18.0 (2020-10-11)
+-------------------
+* Increase joint0 smoothing to force goal tolerance violation
+* Add pathToleranceViolationSingleJoint and goalToleranceViolationSingleJoint tests
+* Allow setting 'smoothing' to each joint of rrbot
+* Only update state_joint_error\_  values in loop where used
+* JointTrajectoryController: Fix tolerance checking to use state error from the correct joints
 * Fix missing virtual destructor
-* Contributors: Tyler Weaver
+* Contributors: Bence Magyar, Doug Morrison, Mateus Amarante, Tyler Weaver
 
 0.17.0 (2020-05-12)
 -------------------
