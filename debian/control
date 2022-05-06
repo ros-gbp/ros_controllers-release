@@ -1,0 +1,12 @@
+Source: ros-noetic-gripper-action-controller
+Section: misc
+Priority: optional
+Maintainer: Sachin Chitta <robot.moveit@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-actionlib, ros-noetic-catkin, ros-noetic-control-msgs, ros-noetic-control-toolbox, ros-noetic-controller-interface, ros-noetic-hardware-interface, ros-noetic-pluginlib, ros-noetic-realtime-tools, ros-noetic-roscpp, ros-noetic-urdf
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-noetic-gripper-action-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-actionlib, ros-noetic-control-msgs, ros-noetic-control-toolbox, ros-noetic-controller-interface, ros-noetic-hardware-interface, ros-noetic-realtime-tools, ros-noetic-roscpp, ros-noetic-urdf
+Description: The gripper_action_controller package
