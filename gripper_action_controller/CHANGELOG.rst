@@ -2,6 +2,11 @@
 Changelog for package gripper_action_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.21.0 (2022-10-21)
+-------------------
+* std::bind and placeholders instead of boost
+* Contributors: Lucas Walter
+
 0.20.0 (2022-05-06)
 -------------------
 * Drop old C++ standard
