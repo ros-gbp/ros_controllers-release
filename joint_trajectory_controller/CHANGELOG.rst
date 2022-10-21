@@ -2,6 +2,11 @@
 Changelog for package joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.21.0 (2022-10-21)
+-------------------
+* std::bind and placeholders instead of boost
+* Contributors: Lucas Walter
+
 0.20.0 (2022-05-06)
 -------------------
 * Fix joint trajectory controller so results message is returned on tolerance failures
