@@ -1,0 +1,12 @@
+Source: ros-noetic-rqt-joint-trajectory-controller
+Section: misc
+Priority: optional
+Maintainer: Bence Magyar <bence.magyar.robotics@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-catkin
+Homepage: http://wiki.ros.org/rqt_joint_trajectory_controller
+Standards-Version: 3.9.2
+
+Package: ros-noetic-rqt-joint-trajectory-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3-rospkg, ros-noetic-control-msgs, ros-noetic-controller-manager-msgs, ros-noetic-python-qt-binding, ros-noetic-qt-gui, ros-noetic-rospy, ros-noetic-rqt-gui, ros-noetic-rqt-gui-py, ros-noetic-trajectory-msgs
+Description: Graphical frontend for interacting with joint_trajectory_controller instances.
