@@ -2,14 +2,35 @@
 Changelog for package rqt_joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.17.3 (2023-01-31)
+0.21.1 (2023-01-31)
 -------------------
 
-0.17.2 (2021-01-20)
+0.21.0 (2022-10-21)
+-------------------
+* [rqt_joint_trajectory_controller] Added Timestamp to the outgoing command message
+* Contributors: Bence Magyar, Caedael
+
+0.20.0 (2022-05-06)
+-------------------
+* Increase spin box to six decimals
+* trivial cleanup & fix for python3.10
+  probably relevant for earlier versions of python3 as well.
+* Contributors: Levi Armstrong, v4hn
+
+0.19.0 (2021-06-13)
 -------------------
 
-0.17.1 (2020-12-05)
+0.18.1 (2020-12-03)
 -------------------
+* Fix dependency on rospkg
+* Format package.xml and CMakeLists.txt files + clean deps of rqt_joint_trajectory_controller pkg
+* Contributors: Mateus Amarante Araújo
+
+0.18.0 (2020-10-11)
+-------------------
+* Use Python3 explicitly
+* fix shebang line for python3
+* Contributors: Bence Magyar, Mikael Arguedas
 
 0.17.0 (2020-05-12)
 -------------------

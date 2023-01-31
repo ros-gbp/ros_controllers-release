@@ -2,14 +2,48 @@
 Changelog for package diff_drive_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.17.3 (2023-01-31)
+0.21.1 (2023-01-31)
 -------------------
+* Don't hardcode plugin library path
+* Contributors: Jochen Sprickerhof
 
-0.17.2 (2021-01-20)
+0.21.0 (2022-10-21)
 -------------------
+* std::bind and placeholders instead of boost
+* use boost::placeholders::_1/_2 in remaining instances, include boost/bind/bind.hpp instead of boost/bind.hpp, eliminated unnecessary bind.hpp include
+* Contributors: Lucas Walter
 
-0.17.1 (2020-12-05)
+0.20.0 (2022-05-06)
 -------------------
+* Drop old C++ standard
+* Use new boost bind placeholders
+* Add <?xml version=1.0?> to every .launch and .test file
+* Contributors: Jochen Sprickerhof, Lucas Walter
+
+0.19.0 (2021-06-13)
+-------------------
+* fix NaN bug
+* fix test to expose NaN bug
+* Wait long enough for accumulator to be cleared
+* Add test for `#532 <https://github.com/ros-controls/ros_controllers/issues/532>`_
+  Close `#540 <https://github.com/ros-controls/ros_controllers/issues/540>`_
+* Contributors: Caio Amaral, Matt Reynolds, Melvin Wang
+
+0.18.1 (2020-12-03)
+-------------------
+* Fix null pointer checks in diff_drive_controller
+* Use version-agnostic FindBoost for headers
+* Contributors: David V. Lu, Matt Reynolds
+
+0.18.0 (2020-10-11)
+-------------------
+* Fix dependency on Boost
+* Apply consistent format to CMakeLists.txt
+* Update package.xml to format 3
+* Clean dependencies of diff_drive_controller package
+* Apply waitForController method to all diff_drive_controller tests
+* Move odom_pub setup to the end to allow consistent isControllerAlive check
+* Contributors: Mateus Amarante
 
 0.17.0 (2020-05-12)
 -------------------
