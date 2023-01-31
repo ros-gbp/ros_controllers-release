@@ -1,3 +1,40 @@
+## ros_controllers (noetic) - 0.21.1-1
+
+The packages in the `ros_controllers` repository were released into the `noetic` distro by running `/usr/local/bin/bloom-release --rosdistro noetic ros_controllers` on `Tue, 31 Jan 2023 16:55:00 -0000`
+
+These packages were released:
+- `ackermann_steering_controller`
+- `diff_drive_controller`
+- `effort_controllers`
+- `force_torque_sensor_controller`
+- `forward_command_controller`
+- `four_wheel_steering_controller`
+- `gripper_action_controller`
+- `imu_sensor_controller`
+- `joint_state_controller`
+- `joint_trajectory_controller`
+- `position_controllers`
+- `ros_controllers`
+- `rqt_joint_trajectory_controller`
+- `velocity_controllers`
+
+Version of package(s) in repository `ros_controllers`:
+
+- upstream repository: https://github.com/ros-controls/ros_controllers.git
+- release repository: https://github.com/ros-gbp/ros_controllers-release.git
+- rosdistro version: `0.21.0-1`
+- old version: `0.21.0-1`
+- new version: `0.21.1-1`
+
+Versions of tools used:
+
+- bloom version: `0.11.2`
+- catkin_pkg version: `0.5.2`
+- rosdep version: `0.19.0`
+- rosdistro version: `0.9.0`
+- vcstools version: `0.1.42`
+
+
 ## ros_controllers (melodic) - 0.17.3-1
 
 The packages in the `ros_controllers` repository were released into the `melodic` distro by running `/usr/local/bin/bloom-release --rosdistro melodic ros_controllers` on `Tue, 31 Jan 2023 16:48:13 -0000`
