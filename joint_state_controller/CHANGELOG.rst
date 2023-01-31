@@ -2,6 +2,11 @@
 Changelog for package joint_state_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.21.1 (2023-01-31)
+-------------------
+* Don't hardcode plugin library path
+* Contributors: Jochen Sprickerhof
+
 0.21.0 (2022-10-21)
 -------------------
 
