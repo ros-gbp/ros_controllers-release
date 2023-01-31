@@ -1,0 +1,12 @@
+Source: ros-melodic-joint-trajectory-controller
+Section: misc
+Priority: optional
+Maintainer: Bence Magyar <bence.magyar.robotics@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-actionlib, ros-melodic-angles, ros-melodic-catkin, ros-melodic-cmake-modules, ros-melodic-code-coverage <!nocheck>, ros-melodic-control-msgs, ros-melodic-control-toolbox, ros-melodic-controller-interface, ros-melodic-controller-manager <!nocheck>, ros-melodic-hardware-interface, ros-melodic-pluginlib, ros-melodic-realtime-tools, ros-melodic-roscpp, ros-melodic-rostest <!nocheck>, ros-melodic-trajectory-msgs, ros-melodic-urdf, ros-melodic-xacro <!nocheck>
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-melodic-joint-trajectory-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-actionlib, ros-melodic-angles, ros-melodic-control-msgs, ros-melodic-control-toolbox, ros-melodic-controller-interface, ros-melodic-hardware-interface, ros-melodic-pluginlib, ros-melodic-realtime-tools, ros-melodic-roscpp, ros-melodic-trajectory-msgs, ros-melodic-urdf
+Description: Controller for executing joint-space trajectories on a group of joints.
