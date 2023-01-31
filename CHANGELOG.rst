@@ -2,6 +2,9 @@
 Changelog for package joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.17.3 (2023-01-31)
+-------------------
+
 0.17.2 (2021-01-20)
 -------------------
 * JointTrajectoryController: Fix tolerance checking to use state error…
