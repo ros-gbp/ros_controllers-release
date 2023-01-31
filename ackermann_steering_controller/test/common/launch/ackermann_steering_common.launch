@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 <launch>
   <!-- Load ackermann_steering_bot model -->
   <param name="robot_description"

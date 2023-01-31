@@ -34,8 +34,10 @@
 TEST_F(DiffDriveControllerTest, testNoOdomFrame)
 {
   // wait for ROS
-  waitForController();
-  
+  while(!isControllerAlive())
+  {
+    ros::Duration(0.1).sleep();
+  }
   // set up tf listener
   tf::TransformListener listener;
   ros::Duration(2.0).sleep();

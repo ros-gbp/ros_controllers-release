@@ -2,38 +2,16 @@
 Changelog for package ackermann_steering_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.21.0 (2022-10-21)
+0.17.3 (2023-01-31)
 -------------------
-* Switch to hpp headers of pluginlib
-* std::bind and placeholders instead of boost
-* use boost::placeholders::_1/_2 in remaining instances, include boost/bind/bind.hpp instead of boost/bind.hpp, eliminated unnecessary bind.hpp include
-* Contributors: Jochen Sprickerhof, Lucas Walter
+* Install headers of ackermann_steering_controller
+* Contributors: Bence Magyar, Martin Pecka
 
-0.20.0 (2022-05-06)
+0.17.2 (2021-01-20)
 -------------------
-* Drop old C++ standard
-* Updated ackermann_steering_controller tests launch file to use robot_state_publisher rather than state_publisher which is no longer available in Noetic.
-* Add <?xml version=1.0?> to every .launch and .test file
-* Contributors: Jochen Sprickerhof, Lucas Walter, Tony Baltovski
 
-0.19.0 (2021-06-13)
+0.17.1 (2020-12-05)
 -------------------
-* Wait long enough for accumulator to be cleared
-* Contributors: Matt Reynolds
-
-0.18.1 (2020-12-03)
--------------------
-* Use version-agnostic FindBoost for headers
-* Contributors: Matt Reynolds
-
-0.18.0 (2020-10-11)
--------------------
-* Fix dependency on Boost
-* Clean dependencies of diff_drive_controller package
-* Remove (unneeded?) dependencies on rosunit and gtest
-* Format package.xml and CMakeLists.txt according to ros_control pkgs
-* Clean dependencies of ackermann_steering_controller pkg
-* Contributors: Mateus Amarante
 
 0.17.0 (2020-05-12)
 -------------------

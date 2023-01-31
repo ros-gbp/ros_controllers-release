@@ -2,26 +2,14 @@
 Changelog for package forward_command_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.21.0 (2022-10-21)
+0.17.3 (2023-01-31)
 -------------------
 
-0.20.0 (2022-05-06)
--------------------
-* Drop old C++ standard
-* Contributors: Jochen Sprickerhof
-
-0.19.0 (2021-06-13)
+0.17.2 (2021-01-20)
 -------------------
 
-0.18.1 (2020-12-03)
+0.17.1 (2020-12-05)
 -------------------
-
-0.18.0 (2020-10-11)
--------------------
-* Apply consistent format to forward_command_controller's CMakeLists.txt file
-* Update package.xml of forward_ccommand_controller pkg to format 3
-* Fix dependencies of forward_command_controller pkg
-* Contributors: Mateus Amarante
 
 0.17.0 (2020-05-12)
 -------------------

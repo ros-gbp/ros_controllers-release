@@ -2,31 +2,14 @@
 Changelog for package four_wheel_steering_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.21.0 (2022-10-21)
--------------------
-* use boost::placeholders::_1/_2 in remaining instances, include boost/bind/bind.hpp instead of boost/bind.hpp, eliminated unnecessary bind.hpp include
-* Contributors: Lucas Walter
-
-0.20.0 (2022-05-06)
--------------------
-* Drop old C++ standard
-* Add <?xml version=1.0?> to every .launch and .test file
-* Contributors: Jochen Sprickerhof, Lucas Walter
-
-0.19.0 (2021-06-13)
+0.17.3 (2023-01-31)
 -------------------
 
-0.18.1 (2020-12-03)
+0.17.2 (2021-01-20)
 -------------------
-* Remove explicit dependency on Boost::headers to avoid issue `#537 <https://github.com/ros-controls/ros_controllers/issues/537>`_
-* Add boost dependency
-* Format CMakeLists.txt and package.xml files + clean deps of 4ws_controller pkg
-* Contributors: Mateus Amarante, Mateus Amarante Araújo
 
-0.18.0 (2020-10-11)
+0.17.1 (2020-12-05)
 -------------------
-* Add missing test dependency on xacro in four_wheel_steering_controller
-* Contributors: Mateus Amarante
 
 0.17.0 (2020-05-12)
 -------------------

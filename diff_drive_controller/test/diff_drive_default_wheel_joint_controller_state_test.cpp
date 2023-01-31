@@ -33,7 +33,10 @@
 TEST_F(DiffDriveControllerTest, testDefaultJointTrajectoryControllerStateTopic)
 {
   // wait for ROS
-  waitForController();
+  while(!isControllerAlive())
+  {
+    ros::Duration(0.1).sleep();
+  }
 
   EXPECT_FALSE(isPublishingJointTrajectoryControllerState());
 

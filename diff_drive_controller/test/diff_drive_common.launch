@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 <launch>
   <!-- Use simulation time -->
   <rosparam param="use_sim_time">True</rosparam>

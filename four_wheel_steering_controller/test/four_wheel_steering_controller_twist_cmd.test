@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 <launch>
   <!-- Load common test stuff -->
   <include file="$(find four_wheel_steering_controller)/test/launch/four_wheel_steering_common.launch" />

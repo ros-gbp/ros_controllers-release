@@ -2,37 +2,14 @@
 Changelog for package joint_state_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.21.0 (2022-10-21)
+0.17.3 (2023-01-31)
 -------------------
 
-0.20.0 (2022-05-06)
--------------------
-* Drop old C++ standard
-* Add <?xml version=1.0?> to every .launch and .test file
-* Contributors: Jochen Sprickerhof, Lucas Walter
-
-0.19.0 (2021-06-13)
--------------------
-* [joint_state_controller] Allow specification of joints or set specific order
-  Introduces a 'joints' parameter similar to other controllers in order to
-  be able to specify a subset of joints or a specific order of joints.
-  This is useful when the HardwareInterface exposes joints in an order
-  that is not desired or if certain joints are not meant to be published
-  by a controller. If not provided, the controller publishes all joints
-  and preserves backwards-compatibility.
-* Contributors: Wolfgang Merkt, Matt Reynolds
-
-0.18.1 (2020-12-03)
+0.17.2 (2021-01-20)
 -------------------
 
-0.18.0 (2020-10-11)
+0.17.1 (2020-12-05)
 -------------------
-* Move .yaml and .launch files to config/ and launch/ folders
-* Update joint_state_controller's package.xml file to format 3
-* Apply consistent format to joint_state_controller's CMakeLists.txt file
-* Clean joint_state_controller's dependencies
-* Move pluginlib/clast_list_macros.hpp include to cpp file
-* Contributors: Mateus Amarante
 
 0.17.0 (2020-05-12)
 -------------------

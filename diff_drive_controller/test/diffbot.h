@@ -32,6 +32,7 @@
 
 // ROS
 #include <ros/ros.h>
+#include <std_msgs/Float64.h>
 #include <std_srvs/Empty.h>
 
 // ros_control

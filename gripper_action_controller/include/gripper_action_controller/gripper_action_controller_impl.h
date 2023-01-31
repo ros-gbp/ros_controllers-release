@@ -29,8 +29,6 @@
 
 #pragma once
 
-// URDF
-#include <urdf/model.h>
 
 namespace gripper_action_controller
 {
@@ -213,9 +211,10 @@ bool GripperActionController<HardwareInterface>::init(HardwareInterface* hw,
   pre_alloc_result_->stalled = false;
 
   // ROS API: Action interface
-  action_server_.reset(new ActionServer(
-      controller_nh_, "gripper_cmd", std::bind(&GripperActionController::goalCB, this, std::placeholders::_1),
-      std::bind(&GripperActionController::cancelCB, this, std::placeholders::_1), false));
+  action_server_.reset(new ActionServer(controller_nh_, "gripper_cmd",
+					boost::bind(&GripperActionController::goalCB,   this, _1),
+					boost::bind(&GripperActionController::cancelCB, this, _1),
+					false));
   action_server_->start();
   return true;
 }

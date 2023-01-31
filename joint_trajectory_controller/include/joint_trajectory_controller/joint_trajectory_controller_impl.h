@@ -293,10 +293,10 @@ bool JointTrajectoryController<SegmentImpl, HardwareInterface>::init(HardwareInt
   state_publisher_.reset(new StatePublisher(controller_nh_, "state", 1));
 
   // ROS API: Action interface
-  action_server_.reset(
-      new ActionServer(controller_nh_, "follow_joint_trajectory",
-                       std::bind(&JointTrajectoryController::goalCB, this, std::placeholders::_1),
-                       std::bind(&JointTrajectoryController::cancelCB, this, std::placeholders::_1), false));
+  action_server_.reset(new ActionServer(controller_nh_, "follow_joint_trajectory",
+                                        boost::bind(&JointTrajectoryController::goalCB,   this, _1),
+                                        boost::bind(&JointTrajectoryController::cancelCB, this, _1),
+                                        false));
   action_server_->start();
 
   // ROS API: Provided services
@@ -381,7 +381,7 @@ update(const ros::Time& time, const ros::Duration& period)
                       "Unexpected error: No trajectory defined at current time. Please contact the package maintainer.");
       return;
     }
-
+    
     // Get state error for current joint
     state_joint_error_.position[0] = state_error_.position[i];
     state_joint_error_.velocity[0] = state_error_.velocity[i];
@@ -405,10 +405,7 @@ update(const ros::Time& time, const ros::Duration& period)
           }
           rt_segment_goal->preallocated_result_->error_code =
           control_msgs::FollowJointTrajectoryResult::PATH_TOLERANCE_VIOLATED;
-          rt_segment_goal->preallocated_result_->error_string = joint_names_[i] + " path error " + std::to_string( state_joint_error_.position[0] );
           rt_segment_goal->setAborted(rt_segment_goal->preallocated_result_);
-          // Force this to run before destroying rt_active_goal_ so results message is returned
-          rt_active_goal_->runNonRealtime(ros::TimerEvent());
           rt_active_goal_.reset();
           successful_joint_traj_.reset();
         }
@@ -443,10 +440,7 @@ update(const ros::Time& time, const ros::Duration& period)
           }
 
           rt_segment_goal->preallocated_result_->error_code = control_msgs::FollowJointTrajectoryResult::GOAL_TOLERANCE_VIOLATED;
-          rt_segment_goal->preallocated_result_->error_string = joint_names_[i] + " goal error " + std::to_string( state_joint_error_.position[0] );
           rt_segment_goal->setAborted(rt_segment_goal->preallocated_result_);
-          // Force this to run before destroying rt_active_goal_ so results message is returned
-          rt_active_goal_->runNonRealtime(ros::TimerEvent());
           rt_active_goal_.reset();
           successful_joint_traj_.reset();
         }
@@ -722,13 +716,10 @@ publishState(const ros::Time& time)
       state_publisher_->msg_.desired.positions     = desired_state_.position;
       state_publisher_->msg_.desired.velocities    = desired_state_.velocity;
       state_publisher_->msg_.desired.accelerations = desired_state_.acceleration;
-      state_publisher_->msg_.desired.time_from_start = ros::Duration(desired_state_.time_from_start);
       state_publisher_->msg_.actual.positions      = current_state_.position;
       state_publisher_->msg_.actual.velocities     = current_state_.velocity;
-      state_publisher_->msg_.actual.time_from_start = ros::Duration(current_state_.time_from_start);
       state_publisher_->msg_.error.positions       = state_error_.position;
       state_publisher_->msg_.error.velocities      = state_error_.velocity;
-      state_publisher_->msg_.error.time_from_start = ros::Duration(state_error_.time_from_start);
 
       state_publisher_->unlockAndPublish();
     }
@@ -769,7 +760,7 @@ updateStates(const ros::Time& sample_time, const Trajectory* const traj)
 
   for (unsigned int joint_index = 0; joint_index < getNumberOfJoints(); ++joint_index)
   {
-    const auto segment = sample( (*traj)[joint_index], sample_time.toSec(), desired_joint_state_);
+    sample( (*traj)[joint_index], sample_time.toSec(), desired_joint_state_);
 
     current_state_.position[joint_index] = joints_[joint_index].getPosition();
     current_state_.velocity[joint_index] = joints_[joint_index].getVelocity();
@@ -777,19 +768,15 @@ updateStates(const ros::Time& sample_time, const Trajectory* const traj)
 
     desired_state_.position[joint_index] = desired_joint_state_.position[0];
     desired_state_.velocity[joint_index] = desired_joint_state_.velocity[0];
-    desired_state_.acceleration[joint_index] = desired_joint_state_.acceleration[0];
+    desired_state_.acceleration[joint_index] = desired_joint_state_.acceleration[0]; ;
 
-    state_error_.position[joint_index] = angles::shortest_angular_distance(current_state_.position[joint_index],desired_joint_state_.position[0]);
-    state_error_.velocity[joint_index] = desired_joint_state_.velocity[0] - current_state_.velocity[joint_index];
+    state_joint_error_.position[0] = angles::shortest_angular_distance(current_state_.position[joint_index],desired_joint_state_.position[0]);
+    state_joint_error_.velocity[0] = desired_joint_state_.velocity[0] - current_state_.velocity[joint_index];
+    state_joint_error_.acceleration[0] = 0.0;
+
+    state_error_.position[joint_index] = state_joint_error_.position[0];
+    state_error_.velocity[joint_index] = state_joint_error_.velocity[0];
     state_error_.acceleration[joint_index] = 0.0;
-
-    if (joint_index == 0)
-    {
-      const auto time_from_start = segment->timeFromStart();
-      current_state_.time_from_start = sample_time.toSec() - segment->startTime() + time_from_start;
-      desired_state_.time_from_start = time_from_start;
-      state_error_.time_from_start = desired_state_.time_from_start - current_state_.time_from_start;
-    }
   }
 }
 
@@ -807,13 +794,10 @@ setActionFeedback()
   current_active_goal->preallocated_feedback_->desired.positions     = desired_state_.position;
   current_active_goal->preallocated_feedback_->desired.velocities    = desired_state_.velocity;
   current_active_goal->preallocated_feedback_->desired.accelerations = desired_state_.acceleration;
-  current_active_goal->preallocated_feedback_->desired.time_from_start = ros::Duration(desired_state_.time_from_start);
   current_active_goal->preallocated_feedback_->actual.positions      = current_state_.position;
   current_active_goal->preallocated_feedback_->actual.velocities     = current_state_.velocity;
-  current_active_goal->preallocated_feedback_->actual.time_from_start = ros::Duration(current_state_.time_from_start);
   current_active_goal->preallocated_feedback_->error.positions       = state_error_.position;
   current_active_goal->preallocated_feedback_->error.velocities      = state_error_.velocity;
-  current_active_goal->preallocated_feedback_->error.time_from_start = ros::Duration(state_error_.time_from_start);
   current_active_goal->setFeedback( current_active_goal->preallocated_feedback_ );
 
 }

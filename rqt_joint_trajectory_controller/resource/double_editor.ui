@@ -83,9 +83,6 @@
      <property name="keyboardTracking">
       <bool>false</bool>
      </property>
-     <property name="decimals">
-      <number>6</number>
-     </property>
     </widget>
    </item>
   </layout>
