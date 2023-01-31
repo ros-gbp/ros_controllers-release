@@ -1,0 +1,12 @@
+Source: ros-melodic-effort-controllers
+Section: misc
+Priority: optional
+Maintainer: Bence Magyar <bence.magyar.robotics@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-angles, ros-melodic-catkin, ros-melodic-control-msgs, ros-melodic-control-toolbox, ros-melodic-controller-interface, ros-melodic-controller-manager <!nocheck>, ros-melodic-forward-command-controller, ros-melodic-hardware-interface <!nocheck>, ros-melodic-pluginlib, ros-melodic-realtime-tools, ros-melodic-robot-state-publisher <!nocheck>, ros-melodic-rosgraph-msgs <!nocheck>, ros-melodic-rostest <!nocheck>, ros-melodic-sensor-msgs <!nocheck>, ros-melodic-std-msgs <!nocheck>, ros-melodic-urdf, ros-melodic-xacro <!nocheck>
+Homepage: https://github.com/ros-controls/ros_controllers/wiki
+Standards-Version: 3.9.2
+
+Package: ros-melodic-effort-controllers
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-angles, ros-melodic-control-msgs, ros-melodic-control-toolbox, ros-melodic-controller-interface, ros-melodic-forward-command-controller, ros-melodic-pluginlib, ros-melodic-realtime-tools, ros-melodic-urdf
+Description: effort_controllers
